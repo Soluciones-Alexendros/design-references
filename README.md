@@ -1,5 +1,9 @@
 # design-references
 
+### Propósito de este documento
+
+Presenta el núcleo común del design system (`--ds-*`, theme-boot, primitives y docs) para la flota Astro/Next.
+
 Núcleo común del design system: variables de diseño `--ds-*`, theme-boot y test de contraste (zedazo, ArchMaker, alexendros.dev).
 
 ## Package

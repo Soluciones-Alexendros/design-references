@@ -5,6 +5,9 @@ import {
   renderInput,
   renderCard,
   renderAlert,
+  renderLink,
+  renderStack,
+  renderField,
 } from "../../../../packages/ds/src/components/index.js";
 
 const samples = {
@@ -14,6 +17,17 @@ const samples = {
   input: renderInput({ label: "Name", id: "playground-name" }),
   card: renderCard({ elevated: true, body: "Card with elevation token" }),
   alert: renderAlert({ tone: "warning", message: "Check contrast and focus rings" }),
+  link: renderLink({ href: "#playground", label: "Design system link" }),
+  stack: renderStack({
+    gap: "md",
+    body: `${renderButton({ variant: "secondary", label: "One" })}${renderButton({ variant: "primary", label: "Two" })}`,
+  }),
+  field: renderField({
+    id: "playground-email",
+    label: "Email",
+    invalid: true,
+    error: "Enter a valid email",
+  }),
 };
 ---
 <Base title="Playground">
@@ -36,6 +50,15 @@ const samples = {
 
     <h2>Alert</h2>
     <Fragment set:html={samples.alert} />
+
+    <h2>Link</h2>
+    <Fragment set:html={samples.link} />
+
+    <h2>Stack</h2>
+    <Fragment set:html={samples.stack} />
+
+    <h2>Field</h2>
+    <Fragment set:html={samples.field} />
   </section>
 
   <aside class="ds-alert ds-alert--info" role="status">

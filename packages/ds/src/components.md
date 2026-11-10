@@ -67,3 +67,33 @@ Automated gate (T8): contrast pairs + `:focus-visible` via axe-core (serious/cri
   - `--ds-space-md`, `--ds-radius-control`
   - `--ds-type-family-sans`, `--ds-type-size-body`
 - **A11y:** `role="status"` or `role="alert"`; tone also reflected in text prefix for non-color cue
+
+## Link (navigation)
+
+- **Module:** `src/components/Link.js` + `Link.css`
+- **Props:** `href`; `label`
+- **Tokens:**
+  - `--ds-color-text-link`
+  - `--ds-color-border-focus`
+  - `--ds-type-family-sans`, `--ds-type-size-body`, `--ds-type-weight-medium`, `--ds-type-lineHeight-body`
+  - `--ds-space-xs` (underline offset)
+- **A11y:** native `<a>`; `:focus-visible` ring; contrast pair `text.link / bg.surface`
+
+## Stack (layout)
+
+- **Module:** `src/components/Stack.js` + `Stack.css`
+- **Props:** `gap`: `sm` | `md` | `lg`; `body` (HTML)
+- **Tokens:** `--ds-space-sm`, `--ds-space-md`, `--ds-space-lg`
+- **A11y:** non-interactive container; outside axe fixture (like Card)
+
+## Field (forms)
+
+- **Module:** `src/components/Field.js` + `Field.css`
+- **Props:** `id`; `label`; `invalid?`; `error?`; composes `renderInput` (`type`, `disabled`, `value`)
+- **Tokens:**
+  - `--ds-color-text-on-surface`
+  - `--ds-color-text-on-error`, `--ds-color-bg-error`, `--ds-color-border-error`
+  - `--ds-space-xs`, `--ds-space-sm`, `--ds-space-md`
+  - `--ds-radius-control`
+  - `--ds-type-family-sans`, `--ds-type-size-label`, `--ds-type-weight-medium`, `--ds-type-lineHeight-tight`
+- **A11y:** visible `<label for>`; error uses `aria-describedby` + text prefix `Error:`; pair `text.on-error / bg.error`

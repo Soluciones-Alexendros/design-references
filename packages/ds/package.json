@@ -27,9 +27,10 @@
     "test:theme": "node ./scripts/test-theme.mjs",
     "test:contrast": "node ./scripts/contrast-runner.mjs",
     "test:a11y": "node ./scripts/a11y-runner.mjs",
+    "test:primitives": "node ./scripts/test-primitives.mjs",
     "lint:tokens-only": "node ./scripts/lint-tokens-only.mjs",
     "prepack": "npm run build",
-    "test": "npm run build && npm run test:resolve && npm run test:theme && npm run test:contrast && npm run lint:tokens-only && npm run test:a11y"
+    "test": "npm run build && npm run test:resolve && npm run test:theme && npm run test:contrast && npm run lint:tokens-only && npm run test:primitives && npm run test:a11y"
   },
   "devDependencies": {
     "jsdom": "^26.1.0",

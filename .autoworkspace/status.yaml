@@ -1,0 +1,10 @@
+schema_version: 1
+version: 0.1.0
+phase: DEFINE
+advance: 0
+last_skill: ''
+checksum_spec: ''
+updated_at: '2026-11-10T18:58:10Z'
+history: []
+awaiting_agent: true
+awaiting_phase: INTEGRATE

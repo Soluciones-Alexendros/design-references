@@ -1,0 +1,62 @@
+{
+  "id": "repo-structure",
+  "phase": "SCHEMAS",
+  "source": ".autoworkspace/SPEC.md",
+  "criteria": [
+    {
+      "id": "RS-01",
+      "assert": "files_exist",
+      "paths": [
+        "CHANGELOG.md",
+        "SECURITY.md",
+        "CONTRIBUTING.md",
+        "AGENTS.md",
+        "ARCHITECTURE.md",
+        "Makefile",
+        ".env.example",
+        "docs/README.md",
+        ".github/CODEOWNERS",
+        ".github/PULL_REQUEST_TEMPLATE.md",
+        ".github/workflows/ci.yml",
+        ".github/renovate.json"
+      ]
+    },
+    {
+      "id": "RS-02",
+      "assert": "dirs_exist",
+      "paths": ["docs/architecture", "docs/guides", "docs/runbooks"]
+    },
+    {
+      "id": "RS-03",
+      "assert": "files_contain",
+      "needle": "### Propósito de este documento",
+      "paths": [
+        "README.md",
+        "AGENTS.md",
+        "ARCHITECTURE.md",
+        "SECURITY.md",
+        "CONTRIBUTING.md",
+        "docs/README.md"
+      ]
+    },
+    {
+      "id": "RS-04",
+      "assert": "file_absent",
+      "paths": ["renovate.json", "dependabot.yml", ".github/dependabot.yml"]
+    },
+    {
+      "id": "RS-05",
+      "assert": "ci_jobs",
+      "path": ".github/workflows/ci.yml",
+      "jobs": ["quality", "test", "smoke"]
+    },
+    {
+      "id": "RS-06",
+      "assert": "package_json_dep",
+      "path": "apps/docs/package.json",
+      "name": "@soluciones-alexendros/ds",
+      "value": "*",
+      "note": "npm 11 in this environment rejects workspace:* (EUNSUPPORTEDPROTOCOL); * resolves to the local workspace package via package-lock"
+    }
+  ]
+}
