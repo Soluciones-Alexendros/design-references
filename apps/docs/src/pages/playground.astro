@@ -8,6 +8,9 @@ import {
   renderLink,
   renderStack,
   renderField,
+  renderSelect,
+  renderCheckbox,
+  renderBanner,
 } from "../../../../packages/ds/src/components/index.js";
 
 const samples = {
@@ -27,6 +30,26 @@ const samples = {
     label: "Email",
     invalid: true,
     error: "Enter a valid email",
+  }),
+  select: renderSelect({
+    id: "playground-select",
+    label: "Region",
+    value: "eu",
+    options: [
+      { value: "", label: "Choose…" },
+      { value: "eu", label: "Europe" },
+      { value: "us", label: "Americas" },
+    ],
+  }),
+  checkbox: renderCheckbox({
+    id: "playground-terms",
+    label: "I agree to the terms",
+    checked: true,
+  }),
+  banner: renderBanner({
+    tone: "info",
+    role: "status",
+    body: "Persistent banner — no auto-dismiss",
   }),
 };
 ---
@@ -59,6 +82,15 @@ const samples = {
 
     <h2>Field</h2>
     <Fragment set:html={samples.field} />
+
+    <h2>Select</h2>
+    <Fragment set:html={samples.select} />
+
+    <h2>Checkbox</h2>
+    <Fragment set:html={samples.checkbox} />
+
+    <h2>Banner</h2>
+    <Fragment set:html={samples.banner} />
   </section>
 
   <aside class="ds-alert ds-alert--info" role="status">

@@ -97,3 +97,27 @@ Automated gate (T8): contrast pairs + `:focus-visible` via axe-core (serious/cri
   - `--ds-radius-control`
   - `--ds-type-family-sans`, `--ds-type-size-label`, `--ds-type-weight-medium`, `--ds-type-lineHeight-tight`
 - **A11y:** visible `<label for>`; error uses `aria-describedby` + text prefix `Error:`; pair `text.on-error / bg.error`
+
+## Select (forms)
+
+- **Module:** `src/components/Select.js` + `Select.css`
+- **Props:** `id`; `options` (`value`/`label`); `disabled?`; `invalid?`; `describedBy?`; `value?`; `label?`; `omitAriaLabel?`
+- **Markup:** native `<select class="ds-select">`
+- **Tokens:** same control family as Input (`--ds-color-bg-surface-elevated`, `--ds-color-text-on-surface`, `--ds-color-border-default`, `--ds-color-border-error`, `--ds-color-border-focus`, disabled pairs, `--ds-space-*`, `--ds-radius-control`, type body)
+- **A11y:** `:focus-visible`; `aria-invalid` when invalid; included in axe
+
+## Checkbox (forms)
+
+- **Module:** `src/components/Checkbox.js` + `Checkbox.css`
+- **Props:** `id`; `label`; `checked?`; `disabled?`
+- **Markup:** native checkbox + visible label
+- **Tokens:** `--ds-color-text-on-surface`, `--ds-color-border-default`, `--ds-color-border-focus`, `--ds-color-bg-primary` (accent), disabled text, `--ds-space-sm|md|touch`, `--ds-radius-control`, type body/medium
+- **A11y:** visible label association; `:focus-visible`; included in axe
+
+## Banner (feedback)
+
+- **Module:** `src/components/Banner.js` + `Banner.css`
+- **Props:** `tone`: `info` | `success` | `warning` | `error`; `role?: status|alert`; `body`
+- **Behavior:** persistent page feedback (no toast timer/queue)
+- **Tokens:** same tone pairs as Alert (`bg`/`text` primary|success|warning|error + spacing/type)
+- **A11y:** `role="status"` or `role="alert"`; textual tone prefix; included in axe

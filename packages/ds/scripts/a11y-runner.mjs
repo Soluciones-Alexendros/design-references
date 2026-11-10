@@ -16,6 +16,9 @@ import {
   renderAlert,
   renderLink,
   renderField,
+  renderSelect,
+  renderCheckbox,
+  renderBanner,
 } from "../src/components/index.js";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -27,14 +30,16 @@ const componentCss = cssFiles
   .map((f) => readFileSync(join(compDir, f), "utf8"))
   .join("\n");
 
-for (const file of ["Button.css", "Input.css", "Link.css"]) {
+for (const file of ["Button.css", "Input.css", "Link.css", "Select.css", "Checkbox.css"]) {
   const src = readFileSync(join(compDir, file), "utf8");
   if (!src.includes(":focus-visible")) {
     console.error(`FAIL ${file} missing :focus-visible`);
     process.exit(1);
   }
 }
-console.log("OK  :focus-visible present on Button.css, Input.css and Link.css");
+console.log(
+  "OK  :focus-visible present on Button.css, Input.css, Link.css, Select.css and Checkbox.css",
+);
 
 const markup = `
   <main>
@@ -46,6 +51,16 @@ const markup = `
     ${renderAlert({ tone: "success", role: "status", message: "Saved" })}
     ${renderLink({ href: "#main", label: "Skip to content" })}
     ${renderField({ id: "fullname-email", label: "Work email", invalid: true, error: "Enter a valid email" })}
+    ${renderSelect({
+      id: "region",
+      label: "Region",
+      options: [
+        { value: "", label: "Choose…" },
+        { value: "eu", label: "Europe" },
+      ],
+    })}
+    ${renderCheckbox({ id: "terms", label: "Accept terms", checked: false })}
+    ${renderBanner({ tone: "warning", role: "status", body: "Maintenance window tonight" })}
   </main>
 `;
 

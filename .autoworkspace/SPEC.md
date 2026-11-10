@@ -1,40 +1,41 @@
-# Spec: design-references — DEFINE (estructura P1 + Link/Stack/Field)
+# Spec: design-references — DEFINE (docs surface + siguiente capa)
 
 ## Capability Map
 
 | Module id | Responsibility | Depends on |
 |-----------|----------------|------------|
-| repo-structure | Hacer pasar `check-product-structure.sh` perfil P1 (docs, CI, meta, Renovate) | — |
-| primitives-link-stack-field | Tres primitives mínimos (Link, Stack, Field) solo con tokens `--ds-*` existentes | contrato + CI (no bloquea la escritura de la spec en paralelo) |
+| docs-surface-sync | Alinear la superficie pública (`design.alexendros.dev`) con el inventario real de primitives | inventario en `packages/ds/src/components.md` (ya en `main`) |
+| next-primitives-scope | Definir e implementar como máximo 3 primitives de la siguiente capa, solo con tokens `--ds-*` existentes | docs-surface-sync (puede ir en paralelo tras aprobación; no bloquea la escritura de la spec) |
 
-Build order (implementación): `repo-structure` y `primitives-link-stack-field` pueden avanzar en paralelo tras la aprobación de esta spec. La capa de primitives no reabre paleta, iconos, motion ni multi-brand.
+Build order (implementación): `docs-surface-sync` primero (cambio mínimo de docs); luego `next-primitives-scope`. No reabrir paleta, iconos, motion ni multi-brand. No tocar `tokens/`.
 
 ## ASSUMPTIONS I'M MAKING
 
-1. El checker P1 vive en el harness Autoworkspace (`check-product-structure.sh`) y es el criterio de cierre de `repo-structure`.
-2. `--ds-color-text-link` y el par contrast `text.link / bg.surface` ya existen en `tokens/semantic.json`; Link los reutiliza (no se añade token nuevo).
-3. Field compone `renderInput` existente; no se reimplementa Input.
-4. Stack y Card quedan fuera de axe (no interactivos); Link y Field entran en el runner axe + `:focus-visible` donde aplique.
-5. Node `>=20`, workspaces npm, Astro docs en la versión ya presente en `main` (incluye bump de seguridad #3).
-6. CODEOWNERS apunta a `@Alexendros` (owner GitHub del repo).
+1. Tip de producto: `main` @ `e85084a` (P1 + Link/Stack/Field + recibos INTEGRATE). Docs live en https://design.alexendros.dev/.
+2. El inventario canónico son los 7 primitives de [packages/ds/src/components.md](../packages/ds/src/components.md): Button, Input, Card, Alert, Link, Stack, Field.
+3. La homepage pública ([apps/docs/src/pages/index.astro](../apps/docs/src/pages/index.astro)) aún lista solo Button, Input, Card, Alert — eso es el gap de `docs-surface-sync`.
+4. Siguiente capa (máximo 3): **Select**, **Checkbox**, **Banner** (feedback no modal; no Toast con timer/cola en esta capa).
+5. Cero tokens nuevos; cero pares de contraste nuevos. Reutilizar pares ya en el contrast runner (`text.on-surface`, `border.focus`, `text.link`, tones de Alert, etc.).
+6. Stack y Card (y Banner si se define no interactivo) fuera de axe; Select y Checkbox en axe + `:focus-visible`. Banner con `role="status"|"alert"` como Alert, en axe si anuncia estado.
+7. Node `engines` del repo (`>=22.23.4`); Astro docs en la versión de `main`. `ci.yml` no duplica contrast/axe (`a11y.yml` sigue siendo el dueño).
 → Correct me now or I'll proceed with these.
 
 ## Objective
 
-Cerrar la fase DEFINE dejando una fuente de verdad aprobable para dos entregables:
+Cerrar DEFINE con una fuente de verdad aprobable para:
 
-1. **repo-structure** — repo P1-compliant (meta, docs, Makefile, CI quality/test/smoke, Renovate bajo `.github/`).
-2. **primitives-link-stack-field** — extender el inventario de [packages/ds/src/components.md](../packages/ds/src/components.md) con Link, Stack y Field, playground y gates a11y existentes.
+1. **docs-surface-sync** — homepage (y textos públicos inconsistentes) alineados con el inventario de 7 primitives; `/tokens` y `/playground` siguen correctos.
+2. **next-primitives-scope** — Select, Checkbox y Banner especificados e implementables sin ampliar el sistema de tokens.
 
-Continúa la spec aprobada en `design-references-sdd/spec.md` (opción A) sin reabrir límites: tokens DTCG, `--ds-*`, contrast AA, axe serious/critical.
+Continúa la opción A de `design-references-sdd/spec.md` y el cierre P1/Link/Stack/Field ya en `main`.
 
 ## Tech Stack
 
 - Monorepo npm workspaces: `packages/ds` (`@soluciones-alexendros/ds`), `apps/docs` (`@soluciones-alexendros/ds-docs`)
-- Tokens: DTCG 2025.10 JSON → CSS OKLCH + tipos
-- Docs: Astro (versión en `main` post-#3)
-- CI: GitHub Actions; acciones pinneadas a SHA (mismo criterio que `a11y.yml`)
-- Renovate: manager npm, schedule semanal
+- Tokens: DTCG 2025.10 JSON → CSS OKLCH + tipos (`--ds-*`); **sin cambios en esta iniciativa**
+- Docs: Astro (versión en `main`); deploy Vercel proyecto `design-references` → `design.alexendros.dev`
+- CI: GitHub Actions; `ci.yml` = quality/test/smoke; `a11y.yml` = contrast + axe
+- Primitives: `renderX(props)` → HTML string + CSS tokens-only (mismo patrón que Button/Input/Link/Field)
 
 ## Commands
 
@@ -47,162 +48,142 @@ npm run build -w @soluciones-alexendros/ds
 npm run build -w @soluciones-alexendros/ds-docs
 npm run test:a11y -w @soluciones-alexendros/ds
 npm run test:contrast -w @soluciones-alexendros/ds
+npm run test:primitives -w @soluciones-alexendros/ds
+npm run test:acceptance
 npm run dev -w @soluciones-alexendros/ds-docs
-# Tras repo-structure:
-make install validate test build
-# Checker (desde harness Autoworkspace, perfil P1):
-# check-product-structure.sh → OK P1
 ```
 
-## Project Structure (target)
+## Project Structure (target deltas)
 
 ```text
-CHANGELOG.md, SECURITY.md, CONTRIBUTING.md, AGENTS.md, ARCHITECTURE.md
-Makefile, .env.example, LICENSE (ya existe), README.md (actualizar propósito)
-docs/README.md, docs/architecture/, docs/guides/, docs/runbooks/
-.github/CODEOWNERS
-.github/PULL_REQUEST_TEMPLATE.md
-.github/renovate.json          # movido desde renovate.json raíz
-.github/workflows/ci.yml       # quality, test, smoke
-.github/workflows/a11y.yml     # sin cambios de alcance (sigue contrast+axe)
-packages/ds/src/components/{Link,Stack,Field}.{js,css}
-packages/ds/src/components.md  # contrato actualizado
-apps/docs/src/pages/playground.astro
-.autoworkspace/{project.yaml,status.yaml,SPEC.md}
+apps/docs/src/pages/index.astro          # lista los 7 primitives
+packages/ds/src/components/{Select,Checkbox,Banner}.{js,css}
+packages/ds/src/components.md            # entradas Select, Checkbox, Banner
+packages/ds/src/components/index.js      # export renderSelect, renderCheckbox, renderBanner
+packages/ds/scripts/a11y-runner.mjs      # Select + Checkbox (+ Banner si interactivo/anunciable)
+packages/ds/scripts/test-primitives.mjs  # contratos parciales
+apps/docs/src/pages/playground.astro     # montar los tres
+# tokens/ sin cambios
 ```
 
 ## Code Style
 
-- Primitives: módulos JS + CSS que exportan `renderX(props)` → HTML string (mismo patrón que Button/Input).
-- Solo variables `--ds-*` en CSS de componentes; el lint `lint:tokens-only` debe seguir en verde.
+- Solo variables `--ds-*` en CSS nuevo; `lint:tokens-only` en verde.
 - Focus interactivo: `:focus-visible` con `--ds-color-border-focus`.
-- Docs meta: cada fichero listado abajo incluye la sección exacta `### Propósito de este documento`.
+- Feedback no depende solo del color (prefijo textual o equivalente, como Alert/Field).
+- Docs meta existentes no se reabren salvo que el sync de homepage lo exija.
 
 ## Testing Strategy
 
-- **repo-structure:** `check-product-structure.sh` perfil P1 exit 0; `ci.yml` jobs `quality` / `test` / `smoke` verdes; no Dependabot.
-- **primitives:** actualizar `a11y-runner.mjs` (Link + Field en markup light/dark; `:focus-visible` en `Link.css`; Field vía Input); Stack montado en playground, fuera de axe.
-- Contrast runner existente sin pares nuevos.
-- Smoke docs: `npm run build -w @soluciones-alexendros/ds-docs`.
+- **docs-surface-sync:** inspección + build docs; homepage enumera Button, Input, Card, Alert, Link, Stack, Field en el mismo orden/semántica que `components.md`.
+- **next-primitives-scope:** `lint:tokens-only`; `test:primitives`; `test:a11y` (Select, Checkbox; Banner según contrato); `test:contrast` sin pares nuevos; playground build.
+- Smoke: `npm run build -w @soluciones-alexendros/ds-docs`.
 
 ## Boundaries
 
 ### Always
 
 - Consumir solo tokens `--ds-*` ya generados.
-- Mantener umbrales contrast 4.5:1 / 3:1 y axe serious/critical como gate.
-- Pinnear acciones de GitHub a SHA completo (mismo par que `a11y.yml`).
-- Declarar `permissions: contents: read` en jobs nuevos.
-- Incluir `### Propósito de este documento` en README, AGENTS, ARCHITECTURE, SECURITY, CONTRIBUTING y `docs/README.md`.
+- Mantener umbrales contrast 4.5:1 / 3:1 y axe serious/critical.
+- Mantener Stack/Card fuera del fixture axe.
+- Declarar `permissions: contents: read` si se tocan workflows (no previsto).
 
 ### Ask first
 
-- Nuevos tokens / escalas de color.
-- Nuevos managers de Renovate o Dependabot.
+- Sustituir Select por Combobox, o Banner por Toast.
+- Nuevos tokens / escalas de color / pares de contraste.
 - Publicar el paquete npm o invocar `project-publish`.
-- Cambiar owner en CODEOWNERS.
+- Cambiar el dominio público o el proyecto Vercel.
 
 ### Never
 
+- Modificar `tokens/` (reference, semantic, component).
 - Reabrir paleta, iconografía completa, motion avanzado o multi-brand.
-- Duplicar contrast/axe dentro de `ci.yml` (viven en `a11y.yml`).
-- Hardcodear colores/spacing tipografía en CSS de primitives.
-- Commitear secretos; `.env.example` declara ausencia de secretos de runtime.
+- Duplicar contrast/axe dentro de `ci.yml`.
+- Hardcodear color/spacing/type en CSS de primitives.
+- Commitear secretos.
 
 ---
 
-## Capability: `repo-structure`
+## Capability: `docs-surface-sync`
 
 ### Deliverables
 
 | Artefacto | Criterio |
 |-----------|----------|
-| `CHANGELOG.md` | Historial Keep-a-Changelog o equivalente mínimo con entrada actual |
-| `SECURITY.md` | Política de reporte + sección Propósito |
-| `CONTRIBUTING.md` | Cómo contribuir + Propósito |
-| `AGENTS.md` | Guía para agentes + Propósito |
-| `ARCHITECTURE.md` | C4 corto del monorepo + Propósito |
-| `Makefile` | Targets: `install`, `validate`, `test`, `build`, `dev` → scripts npm existentes |
-| `.env.example` | Sin secretos; documenta Node `>=20` |
-| `docs/` | `README.md` + dirs `architecture/`, `guides/`, `runbooks/` (stubs aceptables) |
-| `.github/CODEOWNERS` | `* @Alexendros` |
-| `.github/PULL_REQUEST_TEMPLATE.md` | Summary + Test plan |
-| `.github/workflows/ci.yml` | Jobs `quality`, `test`, `smoke`; `permissions: contents: read`; checkout/setup-node pinneados como `a11y.yml` |
-| quality | `npm run validate:tokens` + `npm run lint:tokens-only -w @soluciones-alexendros/ds` |
-| test | `npm test` |
-| smoke | `npm run build -w @soluciones-alexendros/ds-docs` |
-| Renovate | Mover `renovate.json` → `.github/renovate.json` (mismo contenido npm weekly); eliminar raíz |
-| workspace dep | `apps/docs/package.json`: `"@soluciones-alexendros/ds": "*"` (npm workspaces link; `workspace:*` rejected by project npm with EUNSUPPORTEDPROTOCOL) |
-| README.md | Añadir `### Propósito de este documento` |
+| `apps/docs/src/pages/index.astro` | El copy lista los 7 primitives del inventario (Button, Input, Card, Alert, Link, Stack, Field); no omite Link/Stack/Field |
+| `/tokens` | Sin regresión; sigue documentando tokens + contraste |
+| `/playground` | Sin regresión; ya monta Link/Stack/Field además de los base |
+| Criterio de verdad | Texto de homepage coherente con `packages/ds/src/components.md` |
 
-### Success criteria (`repo-structure`)
+### Success criteria (`docs-surface-sync`)
 
-1. `check-product-structure.sh` con perfil P1 termina OK.
-2. No existe `dependabot.yml`.
-3. Existe `.github/renovate.json` y no queda `renovate.json` en la raíz.
-4. `ci.yml` declara los tres jobs y no ejecuta contrast ni axe.
-5. Dependencia docs usa `*` resuelto al workspace local (lockfile → `packages/ds`).
+1. Homepage menciona los siete nombres del inventario (no solo Button/Input/Card/Alert).
+2. `npm run build -w @soluciones-alexendros/ds-docs` pasa.
+3. No hay cambios en `tokens/` ni en CSS de primitives en esta capability.
 
 ---
 
-## Capability: `primitives-link-stack-field`
+## Capability: `next-primitives-scope`
 
-### Link (forms / navigation)
+### Select (forms)
 
-- **Modules:** `Link.js` + `Link.css`
-- **Props:** `href`, `label`
-- **Markup:** `<a class="ds-link">` nativo
-- **Tokens:** `--ds-color-text-link`, `--ds-color-border-focus`, spacing/type existentes (`--ds-type-family-sans`, `--ds-type-size-body` o label)
-- **A11y:** `:focus-visible`; incluido en axe light/dark; assert `:focus-visible` en `Link.css` como Button/Input
+- **Modules:** `Select.js` + `Select.css`
+- **Props:** `id`, `options` (value/label), `disabled?`, `invalid?`, `describedBy?` (alineado con Input)
+- **Markup:** `<select class="ds-select">` nativo (no Combobox custom en esta capa)
+- **Tokens:** reutilizar superficie/borde/foco/disabled de Input (`--ds-color-bg-surface-elevated`, `--ds-color-text-on-surface`, `--ds-color-border-*`, `--ds-color-border-focus`, spacing/type/radius de control)
+- **A11y:** `:focus-visible`; `aria-invalid` cuando `invalid`; en axe light/dark
 
-### Stack (layout)
+### Checkbox (forms)
 
-- **Modules:** `Stack.js` + `Stack.css`
-- **Props:** `gap`: `sm` \| `md` \| `lg` → `--ds-space-sm|md|lg`; `children` / `body` HTML
-- **Markup:** contenedor no interactivo (p. ej. `div.ds-stack`)
-- **A11y:** sin foco; fuera de axe (como Card); sí en playground
+- **Modules:** `Checkbox.js` + `Checkbox.css`
+- **Props:** `id`, `label`, `checked?`, `disabled?`
+- **Markup:** `<input type="checkbox">` + label visible asociado
+- **Tokens:** text on surface, border default/focus, disabled pairs existentes; touch/spacing existentes
+- **A11y:** label visible; `:focus-visible`; en axe light/dark; no solo color para estado
 
-### Field (forms)
+### Banner (feedback)
 
-- **Modules:** `Field.js` + `Field.css`
-- **Props:** `id`, `label`, `invalid?: boolean`, `error?: string` (+ props de Input necesarias vía composición)
-- **Behavior:** label visible asociado; llama `renderInput`; mensaje de error con `id` referenciado por `aria-describedby` cuando `invalid`/`error`
-- **Tokens:** reutilizar pares ya testeados (`--ds-color-text-on-surface`, `--ds-color-border-error`, `--ds-color-text-on-error` o texto de error sobre superficie ya cubierto); no tokens nuevos
-- **A11y:** no depende solo del color (texto de error); incluido en axe light/dark
+- **Modules:** `Banner.js` + `Banner.css`
+- **Props:** `tone`: `info` \| `success` \| `warning` \| `error`; `role?: status|alert`; `body` (texto/HTML)
+- **Behavior:** feedback persistente en página (no cola Toast, no auto-dismiss en esta capa)
+- **Tokens:** mismos pares de tono que Alert (`bg`/`text` primary|success|warning|error + spacing/type)
+- **A11y:** `role="status"` o `role="alert"`; prefijo textual de tono (como Alert); en fixture axe
 
 ### Shared updates
 
-- Actualizar `packages/ds/src/components.md` con las tres entradas.
-- Exportar desde `packages/ds/src/components/index.js`.
-- Montar Link, Stack y Field en `apps/docs/src/pages/playground.astro`.
-- Extender `packages/ds/scripts/a11y-runner.mjs` (Link + Field; check `:focus-visible` en Link.css).
+- Entradas en `packages/ds/src/components.md`.
+- Export desde `packages/ds/src/components/index.js`.
+- Montaje en `apps/docs/src/pages/playground.astro`.
+- Extender `a11y-runner.mjs` y `test-primitives.mjs`.
+- Stack/Card siguen fuera de axe.
 
-### Success criteria (`primitives-link-stack-field`)
+### Success criteria (`next-primitives-scope`)
 
 1. `npm run lint:tokens-only -w @soluciones-alexendros/ds` pasa.
-2. `npm run test:a11y -w @soluciones-alexendros/ds` pasa con Link y Field en el fixture.
-3. `npm run test:contrast -w @soluciones-alexendros/ds` pasa sin tokens nuevos.
-4. Playground renderiza los tres primitives y el theme-boot sigue funcionando.
-5. Ningún valor hardcodeado de color/spacing/type en el CSS nuevo.
+2. `npm run test:primitives -w @soluciones-alexendros/ds` pasa con contratos Select/Checkbox/Banner.
+3. `npm run test:a11y -w @soluciones-alexendros/ds` pasa con Select, Checkbox y Banner en el fixture.
+4. `npm run test:contrast -w @soluciones-alexendros/ds` pasa sin tokens ni pares nuevos.
+5. Playground renderiza los tres; theme-boot sigue funcionando.
+6. Ningún valor hardcodeado de color/spacing/type en el CSS nuevo.
 
 ## Success Criteria (conjunto)
 
 - Esta SPEC aprobada por el operador.
-- Tras IMPLEMENT (fuera de este DEFINE): checker P1 OK + CI `quality`/`test`/`smoke` + `a11y` verdes; inventario Link/Stack/Field documentado y testeado.
-- Diff de producto de DEFINE: solo `.autoworkspace/SPEC.md` (más scaffold ya presente). Sin implementación en este paso.
+- Tras IMPLEMENT (fuera de este DEFINE): homepage alineada + Select/Checkbox/Banner documentados, testeados y en playground; docs build verde.
+- Diff de producto de DEFINE: solo `.autoworkspace/SPEC.md` (y tablero tasks si se regenera en PLAN). Sin implementación en este paso.
 
 ## Open Questions
 
-Ninguna bloqueante para aprobar esta SPEC. Decisiones ya cerradas en el plan DEFINE:
+Ninguna bloqueante si se aceptan las asunciones 4–6 (Select nativo, no Combobox; Banner no Toast). Corregir ahora si se prefiere otra terna.
 
-- Sin token de enlace nuevo (`--ds-color-text-link` existente).
-- `ci.yml` no duplica contrast/axe.
-- Capacidades especificables en paralelo.
+## Estado DEFINE
 
-## Estado pipeline
+- **SPEC:** aprobada por el operador (2026-11-10); asunciones 1–7 confirmadas (Select nativo, Banner no Toast, cero tokens, Node engines actuales).
+- **PLAN/TASKS:** [`tasks/plan.md`](../tasks/plan.md), [`tasks/todo.md`](../tasks/todo.md) — aceptados.
+- **SCHEMAS:** schemas DS/NP + inventario; RED→GREEN vía `test:acceptance`.
+- **IMPLEMENT:** T1–T5 cerradas en esta sesión (`npm test` + docs build OK). Sin cambios en `tokens/`.
+- **Base:** `main` @ `e85084a` + working tree local; superficie pública `design.alexendros.dev` (redeploy al merge).
+- **Stop antes de project-publish.** PR/merge solo con petición explícita.
 
-- **SPEC:** aprobada por el operador (2026-11-10); asunción 2 confirmada (`text.link` + par contrast existentes).
-- **PLAN/TASKS:** [`tasks/plan.md`](../tasks/plan.md), [`tasks/todo.md`](../tasks/todo.md) — entregables en `main` (#6) + Node 22 (#7).
-- **Recibos:** DEFINE → SCHEMAS → IMPLEMENT → VALIDATE cerrados con evidencia (2026-11-10); INTEGRATE vía `/project-publish` (gate Husky + PR de cierre).
-- **Deriva anotada:** SPEC dice Node `>=20`; `package.json` `engines` exige `>=22.23.4` tras #7.
-- **Stop antes de release.** Tag anotado / `gh release create` / bump de versión requieren sí aparte. Sin sellar `awaiting_phase` hacia la siguiente fase de forma automática.
+VALIDATE/INTEGRATE/`project-publish` requieren petición explícita.
