@@ -1,0 +1,26 @@
+{
+  "name": "design-references",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "scripts": {
+    "validate:tokens": "node scripts/validate-dtcg.mjs",
+    "build:tokens": "npm run build -w @soluciones-alexendros/ds",
+    "test:contrast": "npm run test:contrast -w @soluciones-alexendros/ds",
+    "test:a11y": "npm run test:a11y -w @soluciones-alexendros/ds",
+    "lint:tokens-only": "npm run lint:tokens-only -w @soluciones-alexendros/ds",
+    "test": "npm run validate:tokens && npm run build -w @soluciones-alexendros/ds && npm run test -w @soluciones-alexendros/ds",
+    "prepare": "husky"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "devDependencies": {
+    "husky": "^9.1.7",
+    "lint-staged": "^17.6.0",
+    "prettier": "^3.9.10"
+  }
+}

@@ -1,0 +1,29 @@
+.ds-input {
+  box-sizing: border-box;
+  display: block;
+  width: 100%;
+  min-height: var(--ds-space-touch);
+  padding: var(--ds-space-sm) var(--ds-space-md);
+  border: 1px solid var(--ds-color-border-default);
+  border-radius: var(--ds-radius-control);
+  background: var(--ds-color-bg-surface-elevated);
+  color: var(--ds-color-text-on-surface);
+  font-family: var(--ds-type-family-sans);
+  font-size: var(--ds-type-size-body);
+  line-height: var(--ds-type-lineHeight-body);
+}
+
+.ds-input:focus-visible {
+  outline: 2px solid var(--ds-color-border-focus);
+  outline-offset: 2px;
+}
+
+.ds-input[aria-invalid="true"] {
+  border-color: var(--ds-color-border-error);
+}
+
+.ds-input:disabled {
+  background: var(--ds-color-bg-disabled);
+  color: var(--ds-color-text-on-disabled);
+  cursor: not-allowed;
+}

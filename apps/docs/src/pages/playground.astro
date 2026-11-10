@@ -1,0 +1,44 @@
+---
+import Base from "../layouts/Base.astro";
+import {
+  renderButton,
+  renderInput,
+  renderCard,
+  renderAlert,
+} from "../../../../packages/ds/src/components/index.js";
+
+const samples = {
+  buttonPrimary: renderButton({ variant: "primary", label: "Primary" }),
+  buttonSecondary: renderButton({ variant: "secondary", label: "Secondary" }),
+  buttonDanger: renderButton({ variant: "danger", label: "Danger" }),
+  input: renderInput({ label: "Name", id: "playground-name" }),
+  card: renderCard({ elevated: true, body: "Card with elevation token" }),
+  alert: renderAlert({ tone: "warning", message: "Check contrast and focus rings" }),
+};
+---
+<Base title="Playground">
+  <h1>Playground</h1>
+  <p>Primitives montados con tokens <code>--ds-*</code>. Usa los controles Light / Dark / System del header.</p>
+
+  <section class="ds-card" style="margin-block: var(--ds-space-lg); display:grid; gap: var(--ds-space-md);">
+    <h2>Buttons</h2>
+    <div style="display:flex; gap: var(--ds-space-sm); flex-wrap:wrap;">
+      <Fragment set:html={samples.buttonPrimary} />
+      <Fragment set:html={samples.buttonSecondary} />
+      <Fragment set:html={samples.buttonDanger} />
+    </div>
+
+    <h2>Input</h2>
+    <Fragment set:html={samples.input} />
+
+    <h2>Card</h2>
+    <Fragment set:html={samples.card} />
+
+    <h2>Alert</h2>
+    <Fragment set:html={samples.alert} />
+  </section>
+
+  <aside class="ds-alert ds-alert--info" role="status">
+    <strong>Info:</strong> tokens activos vía CSS variables; el cambio de tema no modifica el markup de los componentes.
+  </aside>
+</Base>
