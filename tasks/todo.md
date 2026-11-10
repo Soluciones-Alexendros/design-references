@@ -1,244 +1,177 @@
-# Tasks — repo-structure + primitives-link-stack-field
+# Tasks — docs-surface-sync + next-primitives-scope
 
 Fuente de verdad: `.autoworkspace/SPEC.md` (aprobada). Plan: `tasks/plan.md`.
 
 ---
 
-## Task 1: Meta docs P1 + propósito
+## Task 1: Homepage inventory sync
 
-**Description:** Crear/actualizar ficheros meta exigidos por el checker P1 con la sección exacta `### Propósito de este documento` donde aplique.
+**Description:** Actualizar el copy de la homepage para listar los 7 primitives del inventario canónico.
 
 **Acceptance criteria:**
-- [x] Existen `CHANGELOG.md`, `SECURITY.md`, `CONTRIBUTING.md`, `AGENTS.md`, `ARCHITECTURE.md`
-- [x] `README.md` y esos meta (salvo CHANGELOG) incluyen `### Propósito de este documento`
-- [x] CHANGELOG tiene al menos una entrada coherente con el estado actual del repo
+- [x] `apps/docs/src/pages/index.astro` menciona Button, Input, Card, Alert, Link, Stack y Field
+- [x] El texto es coherente con `packages/ds/src/components.md` (mismos nombres; sin inventar componentes)
+- [x] Enlaces a `/tokens/` y `/playground/` se mantienen
 
 **Verification:**
-- [x] `grep -Fq '### Propósito de este documento'` en README, AGENTS, ARCHITECTURE, SECURITY, CONTRIBUTING
-- [x] Ficheros presentes en la raíz
+- [x] Grep/inspección de los siete nombres en `index.astro`
+- [x] `npm run build -w @soluciones-alexendros/ds-docs`
 
 **Dependencies:** None
 
-**Implementation roles:** role-clean-code
+**Implementation roles:** role-front (superficie docs)
 
-**Test surfaces:** check-product-structure (parcial, hasta CP-A)
-
-**Files likely touched:**
-- `README.md`
-- `CHANGELOG.md`
-- `SECURITY.md`
-- `CONTRIBUTING.md`
-- `AGENTS.md`
-- `ARCHITECTURE.md`
-
-**Estimated scope:** Medium (3–5+ files)
-
----
-
-## Task 2: Makefile, env example y árbol docs
-
-**Description:** Añadir Makefile con targets npm, `.env.example` sin secretos (Node >=20) y stubs `docs/`.
-
-**Acceptance criteria:**
-- [x] `Makefile` con `install`, `validate`, `test`, `build`, `dev` delegando a npm
-- [x] `.env.example` declara ausencia de secretos de runtime y Node `>=20`
-- [x] Existen `docs/README.md` (con Propósito), `docs/architecture/`, `docs/guides/`, `docs/runbooks/`
-
-**Verification:**
-- [x] `make validate` / `make test` invocables (tras `npm install` si hace falta)
-- [x] Dirs docs presentes
-
-**Dependencies:** None (puede ir en paralelo con T1)
-
-**Implementation roles:** role-clean-code
-
-**Test surfaces:** Makefile targets; check-product-structure (parcial)
+**Test surfaces:** docs smoke build
 
 **Files likely touched:**
-- `Makefile`
-- `.env.example`
-- `docs/README.md`
-- `docs/architecture/.gitkeep` (o README stub)
-- `docs/guides/.gitkeep`
-- `docs/runbooks/.gitkeep`
-
-**Estimated scope:** Small–Medium
-
----
-
-## Task 3: GitHub CI, CODEOWNERS, Renovate, workspace dep
-
-**Description:** Completar superficie GitHub P1 y fijar dependencia workspace en docs.
-
-**Acceptance criteria:**
-- [x] `.github/CODEOWNERS` contiene `* @Alexendros`
-- [x] `.github/PULL_REQUEST_TEMPLATE.md` con Summary + Test plan
-- [x] `.github/workflows/ci.yml` con jobs `quality`, `test`, `smoke`; `permissions: contents: read`; SHA pinneados como `a11y.yml`; quality = validate:tokens + lint:tokens-only; test = `npm test`; smoke = build docs; sin contrast/axe
-- [x] `renovate.json` raíz movido a `.github/renovate.json` (contenido npm weekly); raíz eliminada
-- [x] `apps/docs/package.json` usa `"@soluciones-alexendros/ds": "*"` (link de workspace npm; `workspace:*` no soportado aquí)
-- [x] No hay `dependabot.yml`
-
-**Verification:**
-- [x] Diff de `ci.yml` sin `contrast`/`axe`/`test:a11y`/`test:contrast`
-- [x] Solo `.github/renovate.json` (no raíz)
-- [x] Checker P1 OK (tras T1–T3)
-
-**Dependencies:** T1, T2 (para que el checker pase completo)
-
-**Implementation roles:** role-clean-code
-
-**Test surfaces:** `.github/workflows/ci.yml` jobs; Renovate path
-
-**Files likely touched:**
-- `.github/CODEOWNERS`
-- `.github/PULL_REQUEST_TEMPLATE.md`
-- `.github/workflows/ci.yml`
-- `.github/renovate.json`
-- `renovate.json` (delete)
-- `apps/docs/package.json`
-- `package-lock.json` (si `npm install` lo actualiza)
-
-**Estimated scope:** Medium
-
----
-
-## Checkpoint A — tras T1–T3 (`repo-structure`)
-
-- [x] `check-product-structure.sh` perfil P1 → OK
-- [x] No Dependabot; Renovate solo bajo `.github/`
-- [x] `ci.yml` tiene quality/test/smoke
-- [x] Review con operador antes de dar por cerrada la línea A (opcional si B sigue)
-
----
-
-## Task 4: Link primitive
-
-**Description:** Añadir Link (`renderLink`) con CSS tokens-only y `:focus-visible`.
-
-**Acceptance criteria:**
-- [x] `Link.js` + `Link.css` existen; props `href`, `label`
-- [x] Usa `--ds-color-text-link` y `--ds-color-border-focus` (sin valores hardcodeados de color/spacing/type)
-- [x] Entrada Link en `components.md`
-
-**Verification:**
-- [x] `npm run lint:tokens-only -w @soluciones-alexendros/ds` (puede fallar hasta que el CSS esté limpio; debe pasar al cerrar T4)
-- [x] Inspección visual de `:focus-visible` en CSS
-
-**Dependencies:** None (paralelo a línea A)
-
-**Implementation roles:** role-design, role-front
-
-**Test surfaces:** `renderLink`; Link.css focus-visible
-
-**Files likely touched:**
-- `packages/ds/src/components/Link.js`
-- `packages/ds/src/components/Link.css`
-- `packages/ds/src/components.md`
+- `apps/docs/src/pages/index.astro`
 
 **Estimated scope:** Small
 
 ---
 
-## Task 5: Stack primitive
+## Checkpoint A — tras T1 (`docs-surface-sync`)
 
-**Description:** Contenedor de layout con `gap` sm|md|lg mapeado a `--ds-space-*`.
-
-**Acceptance criteria:**
-- [x] `Stack.js` + `Stack.css`; props `gap`, body/children HTML
-- [x] Solo tokens `--ds-*`; no foco
-- [x] Entrada Stack en `components.md`
-
-**Verification:**
-- [x] `npm run lint:tokens-only -w @soluciones-alexendros/ds`
-
-**Dependencies:** None (puede seguir a T4 o en paralelo)
-
-**Implementation roles:** role-design, role-front
-
-**Test surfaces:** `renderStack` (playground only; no axe)
-
-**Files likely touched:**
-- `packages/ds/src/components/Stack.js`
-- `packages/ds/src/components/Stack.css`
-- `packages/ds/src/components.md`
-
-**Estimated scope:** Small
+- [x] Homepage alineada con inventario
+- [x] Build docs OK
+- [x] Sin cambios en `tokens/` ni CSS de primitives
 
 ---
 
-## Task 6: Field primitive
+## Task 2: Select primitive
 
-**Description:** Field con label visible, composición de `renderInput`, error + `aria-describedby`.
+**Description:** Añadir Select nativo (`renderSelect`) con CSS tokens-only y `:focus-visible`.
 
 **Acceptance criteria:**
-- [x] `Field.js` + `Field.css`; props `id`, `label`, `invalid`, `error`
-- [x] Error visible (texto) + `aria-describedby` cuando hay error/invalid
-- [x] Tokens existentes únicamente (`text-on-surface`, `border-error`, etc.)
-- [x] Entrada Field en `components.md`
+- [x] `Select.js` + `Select.css`; props `id`, `options` (value/label), `disabled?`, `invalid?`, `describedBy?`
+- [x] Markup `<select class="ds-select">` nativo
+- [x] Solo tokens `--ds-*` (misma familia que Input: surface, border, focus, disabled, type, space, radius)
+- [x] Entrada Select en `components.md`
 
 **Verification:**
-- [x] `npm run lint:tokens-only -w @soluciones-alexendros/ds`
-- [x] Markup de Field incluye describedby → id del mensaje de error
+- [x] `npm run lint:tokens-only -w @soluciones-alexendros/ds` (debe pasar al cerrar T2 o a más tardar en T5)
+- [x] Inspección `:focus-visible` y `aria-invalid` en markup/CSS
 
-**Dependencies:** None (Input ya existe)
+**Dependencies:** None tras CP-A (puede empezar en paralelo con T3/T4)
 
 **Implementation roles:** role-design, role-front
 
-**Test surfaces:** `renderField`; ARIA describedby + invalid
+**Test surfaces:** `renderSelect`; Select.css focus-visible
 
 **Files likely touched:**
-- `packages/ds/src/components/Field.js`
-- `packages/ds/src/components/Field.css`
+- `packages/ds/src/components/Select.js`
+- `packages/ds/src/components/Select.css`
 - `packages/ds/src/components.md`
 
 **Estimated scope:** Small–Medium
 
 ---
 
-## Task 7: Wire barrel, playground y a11y-runner
+## Task 3: Checkbox primitive
 
-**Description:** Exportar los tres primitives, montarlos en el playground y extender axe (Link + Field; `:focus-visible` en Link.css). Stack solo playground.
+**Description:** Checkbox nativo con label visible asociado.
 
 **Acceptance criteria:**
-- [x] `components/index.js` exporta Link, Stack, Field
+- [x] `Checkbox.js` + `Checkbox.css`; props `id`, `label`, `checked?`, `disabled?`
+- [x] Label visible asociado al input; tokens existentes únicamente
+- [x] `:focus-visible` con `--ds-color-border-focus`
+- [x] Entrada Checkbox en `components.md`
+
+**Verification:**
+- [x] `npm run lint:tokens-only -w @soluciones-alexendros/ds`
+- [x] Markup con asociación label/`for` o wrapping correcto
+
+**Dependencies:** None (paralelo a T2/T4)
+
+**Implementation roles:** role-design, role-front
+
+**Test surfaces:** `renderCheckbox`
+
+**Files likely touched:**
+- `packages/ds/src/components/Checkbox.js`
+- `packages/ds/src/components/Checkbox.css`
+- `packages/ds/src/components.md`
+
+**Estimated scope:** Small
+
+---
+
+## Task 4: Banner primitive
+
+**Description:** Banner de feedback persistente reutilizando tonos de Alert (no Toast).
+
+**Acceptance criteria:**
+- [x] `Banner.js` + `Banner.css`; props `tone` (info|success|warning|error), `role?` (status|alert), `body`
+- [x] Prefijo textual de tono (no solo color); tokens de Alert existentes
+- [x] Sin timer, cola ni motion
+- [x] Entrada Banner en `components.md`
+
+**Verification:**
+- [x] `npm run lint:tokens-only -w @soluciones-alexendros/ds`
+- [x] Markup incluye `role` y cue no cromático
+
+**Dependencies:** None (paralelo a T2/T3)
+
+**Implementation roles:** role-design, role-front
+
+**Test surfaces:** `renderBanner`
+
+**Files likely touched:**
+- `packages/ds/src/components/Banner.js`
+- `packages/ds/src/components/Banner.css`
+- `packages/ds/src/components.md`
+
+**Estimated scope:** Small
+
+---
+
+## Task 5: Wire barrel, playground, primitives tests y a11y-runner
+
+**Description:** Exportar los tres primitives, montarlos en playground y extender runners.
+
+**Acceptance criteria:**
+- [x] `components/index.js` exporta `renderSelect`, `renderCheckbox`, `renderBanner`
 - [x] Playground muestra los tres
-- [x] `a11y-runner.mjs` incluye Link + Field; assert focus-visible en Link.css; Stack no en fixture axe
+- [x] `test-primitives.mjs` cubre contratos parciales Select/Checkbox/Banner
+- [x] `a11y-runner.mjs` incluye Select + Checkbox + Banner; assert `:focus-visible` en Select.css y Checkbox.css; Stack/Card siguen fuera
 - [x] Contraste sin cambios de tokens
 
 **Verification:**
+- [x] `npm run test:primitives -w @soluciones-alexendros/ds`
 - [x] `npm run test:a11y -w @soluciones-alexendros/ds`
 - [x] `npm run test:contrast -w @soluciones-alexendros/ds`
 - [x] `npm run build -w @soluciones-alexendros/ds-docs`
 
-**Dependencies:** T4, T5, T6
+**Dependencies:** T2, T3, T4
 
 **Implementation roles:** role-front, role-design
 
-**Test surfaces:** a11y-runner light/dark; playground build; lint:tokens-only
+**Test surfaces:** a11y-runner light/dark; primitives runner; playground build; lint:tokens-only
 
 **Files likely touched:**
 - `packages/ds/src/components/index.js`
 - `packages/ds/scripts/a11y-runner.mjs`
+- `packages/ds/scripts/test-primitives.mjs`
 - `apps/docs/src/pages/playground.astro`
-- (posible) `packages/ds/package.json` exports si aplica
 
 **Estimated scope:** Medium
 
 ---
 
-## Checkpoint B — tras T4–T7 (`primitives-link-stack-field`)
+## Checkpoint B — tras T2–T5 (`next-primitives-scope`)
 
 - [x] `lint:tokens-only` OK
-- [x] `test:a11y` OK con Link + Field
+- [x] `test:primitives` OK
+- [x] `test:a11y` OK con Select + Checkbox + Banner
 - [x] `test:contrast` OK (sin tokens nuevos)
-- [x] Build docs OK; playground monta Link/Stack/Field
+- [x] Build docs OK; playground monta Select/Checkbox/Banner
 
 ---
 
 ## Checkpoint C — Cierre conjunto
 
-- [x] Checker P1 OK
 - [x] `npm test` OK
-- [x] Jobs `ci.yml` + `a11y.yml` coherentes con SPEC
-- [x] Sin alcance fuera de SPEC (no paleta/iconos/motion/multi-brand)
+- [x] Build docs OK
+- [x] Diff sin `tokens/` ni alcance fuera de SPEC
+- [x] Homepage sigue alineada (CP-A)
 - [x] Listo para SCHEMAS evidence / IMPLEMENT handoff — **no** `project-publish` implícito

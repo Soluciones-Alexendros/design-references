@@ -1,0 +1,61 @@
+{
+  "id": "docs-surface-sync",
+  "phase": "SCHEMAS",
+  "source": ".autoworkspace/SPEC.md",
+  "criteria": [
+    {
+      "id": "DS-01",
+      "assert": "files_contain",
+      "needle": "Button",
+      "paths": ["apps/docs/src/pages/index.astro"]
+    },
+    {
+      "id": "DS-02",
+      "assert": "files_contain",
+      "needle": "Input",
+      "paths": ["apps/docs/src/pages/index.astro"]
+    },
+    {
+      "id": "DS-03",
+      "assert": "files_contain",
+      "needle": "Card",
+      "paths": ["apps/docs/src/pages/index.astro"]
+    },
+    {
+      "id": "DS-04",
+      "assert": "files_contain",
+      "needle": "Alert",
+      "paths": ["apps/docs/src/pages/index.astro"]
+    },
+    {
+      "id": "DS-05",
+      "assert": "files_contain",
+      "needle": "Link",
+      "paths": ["apps/docs/src/pages/index.astro"]
+    },
+    {
+      "id": "DS-06",
+      "assert": "files_contain",
+      "needle": "Stack",
+      "paths": ["apps/docs/src/pages/index.astro"]
+    },
+    {
+      "id": "DS-07",
+      "assert": "files_contain",
+      "needle": "Field",
+      "paths": ["apps/docs/src/pages/index.astro"]
+    },
+    {
+      "id": "DS-08",
+      "assert": "files_contain",
+      "needle": "/tokens/",
+      "paths": ["apps/docs/src/pages/index.astro"]
+    },
+    {
+      "id": "DS-09",
+      "assert": "files_contain",
+      "needle": "/playground/",
+      "paths": ["apps/docs/src/pages/index.astro"]
+    }
+  ]
+}

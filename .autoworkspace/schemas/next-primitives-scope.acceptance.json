@@ -1,0 +1,94 @@
+{
+  "id": "next-primitives-scope",
+  "phase": "SCHEMAS",
+  "source": ".autoworkspace/SPEC.md",
+  "criteria": [
+    {
+      "id": "NP-01",
+      "assert": "files_exist",
+      "paths": [
+        "packages/ds/src/components/Select.js",
+        "packages/ds/src/components/Select.css",
+        "packages/ds/src/components/Checkbox.js",
+        "packages/ds/src/components/Checkbox.css",
+        "packages/ds/src/components/Banner.js",
+        "packages/ds/src/components/Banner.css"
+      ]
+    },
+    {
+      "id": "NP-02",
+      "assert": "exports_named",
+      "path": "packages/ds/src/components/index.js",
+      "names": ["renderSelect", "renderCheckbox", "renderBanner"]
+    },
+    {
+      "id": "NP-03",
+      "assert": "files_contain",
+      "needle": ":focus-visible",
+      "paths": [
+        "packages/ds/src/components/Select.css",
+        "packages/ds/src/components/Checkbox.css"
+      ]
+    },
+    {
+      "id": "NP-04",
+      "assert": "files_contain",
+      "needle": "--ds-color-border-focus",
+      "paths": [
+        "packages/ds/src/components/Select.css",
+        "packages/ds/src/components/Checkbox.css"
+      ]
+    },
+    {
+      "id": "NP-05",
+      "assert": "files_contain",
+      "needle": "role",
+      "paths": ["packages/ds/src/components/Banner.js"]
+    },
+    {
+      "id": "NP-06",
+      "assert": "files_contain",
+      "needle": "renderSelect",
+      "paths": [
+        "packages/ds/scripts/a11y-runner.mjs",
+        "apps/docs/src/pages/playground.astro"
+      ]
+    },
+    {
+      "id": "NP-07",
+      "assert": "files_contain",
+      "needle": "renderCheckbox",
+      "paths": [
+        "packages/ds/scripts/a11y-runner.mjs",
+        "apps/docs/src/pages/playground.astro"
+      ]
+    },
+    {
+      "id": "NP-08",
+      "assert": "files_contain",
+      "needle": "renderBanner",
+      "paths": [
+        "packages/ds/scripts/a11y-runner.mjs",
+        "apps/docs/src/pages/playground.astro"
+      ]
+    },
+    {
+      "id": "NP-09",
+      "assert": "files_contain",
+      "needle": "## Select",
+      "paths": ["packages/ds/src/components.md"]
+    },
+    {
+      "id": "NP-10",
+      "assert": "files_contain",
+      "needle": "## Checkbox",
+      "paths": ["packages/ds/src/components.md"]
+    },
+    {
+      "id": "NP-11",
+      "assert": "files_contain",
+      "needle": "## Banner",
+      "paths": ["packages/ds/src/components.md"]
+    }
+  ]
+}

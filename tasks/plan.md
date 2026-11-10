@@ -1,77 +1,75 @@
-# Implementation Plan: repo-structure + primitives-link-stack-field
+# Implementation Plan: docs-surface-sync + next-primitives-scope
 
 ## Overview
 
-Tras la SPEC aprobada en `.autoworkspace/SPEC.md`, implementar en paralelo (con checkpoints) el cierre P1 de estructura del repo y tres primitives mínimos (Link, Stack, Field) que reutilizan tokens `--ds-*` existentes, sin reabrir paleta/iconos/motion/multi-brand.
+Tras la SPEC aprobada en `.autoworkspace/SPEC.md` (2026-11-10), alinear la homepage pública con el inventario de 7 primitives y añadir Select, Checkbox y Banner solo con tokens `--ds-*` existentes. Sin tocar `tokens/`, sin motion, sin iconos, sin multi-brand.
 
 ## Architecture Decisions
 
-- **Checker P1 como gate de `repo-structure`.** El criterio de cierre es `check-product-structure.sh` perfil P1, no un invento ad hoc de ficheros.
-- **CI dual.** `ci.yml` = quality / test / smoke. `a11y.yml` permanece dueño de contrast + axe (sin duplicar).
-- **Renovate canónico bajo `.github/`.** Mover `renovate.json` → `.github/renovate.json`; no Dependabot.
-- **Primitives = `renderX` + CSS tokens-only.** Mismo patrón que Button/Input/Card/Alert. Field compone `renderInput` (ya soporta `describedBy` / `invalid`).
-- **Link usa `--ds-color-text-link`.** Par contrast `text.link / bg.surface` ya en `$extensions`; cero tokens nuevos.
-- **Axe scope.** Link + Field en el fixture; Stack fuera (como Card). `:focus-visible` assert en `Link.css`.
-- **Docs workspace dep.** `"@soluciones-alexendros/ds": "*"` (link npm workspaces; `workspace:*` no usable en este npm).
-- **Acciones pinneadas.** Mismos SHA que `a11y.yml` (`checkout@11d5960…`, `setup-node@49933ea…`) + `permissions: contents: read`.
+- **Homepage = mirror de `components.md`.** Criterio de `docs-surface-sync`: los siete nombres (Button, Input, Card, Alert, Link, Stack, Field) aparecen en [apps/docs/src/pages/index.astro](../apps/docs/src/pages/index.astro).
+- **Select nativo `<select>`.** No Combobox custom; mismo contrato parcial que Input (`invalid`, `describedBy`, disabled, `:focus-visible`).
+- **Checkbox = input nativo + label visible.** Sin dependencias; tokens de superficie/borde/foco/disabled ya usados por Input.
+- **Banner = feedback persistente.** Reutiliza pares de tono de Alert; no Toast (sin timer/cola/motion). En axe con `role` status|alert + prefijo textual.
+- **Axe scope.** Select + Checkbox + Banner en el fixture; Stack/Card fuera.
+- **Cero tokens / pares nuevos.** `test:contrast` debe pasar sin cambios en `tokens/` ni en el contrast runner.
+- **CI dual intacta.** `ci.yml` = quality/test/smoke; `a11y.yml` = contrast + axe.
+- **Orden.** Docs sync primero (diff mínimo, deploy automático a `design.alexendros.dev`); luego primitives.
 
 ## Parallelism
 
 ```text
-repo-structure ──► T1 meta/docs ──► T2 makefile/env ──► T3 github/ci/renovate ──► CP-A
-                                                                             │
-primitives ──────► T4 Link ──► T5 Stack ──► T6 Field ──► T7 wire+a11y+playground ──► CP-B
-                                                                             │
-                                                                             ▼
-                                                                    CP-C cierre conjunto
+docs-surface-sync ──► T1 homepage inventory sync ──► CP-A
+                                                         │
+next-primitives ──────► T2 Select ──► T3 Checkbox ──► T4 Banner ──► T5 wire+a11y+playground ──► CP-B
+                                                         │
+                                                         ▼
+                                                CP-C cierre conjunto
 ```
 
-Las dos líneas no se bloquean mutuamente. CP-C exige ambas.
+T2–T4 pueden solaparse entre sí tras CP-A; T5 espera T2–T4.
 
 ## Task List
 
-Detalle completo en [`tasks/todo.md`](todo.md). Índice:
+Detalle en [`tasks/todo.md`](todo.md). Índice:
 
-### Línea A — `repo-structure`
+### Línea A — `docs-surface-sync`
 
-- [x] T1: Meta docs P1 + propósito
-- [x] T2: Makefile + `.env.example` + árbol `docs/`
-- [x] T3: GitHub (CODEOWNERS, PR template, Renovate move, `ci.yml`, workspace:*)
+- [x] T1: Homepage lista los 7 primitives
 
 ### Checkpoint A
 
-- [x] Checker P1 OK; sin Dependabot; Renovate solo en `.github/`
+- [x] Homepage alineada con `components.md`; build docs OK
 
-### Línea B — `primitives-link-stack-field`
+### Línea B — `next-primitives-scope`
 
-- [x] T4: Link + contrato parcial
-- [x] T5: Stack + contrato parcial
-- [x] T6: Field + contrato parcial
-- [x] T7: Barrel, playground, a11y-runner, exports
+- [x] T2: Select + contrato parcial
+- [x] T3: Checkbox + contrato parcial
+- [x] T4: Banner + contrato parcial
+- [x] T5: Barrel, playground, a11y-runner, test-primitives
 
 ### Checkpoint B
 
-- [x] lint:tokens-only, test:a11y, test:contrast, playground build
+- [x] lint:tokens-only, test:primitives, test:a11y, test:contrast, playground build
 
 ### Checkpoint C — Cierre
 
-- [x] Checker P1 OK + `npm test` + build docs + a11y verde
-- [x] Diff sin tokens nuevos ni alcance fuera de SPEC
+- [x] `npm test` + build docs OK
+- [x] Diff sin cambios en `tokens/` ni alcance fuera de SPEC
+- [x] Listo para SCHEMAS evidence / IMPLEMENT handoff — **no** `project-publish` implícito
 
 ## Risks and Mitigations
 
 | Risk | Impact | Mitigation |
 |------|--------|------------|
-| Checker P1 exige wording exacto `### Propósito de este documento` | Med | Copiar heading literal; verificar con el script |
-| Field rompe label/ARIA al componer Input | Med | Reusar `describedBy`/`invalid` de Input; fixture axe con error visible |
-| `ci.yml` smoke lento o flaky (Astro) | Med | Job aislado; no mezclar con a11y |
-| Renovate raíz + `.github/` duplicados | Low | Borrar raíz en el mismo commit que el move |
-| Acciones `@v4` por error | High | Copiar SHA desde `a11y.yml` |
+| Select custom styling rompe tokens-only | Med | Copiar patrón CSS de Input; lint:tokens-only en cada T |
+| Banner duplica Alert sin valor | Low | Contrato distinto (body libre + persistente); documentar en components.md |
+| Axe noise en Checkbox/Select nativos | Med | Fixture mínimo; umbral serious/critical sin bajar |
+| Homepage copy diverge de components.md | Low | Checklist de los 7 nombres en verificación T1 |
 
 ## Open Questions
 
-Ninguna. SPEC aprobada 2026-11-10; asunción 2 confirmada por el operador.
+Ninguna. SPEC aprobada con asunciones 1–7 (Select nativo, Banner no Toast, cero tokens, Node engines actuales).
 
 ## Next after PLAN/TASKS
 
-Entregable en `main` (#6/#7). Recibos DEFINE→VALIDATE cerrados; cierre **INTEGRATE** vía `/project-publish` (PR + auto-squash). Release/tag exige sí aparte.
+Con PLAN/TASKS aceptados: fase Autoworkspace **SCHEMAS** (schemas + stubs) → **IMPLEMENT** con `role-front` + `role-design` (y `role-clean-code` solo si hay refactor). No `project-publish` sin petición explícita.
