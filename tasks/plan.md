@@ -34,29 +34,29 @@ Detalle completo en [`tasks/todo.md`](todo.md). Índice:
 
 ### Línea A — `repo-structure`
 
-- [ ] T1: Meta docs P1 + propósito
-- [ ] T2: Makefile + `.env.example` + árbol `docs/`
-- [ ] T3: GitHub (CODEOWNERS, PR template, Renovate move, `ci.yml`, workspace:*)
+- [x] T1: Meta docs P1 + propósito
+- [x] T2: Makefile + `.env.example` + árbol `docs/`
+- [x] T3: GitHub (CODEOWNERS, PR template, Renovate move, `ci.yml`, workspace:*)
 
 ### Checkpoint A
 
-- [ ] Checker P1 OK; sin Dependabot; Renovate solo en `.github/`
+- [x] Checker P1 OK; sin Dependabot; Renovate solo en `.github/`
 
 ### Línea B — `primitives-link-stack-field`
 
-- [ ] T4: Link + contrato parcial
-- [ ] T5: Stack + contrato parcial
-- [ ] T6: Field + contrato parcial
-- [ ] T7: Barrel, playground, a11y-runner, exports
+- [x] T4: Link + contrato parcial
+- [x] T5: Stack + contrato parcial
+- [x] T6: Field + contrato parcial
+- [x] T7: Barrel, playground, a11y-runner, exports
 
 ### Checkpoint B
 
-- [ ] lint:tokens-only, test:a11y, test:contrast, playground build
+- [x] lint:tokens-only, test:a11y, test:contrast, playground build
 
 ### Checkpoint C — Cierre
 
-- [ ] Checker P1 OK + `npm test` + build docs + a11y verde
-- [ ] Diff sin tokens nuevos ni alcance fuera de SPEC
+- [x] Checker P1 OK + `npm test` + build docs + a11y verde
+- [x] Diff sin tokens nuevos ni alcance fuera de SPEC
 
 ## Risks and Mitigations
 
@@ -74,4 +74,4 @@ Ninguna. SPEC aprobada 2026-11-10; asunción 2 confirmada por el operador.
 
 ## Next after PLAN/TASKS
 
-Con PLAN/TASKS aceptados: fase Autoworkspace **SCHEMAS** (schemas de aceptación + stubs) → **IMPLEMENT** tarea a tarea con `role-front` + `role-design` (+ `role-clean-code` si hay refactor). No `project-publish` sin petición explícita.
+Entregable en `main` (#6/#7). Recibos DEFINE→VALIDATE cerrados; cierre **INTEGRATE** vía `/project-publish` (PR + auto-squash). Release/tag exige sí aparte.
