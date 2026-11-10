@@ -4,6 +4,10 @@ All notable changes to this project are documented in this file.
 
 ## [Unreleased]
 
+### Fixed
+
+- CI Node 22 for Astro 7 smoke (`engines` + Actions `node-version`).
+
 ### Added
 
 - P1 product structure: meta docs, `Makefile`, `docs/`, `ci.yml` (quality/test/smoke), CODEOWNERS, Renovate under `.github/`.
