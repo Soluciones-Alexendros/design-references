@@ -1,0 +1,54 @@
+---
+import Base from "../layouts/Base.astro";
+import report from "../data/contrast-report.json";
+
+const byTheme = {
+  light: report.filter((r) => r.theme === "light"),
+  dark: report.filter((r) => r.theme === "dark"),
+};
+---
+<Base title="Tokens">
+  <h1>Tokens semánticos</h1>
+  <p>
+    Valores en OKLCH y ratios de contraste calculados (WCAG 2.1 AA).
+    Umbral texto normal ≥ 4.5:1; UI / texto grande ≥ 3:1.
+  </p>
+
+  {(["light", "dark"] as const).map((theme) => (
+    <section style="margin-block: var(--ds-space-xl);">
+      <h2>Tema {theme}</h2>
+      <div class="ds-card ds-card--elevated" style="overflow:auto;">
+        <table style="width:100%; border-collapse: collapse; font-size: var(--ds-type-size-label);">
+          <thead>
+            <tr>
+              <th align="left">Par</th>
+              <th align="left">Foreground</th>
+              <th align="left">Background</th>
+              <th align="left">Ratio</th>
+              <th align="left">Min</th>
+              <th align="left">OK</th>
+            </tr>
+          </thead>
+          <tbody>
+            {byTheme[theme].map((row) => (
+              <tr>
+                <td>{row.name}</td>
+                <td>
+                  <span style={`display:inline-block;width:1rem;height:1rem;background:${row.foreground};border:1px solid var(--ds-color-border-default);vertical-align:middle;`} />
+                  {" "}<code>{row.foreground}</code>
+                </td>
+                <td>
+                  <span style={`display:inline-block;width:1rem;height:1rem;background:${row.background};border:1px solid var(--ds-color-border-default);vertical-align:middle;`} />
+                  {" "}<code>{row.background}</code>
+                </td>
+                <td>{row.ratio}:1</td>
+                <td>{row.min}:1</td>
+                <td>{row.ok ? "PASS" : "FAIL"}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+  ))}
+</Base>

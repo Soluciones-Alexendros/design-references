@@ -1,0 +1,215 @@
+{
+  "$description": "DTCG 2025.10 reference layer — raw scales in OKLCH (placeholder brand values)",
+  "color": {
+    "$type": "color",
+    "neutral": {
+      "0": {
+        "$value": "oklch(1 0 0)",
+        "$description": "sRGB #ffffff"
+      },
+      "50": {
+        "$value": "oklch(0.985 0.005 250)",
+        "$description": "sRGB ~#f7f8fb"
+      },
+      "100": {
+        "$value": "oklch(0.96 0.01 250)",
+        "$description": "sRGB ~#eef1f7"
+      },
+      "200": {
+        "$value": "oklch(0.9 0.015 250)",
+        "$description": "sRGB ~#d9dde8"
+      },
+      "300": {
+        "$value": "oklch(0.8 0.02 250)",
+        "$description": "sRGB ~#b8bfd0"
+      },
+      "400": {
+        "$value": "oklch(0.65 0.025 250)",
+        "$description": "sRGB ~#858ea6"
+      },
+      "500": {
+        "$value": "oklch(0.5 0.03 250)",
+        "$description": "sRGB ~#5c647a"
+      },
+      "600": {
+        "$value": "oklch(0.4 0.03 250)",
+        "$description": "sRGB ~#454c60"
+      },
+      "700": {
+        "$value": "oklch(0.32 0.025 250)",
+        "$description": "sRGB ~#333849"
+      },
+      "800": {
+        "$value": "oklch(0.25 0.02 250)",
+        "$description": "sRGB ~#252937"
+      },
+      "900": {
+        "$value": "oklch(0.18 0.015 250)",
+        "$description": "sRGB ~#181b25"
+      },
+      "950": {
+        "$value": "oklch(0.12 0.01 250)",
+        "$description": "sRGB ~#0e1016"
+      },
+      "1000": {
+        "$value": "oklch(0 0 0)",
+        "$description": "sRGB #000000"
+      }
+    },
+    "blue": {
+      "100": {
+        "$value": "oklch(0.92 0.04 250)",
+        "$description": "sRGB ~#d9e6fb"
+      },
+      "300": {
+        "$value": "oklch(0.72 0.12 250)",
+        "$description": "sRGB ~#7aa8ef"
+      },
+      "500": {
+        "$value": "oklch(0.5 0.18 250)",
+        "$description": "sRGB ~#1f5fd0"
+      },
+      "700": {
+        "$value": "oklch(0.38 0.14 250)",
+        "$description": "sRGB ~#1747a0"
+      },
+      "900": {
+        "$value": "oklch(0.28 0.1 250)",
+        "$description": "sRGB ~#12306e"
+      }
+    },
+    "green": {
+      "100": {
+        "$value": "oklch(0.93 0.04 150)",
+        "$description": "sRGB ~#d7f3e3"
+      },
+      "500": {
+        "$value": "oklch(0.48 0.12 150)",
+        "$description": "sRGB ~#1a7a4c"
+      },
+      "700": {
+        "$value": "oklch(0.36 0.1 150)",
+        "$description": "sRGB ~#145a38"
+      }
+    },
+    "red": {
+      "100": {
+        "$value": "oklch(0.93 0.04 25)",
+        "$description": "sRGB ~#f9d9d5"
+      },
+      "500": {
+        "$value": "oklch(0.5 0.18 25)",
+        "$description": "sRGB ~#c62828"
+      },
+      "700": {
+        "$value": "oklch(0.38 0.14 25)",
+        "$description": "sRGB ~#8e1c1c"
+      }
+    },
+    "amber": {
+      "100": {
+        "$value": "oklch(0.95 0.05 85)",
+        "$description": "sRGB ~#fff0c2"
+      },
+      "500": {
+        "$value": "oklch(0.72 0.14 75)",
+        "$description": "sRGB ~#d97706"
+      },
+      "800": {
+        "$value": "oklch(0.35 0.08 75)",
+        "$description": "sRGB ~#5c3b08"
+      }
+    }
+  },
+  "spacing": {
+    "$type": "dimension",
+    "0": { "$value": "0px" },
+    "1": { "$value": "4px" },
+    "2": { "$value": "8px" },
+    "3": { "$value": "12px" },
+    "4": { "$value": "16px" },
+    "5": { "$value": "24px" },
+    "6": { "$value": "32px" },
+    "8": { "$value": "48px" },
+    "10": { "$value": "64px" }
+  },
+  "fontFamily": {
+    "$type": "fontFamily",
+    "sans": {
+      "$value": ["Inter", "system-ui", "Segoe UI", "Roboto", "sans-serif"]
+    },
+    "mono": {
+      "$value": ["ui-monospace", "SFMono-Regular", "Menlo", "monospace"]
+    }
+  },
+  "fontSize": {
+    "$type": "dimension",
+    "xs": { "$value": "12px" },
+    "sm": { "$value": "14px" },
+    "md": { "$value": "16px" },
+    "lg": { "$value": "18px" },
+    "xl": { "$value": "20px" },
+    "2xl": { "$value": "24px" },
+    "3xl": { "$value": "30px" }
+  },
+  "fontWeight": {
+    "$type": "fontWeight",
+    "regular": { "$value": 400 },
+    "medium": { "$value": 500 },
+    "semibold": { "$value": 600 },
+    "bold": { "$value": 700 }
+  },
+  "lineHeight": {
+    "$type": "number",
+    "tight": { "$value": 1.25 },
+    "normal": { "$value": 1.5 },
+    "relaxed": { "$value": 1.75 }
+  },
+  "radius": {
+    "$type": "dimension",
+    "none": { "$value": "0px" },
+    "sm": { "$value": "4px" },
+    "md": { "$value": "8px" },
+    "lg": { "$value": "12px" },
+    "full": { "$value": "9999px" }
+  },
+  "elevation": {
+    "$type": "shadow",
+    "0": {
+      "$value": []
+    },
+    "1": {
+      "$value": [
+        {
+          "color": "oklch(0.2 0.02 250 / 0.12)",
+          "offsetX": "0px",
+          "offsetY": "1px",
+          "blur": "2px",
+          "spread": "0px"
+        }
+      ]
+    },
+    "2": {
+      "$value": [
+        {
+          "color": "oklch(0.2 0.02 250 / 0.14)",
+          "offsetX": "0px",
+          "offsetY": "4px",
+          "blur": "12px",
+          "spread": "0px"
+        }
+      ]
+    },
+    "3": {
+      "$value": [
+        {
+          "color": "oklch(0.2 0.02 250 / 0.18)",
+          "offsetX": "0px",
+          "offsetY": "8px",
+          "blur": "24px",
+          "spread": "0px"
+        }
+      ]
+    }
+  }
+}

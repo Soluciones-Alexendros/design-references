@@ -1,0 +1,42 @@
+{
+  "name": "@soluciones-alexendros/ds",
+  "version": "0.1.0",
+  "description": "Design system tokens (--ds-*), theme-boot and base primitives",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./styles.css": "./dist/styles.css",
+    "./tokens": {
+      "types": "./dist/tokens.d.ts",
+      "default": "./dist/tokens.d.ts"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "src"
+  ],
+  "scripts": {
+    "build": "node ./scripts/build-tokens.mjs",
+    "test:resolve": "node ./scripts/resolve-semantic.mjs",
+    "test:theme": "node ./scripts/test-theme.mjs",
+    "test:contrast": "node ./scripts/contrast-runner.mjs",
+    "test:a11y": "node ./scripts/a11y-runner.mjs",
+    "lint:tokens-only": "node ./scripts/lint-tokens-only.mjs",
+    "prepack": "npm run build",
+    "test": "npm run build && npm run test:resolve && npm run test:theme && npm run test:contrast && npm run lint:tokens-only && npm run test:a11y"
+  },
+  "devDependencies": {
+    "jsdom": "^26.1.0",
+    "axe-core": "^4.10.3"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "license": "MIT"
+}

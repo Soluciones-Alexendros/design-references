@@ -1,0 +1,28 @@
+.ds-alert {
+  box-sizing: border-box;
+  padding: var(--ds-space-md);
+  border-radius: var(--ds-radius-control);
+  font-family: var(--ds-type-family-sans);
+  font-size: var(--ds-type-size-body);
+  line-height: var(--ds-type-lineHeight-body);
+}
+
+.ds-alert--info {
+  background: var(--ds-color-bg-primary);
+  color: var(--ds-color-text-on-primary);
+}
+
+.ds-alert--success {
+  background: var(--ds-color-bg-success);
+  color: var(--ds-color-text-on-success);
+}
+
+.ds-alert--warning {
+  background: var(--ds-color-bg-warning);
+  color: var(--ds-color-text-on-warning);
+}
+
+.ds-alert--error {
+  background: var(--ds-color-bg-error);
+  color: var(--ds-color-text-on-error);
+}

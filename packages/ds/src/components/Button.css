@@ -1,0 +1,45 @@
+.ds-button {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--ds-space-sm);
+  min-height: var(--ds-space-touch);
+  min-width: var(--ds-space-touch);
+  padding: var(--ds-space-sm) var(--ds-space-md);
+  border: 1px solid transparent;
+  border-radius: var(--ds-radius-control);
+  font-family: var(--ds-type-family-sans);
+  font-size: var(--ds-type-size-label);
+  font-weight: var(--ds-type-weight-medium);
+  line-height: var(--ds-type-lineHeight-tight);
+  cursor: pointer;
+}
+
+.ds-button:focus-visible {
+  outline: 2px solid var(--ds-color-border-focus);
+  outline-offset: 2px;
+}
+
+.ds-button--primary {
+  background: var(--ds-color-bg-primary);
+  color: var(--ds-color-text-on-primary);
+}
+
+.ds-button--secondary {
+  background: var(--ds-color-bg-secondary);
+  color: var(--ds-color-text-on-secondary);
+  border-color: var(--ds-color-border-default);
+}
+
+.ds-button--danger {
+  background: var(--ds-color-bg-error);
+  color: var(--ds-color-text-on-error);
+}
+
+.ds-button:disabled,
+.ds-button[aria-disabled="true"] {
+  background: var(--ds-color-bg-disabled);
+  color: var(--ds-color-text-on-disabled);
+  cursor: not-allowed;
+}

@@ -1,0 +1,75 @@
+---
+import "@soluciones-alexendros/ds/styles.css";
+import "../../../../packages/ds/src/components/Button.css";
+import "../../../../packages/ds/src/components/Input.css";
+import "../../../../packages/ds/src/components/Card.css";
+import "../../../../packages/ds/src/components/Alert.css";
+
+interface Props {
+  title: string;
+}
+const { title } = Astro.props;
+---
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title} · design-references</title>
+    <style is:global>
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background: var(--ds-color-bg-surface);
+        color: var(--ds-color-text-on-surface);
+        font-family: var(--ds-type-family-sans);
+        font-size: var(--ds-type-size-body);
+        line-height: var(--ds-type-lineHeight-body);
+      }
+      a { color: var(--ds-color-text-link); }
+      .shell {
+        max-width: 960px;
+        margin: 0 auto;
+        padding: var(--ds-space-lg);
+      }
+      .nav {
+        display: flex;
+        gap: var(--ds-space-md);
+        align-items: center;
+        margin-bottom: var(--ds-space-xl);
+        flex-wrap: wrap;
+      }
+      .nav a { text-decoration: none; }
+      .theme-controls {
+        margin-left: auto;
+        display: flex;
+        gap: var(--ds-space-sm);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="shell">
+      <nav class="nav" aria-label="Principal">
+        <strong>design-references</strong>
+        <a href="/">Inicio</a>
+        <a href="/tokens">Tokens</a>
+        <a href="/playground">Playground</a>
+        <div class="theme-controls" data-theme-controls>
+          <button type="button" class="ds-button ds-button--secondary" data-theme-set="light">Light</button>
+          <button type="button" class="ds-button ds-button--secondary" data-theme-set="dark">Dark</button>
+          <button type="button" class="ds-button ds-button--secondary" data-theme-set="system">System</button>
+        </div>
+      </nav>
+      <slot />
+    </div>
+    <script>
+      import { setTheme } from "@soluciones-alexendros/ds";
+      document.querySelectorAll("[data-theme-set]").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const mode = btn.getAttribute("data-theme-set");
+          setTheme(mode ?? "system");
+        });
+      });
+    </script>
+  </body>
+</html>
