@@ -1,0 +1,67 @@
+{
+  "id": "primitives-link-stack-field",
+  "phase": "SCHEMAS",
+  "source": ".autoworkspace/SPEC.md",
+  "criteria": [
+    {
+      "id": "PF-01",
+      "assert": "files_exist",
+      "paths": [
+        "packages/ds/src/components/Link.js",
+        "packages/ds/src/components/Link.css",
+        "packages/ds/src/components/Stack.js",
+        "packages/ds/src/components/Stack.css",
+        "packages/ds/src/components/Field.js",
+        "packages/ds/src/components/Field.css"
+      ]
+    },
+    {
+      "id": "PF-02",
+      "assert": "exports_named",
+      "path": "packages/ds/src/components/index.js",
+      "names": ["renderLink", "renderStack", "renderField"]
+    },
+    {
+      "id": "PF-03",
+      "assert": "files_contain",
+      "needle": ":focus-visible",
+      "paths": ["packages/ds/src/components/Link.css"]
+    },
+    {
+      "id": "PF-04",
+      "assert": "files_contain",
+      "needle": "--ds-color-text-link",
+      "paths": ["packages/ds/src/components/Link.css"]
+    },
+    {
+      "id": "PF-05",
+      "assert": "files_contain",
+      "needle": "aria-describedby",
+      "paths": ["packages/ds/src/components/Field.js"]
+    },
+    {
+      "id": "PF-06",
+      "assert": "files_contain",
+      "needle": "renderLink",
+      "paths": [
+        "packages/ds/scripts/a11y-runner.mjs",
+        "apps/docs/src/pages/playground.astro"
+      ]
+    },
+    {
+      "id": "PF-07",
+      "assert": "files_contain",
+      "needle": "renderField",
+      "paths": [
+        "packages/ds/scripts/a11y-runner.mjs",
+        "apps/docs/src/pages/playground.astro"
+      ]
+    },
+    {
+      "id": "PF-08",
+      "assert": "files_contain",
+      "needle": "renderStack",
+      "paths": ["apps/docs/src/pages/playground.astro"]
+    }
+  ]
+}

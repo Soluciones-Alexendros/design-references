@@ -1,0 +1,14 @@
+.ds-link {
+  font-family: var(--ds-type-family-sans);
+  font-size: var(--ds-type-size-body);
+  font-weight: var(--ds-type-weight-medium);
+  line-height: var(--ds-type-lineHeight-body);
+  color: var(--ds-color-text-link);
+  text-decoration: underline;
+  text-underline-offset: var(--ds-space-xs);
+}
+
+.ds-link:focus-visible {
+  outline: 2px solid var(--ds-color-border-focus);
+  outline-offset: 2px;
+}

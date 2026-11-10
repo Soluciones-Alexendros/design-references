@@ -11,8 +11,10 @@
     "build:tokens": "npm run build -w @soluciones-alexendros/ds",
     "test:contrast": "npm run test:contrast -w @soluciones-alexendros/ds",
     "test:a11y": "npm run test:a11y -w @soluciones-alexendros/ds",
+    "test:primitives": "npm run test:primitives -w @soluciones-alexendros/ds",
+    "test:acceptance": "node scripts/acceptance-stubs.mjs",
     "lint:tokens-only": "npm run lint:tokens-only -w @soluciones-alexendros/ds",
-    "test": "npm run validate:tokens && npm run build -w @soluciones-alexendros/ds && npm run test -w @soluciones-alexendros/ds",
+    "test": "npm run validate:tokens && npm run build -w @soluciones-alexendros/ds && npm run test -w @soluciones-alexendros/ds && npm run test:acceptance",
     "prepare": "husky"
   },
   "engines": {

@@ -6,3 +6,5 @@ dist/
 npm-debug.log*
 apps/docs/dist/
 packages/ds/dist/
+.autoworkspace/status.yaml.lock
+.autoworkspace/evidence/
