@@ -11,7 +11,7 @@ npm install
 npm test
 ```
 
-Node `>=20` required.
+Node `>=22.23.4` required (Astro 7).
 
 ## Workflow
 
