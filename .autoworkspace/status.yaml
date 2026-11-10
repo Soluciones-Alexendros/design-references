@@ -1,10 +1,123 @@
-schema_version: 1
+schema_version: 2
 version: 0.1.0
-phase: DEFINE
-advance: 0
-last_skill: ''
+phase: INTEGRATE
+advance: 5
+last_skill: plan-continue
 checksum_spec: ''
-updated_at: '2026-11-10T18:58:10Z'
-history: []
-awaiting_agent: true
-awaiting_phase: INTEGRATE
+updated_at: '2026-11-10T20:55:18Z'
+state_revision: 5
+history:
+- advance: 1
+  version: 0.1.0
+  state_revision: 1
+  phase: DEFINE
+  skill: plan-specification
+  at: '2026-11-10T19:14:42Z'
+  note: backfill DEFINE from main@6f81552
+  evidence_ok: true
+  run_id: 86da74c9-f0d4-4cf1-9564-344323f95bbf
+  work_digest: 58b12f3acf5a230d97b0974fbde7335ac51bb0629e73b00fd4c0d6abc815e4dc
+- advance: 2
+  version: 0.1.0
+  state_revision: 2
+  phase: SCHEMAS
+  skill: plan-continue
+  at: '2026-11-10T19:14:42Z'
+  note: backfill SCHEMAS from main@6f81552
+  evidence_ok: true
+  run_id: f2c85580-1266-431f-9c7f-8663f3fb22ff
+  work_digest: 7eb4b93e60cdc9e1a689354a6b7c598fc1655dfe46befc3ade77a8575fd863f0
+- advance: 3
+  version: 0.1.0
+  state_revision: 3
+  phase: IMPLEMENT
+  skill: role-front
+  at: '2026-11-10T19:15:04Z'
+  note: backfill IMPLEMENT Link/Stack/Field from main@6f81552
+  evidence_ok: true
+  run_id: 2c6fc55d-4361-4039-9af4-9ad2ba597321
+  work_digest: d3885b00be3042466d2a07bc5f06aecdecabea7a4a42b31ffcc39913f41515cd
+- advance: 4
+  version: 0.1.0
+  state_revision: 4
+  phase: VALIDATE
+  skill: plan-validators
+  at: '2026-11-10T19:15:08Z'
+  note: backfill VALIDATE gates this session; SPEC Node>=20 vs engines>=22.23.4; stop
+    before INTEGRATE
+  evidence_ok: true
+  run_id: bdd19e89-32ad-4a9f-8f76-a1af8e6d2ebb
+  work_digest: 6ea0e65605584b4e88bbfa4805a1c97589c4bbfebf1a3abd5d384d6ec72cc063
+- advance: 5
+  version: 0.1.0
+  state_revision: 5
+  phase: INTEGRATE
+  skill: plan-continue
+  at: '2026-11-10T20:55:18Z'
+  note: 'project-publish integrate: husky gate + board close; no release'
+  evidence_ok: true
+  run_id: 086cd421-2ffe-4af6-ad56-743e3ca8ccc1
+  work_digest: 68150940ca811ab6a2d15620929c8f5e0f51c4848974f5038c6f8a68d3c3e8b0
+completed_run_ids:
+- 86da74c9-f0d4-4cf1-9564-344323f95bbf
+- f2c85580-1266-431f-9c7f-8663f3fb22ff
+- 2c6fc55d-4361-4039-9af4-9ad2ba597321
+- bdd19e89-32ad-4a9f-8f76-a1af8e6d2ebb
+- 086cd421-2ffe-4af6-ad56-743e3ca8ccc1
+active_plan: null
+plan_digest: ''
+tasks: {}
+awaiting_agent: false
+last_resolve_run_id: 86da74c9-f0d4-4cf1-9564-344323f95bbf
+evidence_log:
+- state_revision: 1
+  checksum_spec: 446ad4ae3c8efcde8a3ff3ea1dfc7bd6e235c4948e7222776d21b5dd4bb710a7
+  run_id: 86da74c9-f0d4-4cf1-9564-344323f95bbf
+  at: '2026-11-10T19:14:42Z'
+  phase: DEFINE
+- state_revision: 2
+  checksum_spec: 9de0e0e982f5aa3a46efcee5f1aba3333ea1ac163e36164e047a58f15de4f2cc
+  run_id: f2c85580-1266-431f-9c7f-8663f3fb22ff
+  at: '2026-11-10T19:14:42Z'
+  phase: SCHEMAS
+- state_revision: 3
+  checksum_spec: 7d0b19a25ab4ea03a69582908b05d88644ca19f7c888490539e61a033cb34025
+  run_id: 2c6fc55d-4361-4039-9af4-9ad2ba597321
+  at: '2026-11-10T19:15:04Z'
+  phase: IMPLEMENT
+- state_revision: 4
+  checksum_spec: 8449879b63108955f3317d336c5e20e10974939aaf376f734f2d88858fd34029
+  run_id: bdd19e89-32ad-4a9f-8f76-a1af8e6d2ebb
+  at: '2026-11-10T19:15:08Z'
+  phase: VALIDATE
+- state_revision: 5
+  checksum_spec: 94eb8f51c159d3c8479a0d9494b3abad1b650bcfa430782c51b12364643eb6f9
+  run_id: 086cd421-2ffe-4af6-ad56-743e3ca8ccc1
+  at: '2026-11-10T20:55:18Z'
+  phase: INTEGRATE
+completion_receipts:
+  DEFINE:86da74c9-f0d4-4cf1-9564-344323f95bbf:
+    at: '2026-11-10T19:14:42Z'
+    state_revision: 1
+    plan_digest: 446ad4ae3c8efcde8a3ff3ea1dfc7bd6e235c4948e7222776d21b5dd4bb710a7
+    output_digest: 58b12f3acf5a230d97b0974fbde7335ac51bb0629e73b00fd4c0d6abc815e4dc
+  SCHEMAS:f2c85580-1266-431f-9c7f-8663f3fb22ff:
+    at: '2026-11-10T19:14:42Z'
+    state_revision: 2
+    plan_digest: 9de0e0e982f5aa3a46efcee5f1aba3333ea1ac163e36164e047a58f15de4f2cc
+    output_digest: 7eb4b93e60cdc9e1a689354a6b7c598fc1655dfe46befc3ade77a8575fd863f0
+  IMPLEMENT:2c6fc55d-4361-4039-9af4-9ad2ba597321:
+    at: '2026-11-10T19:15:04Z'
+    state_revision: 3
+    plan_digest: 7d0b19a25ab4ea03a69582908b05d88644ca19f7c888490539e61a033cb34025
+    output_digest: d3885b00be3042466d2a07bc5f06aecdecabea7a4a42b31ffcc39913f41515cd
+  VALIDATE:bdd19e89-32ad-4a9f-8f76-a1af8e6d2ebb:
+    at: '2026-11-10T19:15:08Z'
+    state_revision: 4
+    plan_digest: 8449879b63108955f3317d336c5e20e10974939aaf376f734f2d88858fd34029
+    output_digest: 6ea0e65605584b4e88bbfa4805a1c97589c4bbfebf1a3abd5d384d6ec72cc063
+  INTEGRATE:086cd421-2ffe-4af6-ad56-743e3ca8ccc1:
+    at: '2026-11-10T20:55:18Z'
+    state_revision: 5
+    plan_digest: 94eb8f51c159d3c8479a0d9494b3abad1b650bcfa430782c51b12364643eb6f9
+    output_digest: 68150940ca811ab6a2d15620929c8f5e0f51c4848974f5038c6f8a68d3c3e8b0

@@ -199,10 +199,10 @@ Ninguna bloqueante para aprobar esta SPEC. Decisiones ya cerradas en el plan DEF
 - `ci.yml` no duplica contrast/axe.
 - Capacidades especificables en paralelo.
 
-## Estado DEFINE
+## Estado pipeline
 
 - **SPEC:** aprobada por el operador (2026-11-10); asunción 2 confirmada (`text.link` + par contrast existentes).
-- **PLAN/TASKS:** [`tasks/plan.md`](../tasks/plan.md), [`tasks/todo.md`](../tasks/todo.md).
-- **Stop antes de IMPLEMENT.** No abrir PR ni invocar `project-publish` sin petición explícita.
-
-SCHEMAS → IMPLEMENT requieren un sí explícito tras aceptar PLAN/TASKS.
+- **PLAN/TASKS:** [`tasks/plan.md`](../tasks/plan.md), [`tasks/todo.md`](../tasks/todo.md) — entregables en `main` (#6) + Node 22 (#7).
+- **Recibos:** DEFINE → SCHEMAS → IMPLEMENT → VALIDATE cerrados con evidencia (2026-11-10); INTEGRATE vía `/project-publish` (gate Husky + PR de cierre).
+- **Deriva anotada:** SPEC dice Node `>=20`; `package.json` `engines` exige `>=22.23.4` tras #7.
+- **Stop antes de release.** Tag anotado / `gh release create` / bump de versión requieren sí aparte. Sin sellar `awaiting_phase` hacia la siguiente fase de forma automática.
