@@ -1,4 +1,5 @@
 /**
+ * @deprecated Use `Select` from `@soluciones-alexendros/ds/react` or `/astro`. Kept until 0.2.0.
  * Minimal Select primitive (forms) — native select.
  * @param {object} props
  * @param {string} [props.id]

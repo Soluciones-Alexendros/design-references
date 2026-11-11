@@ -1,4 +1,5 @@
 /**
+ * @deprecated Use `Input` from `@soluciones-alexendros/ds/react` or `/astro`. Kept until 0.2.0.
  * Minimal Input primitive (forms).
  * @param {object} props
  * @param {string} [props.type]

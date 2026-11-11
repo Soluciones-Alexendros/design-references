@@ -1,0 +1,5 @@
+---
+import { renderCard } from "../components/Card.js";
+const html = renderCard(Astro.props);
+---
+<Fragment set:html={html} />

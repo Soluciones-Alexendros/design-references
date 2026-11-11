@@ -1,4 +1,5 @@
 /**
+ * @deprecated Use `Button` from `@soluciones-alexendros/ds/react` or `/astro`. Kept until 0.2.0.
  * Minimal Button primitive (forms).
  * @param {object} props
  * @param {"primary"|"secondary"|"danger"} [props.variant]

@@ -1,0 +1,5 @@
+---
+import { renderStack } from "../components/Stack.js";
+const html = renderStack(Astro.props);
+---
+<Fragment set:html={html} />

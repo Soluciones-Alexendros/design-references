@@ -1,6 +1,7 @@
 import { statusIcon } from "./status-icon.js";
 
 /**
+ * @deprecated Use `Alert` from `@soluciones-alexendros/ds/react` or `/astro`. Kept until 0.2.0.
  * Minimal Alert primitive (feedback).
  * @param {object} props
  * @param {"info"|"success"|"warning"|"error"} [props.tone]

@@ -11,10 +11,18 @@
       "import": "./dist/index.js"
     },
     "./styles.css": "./dist/styles.css",
+    "./tokens.css": "./dist/styles.css",
     "./tokens": {
       "types": "./dist/tokens.d.ts",
       "default": "./dist/tokens.d.ts"
     },
+    "./theme": {
+      "types": "./dist/theme.d.ts",
+      "import": "./dist/theme.js"
+    },
+    "./css": "./dist/css/components.css",
+    "./astro": "./src/astro/index.js",
+    "./astro/*": "./src/astro/*",
     "./package.json": "./package.json"
   },
   "files": [
@@ -27,14 +35,16 @@
     "test:theme": "node ./scripts/test-theme.mjs",
     "test:contrast": "node ./scripts/contrast-runner.mjs",
     "test:a11y": "node ./scripts/a11y-runner.mjs",
+    "test:a11y:smoke": "node ./scripts/a11y-runner.mjs",
     "test:primitives": "node ./scripts/test-primitives.mjs",
+    "test:wrappers": "node ./scripts/test-astro-wrappers.mjs",
     "lint:tokens-only": "node ./scripts/lint-tokens-only.mjs",
     "prepack": "npm run build",
-    "test": "npm run build && npm run test:resolve && npm run test:theme && npm run test:contrast && npm run lint:tokens-only && npm run test:primitives && npm run test:a11y"
+    "test": "npm run build && npm run test:resolve && npm run test:theme && npm run test:contrast && npm run lint:tokens-only && npm run test:primitives && npm run test:wrappers && npm run test:a11y"
   },
   "devDependencies": {
-    "jsdom": "^26.1.0",
-    "axe-core": "^4.10.3"
+    "axe-core": "^4.10.3",
+    "jsdom": "^26.1.0"
   },
   "publishConfig": {
     "access": "public"

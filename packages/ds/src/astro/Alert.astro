@@ -1,0 +1,5 @@
+---
+import { renderAlert } from "../components/Alert.js";
+const html = renderAlert(Astro.props);
+---
+<Fragment set:html={html} />

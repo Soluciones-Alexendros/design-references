@@ -1,0 +1,5 @@
+---
+import { renderField } from "../components/Field.js";
+const html = renderField(Astro.props);
+---
+<Fragment set:html={html} />

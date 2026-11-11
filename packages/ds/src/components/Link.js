@@ -1,4 +1,5 @@
 /**
+ * @deprecated Use `Link` from `@soluciones-alexendros/ds/react` or `/astro`. Kept until 0.2.0.
  * Minimal Link primitive (navigation).
  * @param {object} props
  * @param {string} [props.href]
