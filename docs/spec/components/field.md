@@ -1,6 +1,6 @@
 # Component: Field
 
-### Propósito de este documento
+## Propósito de este documento
 
 Spec viva de Field: label visible + Input + error anunciado (DoD 1–3).
 

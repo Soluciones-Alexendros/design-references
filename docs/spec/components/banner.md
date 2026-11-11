@@ -1,6 +1,6 @@
 # Component: Banner
 
-### Propósito de este documento
+## Propósito de este documento
 
 Spec viva de Banner: feedback persistente de página (DoD 1–3).
 

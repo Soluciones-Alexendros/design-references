@@ -1,6 +1,6 @@
 # Component: Button
 
-### Propósito de este documento
+## Propósito de este documento
 
 Spec viva de Button: anatomía, props, estados, a11y y HTML canónico (DoD 1–3).
 

@@ -1,6 +1,6 @@
 # Component: Card
 
-### Propósito de este documento
+## Propósito de este documento
 
 Spec viva de Card: contenedor de superficie (DoD 1–3).
 

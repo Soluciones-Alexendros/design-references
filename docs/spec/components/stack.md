@@ -1,6 +1,6 @@
 # Component: Stack
 
-### Propósito de este documento
+## Propósito de este documento
 
 Spec viva de Stack: layout vertical con gap tokenizado (DoD 1–3).
 
