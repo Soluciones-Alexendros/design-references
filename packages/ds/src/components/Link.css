@@ -1,3 +1,4 @@
+@layer ds.components {
 .ds-link {
   color: var(--ds-color-text-link);
   font-family: var(--ds-type-family-sans);
@@ -22,4 +23,5 @@
 .ds-link:focus-visible {
   outline: var(--ds-border-width-focus) solid var(--ds-color-border-focus);
   outline-offset: var(--ds-border-offset-focus);
+}
 }

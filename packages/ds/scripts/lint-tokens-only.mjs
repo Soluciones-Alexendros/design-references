@@ -8,7 +8,10 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const dir = join(__dirname, "..", "src", "components");
+const roots = [
+  join(__dirname, "..", "src", "components"),
+  join(__dirname, "..", "src", "css"),
+];
 
 const FORBIDDEN = [
   { re: /#[0-9a-fA-F]{3,8}\b/, msg: "hex color" },
@@ -20,14 +23,17 @@ const FORBIDDEN = [
   },
 ];
 
-const files = readdirSync(dir).filter(
-  (f) => f.endsWith(".css") || f.endsWith(".js")
-);
+const files = [];
+for (const dir of roots) {
+  for (const f of readdirSync(dir)) {
+    if (f.endsWith(".css") || f.endsWith(".js")) files.push(join(dir, f));
+  }
+}
 let failed = false;
 
-for (const file of files) {
+for (const path of files) {
+  const file = path.split(/[/\\]/).pop();
   if (file === "index.js") continue;
-  const path = join(dir, file);
   const src = readFileSync(path, "utf8");
   const lines = src.split("\n");
   lines.forEach((line, i) => {
@@ -56,5 +62,5 @@ for (const file of files) {
 }
 
 if (!failed)
-  console.log(`OK  linted ${files.length} component files (tokens only)`);
+  console.log(`OK  linted ${files.length} component/css files (tokens only)`);
 process.exit(failed ? 1 : 0);
