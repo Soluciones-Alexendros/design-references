@@ -20,6 +20,12 @@ Node `>=22.23.4` required (Astro 7).
 3. Run `npm test` and, for docs, `npm run build -w @soluciones-alexendros/ds-docs`.
 4. Open a PR using the repository template.
 
+## Language
+
+- Prosa (documentación, ADR, explicaciones): **español**.
+- Identificadores, props, nombres de código y scripts npm: **inglés**.
+- Conventional Commits y la plantilla de PR del repo siguen vigentes; no inventar flujo de release aquí.
+
 ## Structure
 
-See `ARCHITECTURE.md` and `AGENTS.md` for agent/human orientation.
+See `ARCHITECTURE.md`, `AGENTS.md`, and `docs/spec/` for orientation.

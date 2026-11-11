@@ -1,9 +1,13 @@
 # Spec — design-references
 
+> **Histórico.** Spec viva: [`docs/spec/`](../docs/spec/). Este fichero es la spec SDD aprobada en intake; no es la fuente de verdad operativa.
+
 ## Objetivo
+
 Proveer una fuente única de verdad de design tokens (`--ds-*`), theme-boot y componentes base consumibles como paquete npm, más un website de documentación y playground, para cohesionar la flota Astro + Next/React.
 
 ## Historias
+
 1. Como consumidor (Astro/Next), quiero importar un paquete npm que exponga CSS variables `--ds-*` y un theme-boot, para aplicar light/dark/system sin hardcodear valores.
 2. Como consumidor, quiero componentes base (layout, forms, feedback) que usen exclusivamente esos tokens, para mantener consistencia visual.
 3. Como mantenedor, quiero un website que documente tokens, temas y componentes y permita probarlos en vivo, para validar el sistema antes de usarlo en producción.
@@ -12,6 +16,7 @@ Proveer una fuente única de verdad de design tokens (`--ds-*`), theme-boot y co
 6. Como CI, quiero tests de accesibilidad automatizados que fallen el build si los componentes base violan contraste, focus visible o ARIA, para impedir regresiones.
 
 ## Reglas
+
 - Todos los valores visuales (color, spacing, typography, radii, elevation, motion) se expresan como tokens.
 - Prefijo obligatorio: `--ds-`.
 - Capas: reference → semantic → component (formato DTCG 2025.10 como source of truth).
@@ -27,6 +32,7 @@ Proveer una fuente única de verdad de design tokens (`--ds-*`), theme-boot y co
 - Cada componente base interactivo debe tener al menos un test automatizado de accesibilidad (axe-core o equivalente) que cubra contraste, focus visible y roles/ARIA.
 
 ## Criterios comprobables
+
 - Existe un paquete npm instalable que, al importarse, define las variables `--ds-*` en `:root` y permite cambiar de tema.
 - Existe un archivo de tokens en formato DTCG 2025.10 con las tres capas y valores de color en OKLCH.
 - Los componentes de layout, forms y feedback referencian solo variables `--ds-*`.
@@ -38,6 +44,7 @@ Proveer una fuente única de verdad de design tokens (`--ds-*`), theme-boot y co
 - Existe un test de contraste dedicado que evalúa todos los pares semánticos definidos (texto sobre fondo, icono sobre fondo) y falla si el ratio < 4.5:1 (texto normal) o < 3:1 (texto grande / UI components).
 
 ## Límites
+
 - Alcance inicial: tokens + theme-boot + componentes base (layout, forms, feedback). No incluye iconografía completa, motion avanzado ni multi-brand.
 - Consumidores prioritarios: Astro y Next/React. Otros stacks (Tauri, etc.) quedan fuera de esta spec.
 - No se generan componentes de producción finales en esta fase; solo la especificación y contratos.
@@ -45,6 +52,7 @@ Proveer una fuente única de verdad de design tokens (`--ds-*`), theme-boot y co
 - Los tests automatizados cubren componentes base; no sustituyen revisión manual ni tests de usuario.
 
 ## No-objetivos
+
 - Implementar el código del paquete o del website (eso es posterior a la aprobación de la spec).
 - Migrar repositorios consumidores existentes.
 - Definir paleta o tipografía de marca final (se usarán valores de referencia hasta fijarlos).
@@ -53,6 +61,7 @@ Proveer una fuente única de verdad de design tokens (`--ds-*`), theme-boot y co
 - Tests de accesibilidad del website de muestra completo (solo componentes base).
 
 ## Calidad (escenarios)
+
 - Dado un consumidor que importa el paquete, cuando cambia el atributo de tema a dark, entonces todos los componentes base cambian de apariencia sin modificar su markup.
 - Dado el playground del website, cuando un usuario selecciona un componente y un tema, entonces ve el resultado en vivo y los tokens usados.
 - Dado un par de color semántico (ej. texto sobre primary), cuando se ejecuta el test de contraste, entonces el ratio es ≥ 4.5:1.
@@ -62,6 +71,7 @@ Proveer una fuente única de verdad de design tokens (`--ds-*`), theme-boot y co
 - Dado un token de color definido en OKLCH, cuando se genera el CSS, entonces la variable `--ds-*` contiene el valor OKLCH y el test de contraste lo evalúa correctamente.
 
 ## Interfaces externas
+
 - Paquete npm: `@soluciones-alexendros/ds` (nombre provisional).
 - Export principal: CSS variables + `setTheme(mode: 'light' | 'dark' | 'system')`.
 - Website de muestra: documentación + playground (URL a definir en implementación).
@@ -70,6 +80,7 @@ Proveer una fuente única de verdad de design tokens (`--ds-*`), theme-boot y co
 - Suite de tests: axe-core (o equivalente) + test de contraste dedicado (p. ej. colorjs.io o apca) integrada en CI del paquete y del website de muestra.
 
 ## Tests de contraste WCAG (definición)
+
 - **Alcance**: todos los pares semánticos de texto-sobre-fondo e icono-sobre-fondo definidos en la capa semantic (primary, secondary, error, success, warning, surface, etc.) en temas light y dark.
 - **Umbrales**:
   - Texto normal (< 18 pt / 14 pt bold): ≥ 4.5:1 (WCAG 2.1 AA 1.4.3).
