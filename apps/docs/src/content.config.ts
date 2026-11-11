@@ -9,4 +9,11 @@ const components = defineCollection({
   }),
 });
 
-export const collections = { components };
+const guides = defineCollection({
+  loader: glob({
+    pattern: "{install-astro,install-next}.md",
+    base: new URL("../../../docs/guides", import.meta.url),
+  }),
+});
+
+export const collections = { components, guides };
