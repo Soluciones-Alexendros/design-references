@@ -1,0 +1,16 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "design-references-two\\.vercel\\.app"
+        }
+      ],
+      "destination": "https://design.alexendros.dev/:path*",
+      "statusCode": 308
+    }
+  ]
+}

@@ -3,7 +3,12 @@
   "redirects": [
     {
       "source": "/:path*",
-      "has": [{ "type": "host", "value": "design-references-two.vercel.app" }],
+      "has": [
+        {
+          "type": "host",
+          "value": "design-references-two\\.vercel\\.app"
+        }
+      ],
       "destination": "https://design.alexendros.dev/:path*",
       "statusCode": 308
     }

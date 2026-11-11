@@ -102,8 +102,12 @@ const samples = {
     <Fragment set:html={samples.banner} />
   </section>
 
-  <aside class="ds-alert ds-alert--info" role="status">
-    <strong>Info:</strong> tokens activos vía CSS variables; el cambio de tema no
-    modifica el markup de los componentes.
-  </aside>
+  <Fragment
+    set:html={renderAlert({
+      tone: "info",
+      role: "status",
+      message:
+        "tokens activos vía CSS variables; el cambio de tema no modifica el markup de los componentes.",
+    })}
+  />
 </Base>

@@ -1,6 +1,6 @@
 # Component: Checkbox
 
-### Propósito de este documento
+## Propósito de este documento
 
 Spec viva de Checkbox con label visible (DoD 1–3).
 

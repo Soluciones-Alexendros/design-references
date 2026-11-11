@@ -1,6 +1,6 @@
 # Component: Alert
 
-### Propósito de este documento
+## Propósito de este documento
 
 Spec viva de Alert: feedback puntual con tono y rol ARIA (DoD 1–3).
 

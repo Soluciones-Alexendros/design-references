@@ -184,6 +184,18 @@ const flatCss = [
 ].join("\n\n");
 writeFileSync(join(dist, "css", "components.css"), flatCss, "utf8");
 
+const stylesGzip = gzipSync(readFileSync(join(dist, "styles.css"))).length;
+const STYLES_GZIP_MAX = 8 * 1024;
+if (stylesGzip > STYLES_GZIP_MAX) {
+  console.error(
+    `styles.css gzip ${stylesGzip}B (>${STYLES_GZIP_MAX}B / 8KB budget for tokens.css)`
+  );
+  process.exit(1);
+}
+console.log(
+  `styles.css gzip ${stylesGzip}B (budget ${STYLES_GZIP_MAX}B for tokens.css alias)`
+);
+
 const bootPath = join(dist, "theme-boot.js");
 const bootBytes = statSync(bootPath).size;
 if (bootBytes > 1024) {

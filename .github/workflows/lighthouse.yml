@@ -1,0 +1,49 @@
+# F5-07: Lighthouse CI — a11y=100, performance≥95 on key docs routes + size budgets.
+name: lighthouse
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+
+jobs:
+  lighthouse:
+    name: budgets + lighthouse
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: "22"
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Build package (tokens CSS + theme-boot)
+        run: npm run build -w @soluciones-alexendros/ds
+
+      - name: Size budgets (tokens.css gzip ≤8KB, theme-boot ≤1KB)
+        run: npm run test:budgets
+
+      - name: Build docs site
+        run: npm run build -w @soluciones-alexendros/ds-docs
+
+      - name: Install Playwright Chromium (LHCI chromePath)
+        run: npx playwright install --with-deps chromium
+
+      - name: Lighthouse CI (a11y=100, perf≥95)
+        run: |
+          export CHROME_PATH="$(node -e "import('playwright').then((p) => console.log(p.chromium.executablePath()))")"
+          npm run test:lighthouse
+
+      - name: Upload Lighthouse reports
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: lighthouse-reports
+          path: .lighthouseci
+          if-no-files-found: ignore

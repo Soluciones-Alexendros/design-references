@@ -1,6 +1,6 @@
 # Componentes — inventario F3-00 y specs
 
-### Propósito de este documento
+## Propósito de este documento
 
 Inventario del HTML que emiten los 10 `renderX` actuales frente a la plantilla de componente (anatomía, estados, a11y, do/don’t, HTML canónico). Las specs por slug cierran DoD 1–3; wrappers (F3-05) y Playwright (F3-07) quedan fuera.
 

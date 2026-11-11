@@ -1,6 +1,6 @@
 # Component: Select
 
-### Propósito de este documento
+## Propósito de este documento
 
 Spec viva de Select nativo (DoD 1–3).
 

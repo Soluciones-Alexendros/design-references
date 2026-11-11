@@ -1,6 +1,6 @@
 # Component: Link
 
-### Propósito de este documento
+## Propósito de este documento
 
 Spec viva de Link: navegación con contraste y foco (DoD 1–3).
 

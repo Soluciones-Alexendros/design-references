@@ -1,6 +1,6 @@
 # Component: Input
 
-### Propósito de este documento
+## Propósito de este documento
 
 Spec viva de Input: control de texto nativo con tokens y estados (DoD 1–3).
 
