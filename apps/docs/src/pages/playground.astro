@@ -19,7 +19,10 @@ const samples = {
   buttonDanger: renderButton({ variant: "danger", label: "Danger" }),
   input: renderInput({ label: "Name", id: "playground-name" }),
   card: renderCard({ elevated: true, body: "Card with elevation token" }),
-  alert: renderAlert({ tone: "warning", message: "Check contrast and focus rings" }),
+  alert: renderAlert({
+    tone: "warning",
+    message: "Check contrast and focus rings",
+  }),
   link: renderLink({ href: "#playground", label: "Design system link" }),
   stack: renderStack({
     gap: "md",
@@ -53,11 +56,17 @@ const samples = {
   }),
 };
 ---
-<Base title="Playground">
+<Base title="Playground" description="Primitives montados con tokens --ds-*.">
   <h1>Playground</h1>
-  <p>Primitives montados con tokens <code>--ds-*</code>. Usa los controles Light / Dark / System del header.</p>
+  <p>
+    Primitives montados con tokens <code>--ds-*</code>. Usa los controles Light /
+    Dark / System del header (placeholder hasta ThemeToggle F3).
+  </p>
 
-  <section class="ds-card" style="margin-block: var(--ds-space-lg); display:grid; gap: var(--ds-space-md);">
+  <section
+    class="ds-card"
+    style="margin-block: var(--ds-space-lg); display:grid; gap: var(--ds-space-md);"
+  >
     <h2>Buttons</h2>
     <div style="display:flex; gap: var(--ds-space-sm); flex-wrap:wrap;">
       <Fragment set:html={samples.buttonPrimary} />
@@ -94,6 +103,7 @@ const samples = {
   </section>
 
   <aside class="ds-alert ds-alert--info" role="status">
-    <strong>Info:</strong> tokens activos vía CSS variables; el cambio de tema no modifica el markup de los componentes.
+    <strong>Info:</strong> tokens activos vía CSS variables; el cambio de tema no
+    modifica el markup de los componentes.
   </aside>
 </Base>
