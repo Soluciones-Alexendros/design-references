@@ -18,6 +18,7 @@ Fuente única de especificación viva del design system. Los ADR viven en [`docs
 | [inventory.md](inventory.md)                   | Exports y primitives actuales vs meta                          |
 | [stability.md](stability.md)                   | **Política pre-0.1.0** (alias/`$deprecated`/exports/`renderX`) |
 | [definition-of-done.md](definition-of-done.md) | Definición de hecho por componente (fases posteriores)         |
+| [components/](components/)                     | Inventario F3-00 + specs por slug (DoD 1–3)                    |
 | [../adr/](../adr/)                             | Decisiones ADR-0001…0008                                       |
 
 ## Dominio
