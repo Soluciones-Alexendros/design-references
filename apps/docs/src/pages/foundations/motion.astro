@@ -1,0 +1,50 @@
+---
+import Base from "../../layouts/Base.astro";
+---
+<Base title="Motion" description="Duraciones y easings --ds-motion-*.">
+  <h1>Motion</h1>
+  <p>
+    Duraciones y curvas viven en la capa reference
+    (<code>tokens/reference.json</code> → <code>--ds-motion-*</code>).
+  </p>
+
+  <table class="ds-token-table">
+    <thead>
+      <tr>
+        <th>Token</th>
+        <th>Uso</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>--ds-motion-duration-fast</code></td>
+        <td>microinteracciones</td>
+      </tr>
+      <tr>
+        <td><code>--ds-motion-duration-normal</code></td>
+        <td>transiciones de UI</td>
+      </tr>
+      <tr>
+        <td><code>--ds-motion-duration-slow</code></td>
+        <td>entradas enfatizadas</td>
+      </tr>
+      <tr>
+        <td><code>--ds-motion-easing-standard</code></td>
+        <td>movimiento estándar</td>
+      </tr>
+      <tr>
+        <td><code>--ds-motion-easing-emphasized</code></td>
+        <td>énfasis</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>Demo</h2>
+  <p>Hover (respeta <code>prefers-reduced-motion: reduce</code>):</p>
+  <div class="ds-foundation-row">
+    <div class="ds-motion-demo" aria-hidden="true"></div>
+    <code
+      >transition: … var(--ds-motion-duration-normal) var(--ds-motion-easing-standard)</code
+    >
+  </div>
+</Base>

@@ -1,0 +1,40 @@
+---
+import Base from "../../layouts/Base.astro";
+import TokenScale from "../../components/TokenScale.astro";
+---
+<Base title="Elevation" description="Sombras --ds-elevation-*.">
+  <h1>Elevation</h1>
+
+  <div class="ds-foundation-grid">
+    <div class="ds-elevation-demo" style="box-shadow:var(--ds-elevation-0)">
+      <code>--ds-elevation-0</code>
+    </div>
+    <div class="ds-elevation-demo" style="box-shadow:var(--ds-elevation-1)">
+      <code>--ds-elevation-1</code>
+    </div>
+    <div class="ds-elevation-demo" style="box-shadow:var(--ds-elevation-2)">
+      <code>--ds-elevation-2</code>
+    </div>
+    <div class="ds-elevation-demo" style="box-shadow:var(--ds-elevation-3)">
+      <code>--ds-elevation-3</code>
+    </div>
+  </div>
+
+  <TokenScale
+    title="Semántico"
+    items={[
+      {
+        token: "--ds-elevation-surface",
+        previewStyle:
+          "padding:var(--ds-space-lg);background:var(--ds-color-bg-surface-elevated);border-radius:var(--ds-radius-surface);box-shadow:var(--ds-elevation-surface)",
+        note: "surface",
+      },
+      {
+        token: "--ds-elevation-overlay",
+        previewStyle:
+          "padding:var(--ds-space-lg);background:var(--ds-color-bg-surface-elevated);border-radius:var(--ds-radius-surface);box-shadow:var(--ds-elevation-overlay)",
+        note: "overlay",
+      },
+    ]}
+  />
+</Base>

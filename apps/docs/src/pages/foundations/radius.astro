@@ -1,0 +1,56 @@
+---
+import Base from "../../layouts/Base.astro";
+import TokenScale from "../../components/TokenScale.astro";
+---
+<Base title="Radius" description="Radios de referencia y semánticos --ds-radius-*.">
+  <h1>Radius</h1>
+
+  <TokenScale
+    title="Referencia"
+    items={[
+      {
+        token: "--ds-radius-none",
+        previewStyle:
+          "width:var(--ds-space-xl);height:var(--ds-space-xl);background:var(--ds-color-bg-primary);border-radius:var(--ds-radius-none)",
+      },
+      {
+        token: "--ds-radius-sm",
+        previewStyle:
+          "width:var(--ds-space-xl);height:var(--ds-space-xl);background:var(--ds-color-bg-primary);border-radius:var(--ds-radius-sm)",
+      },
+      {
+        token: "--ds-radius-md",
+        previewStyle:
+          "width:var(--ds-space-xl);height:var(--ds-space-xl);background:var(--ds-color-bg-primary);border-radius:var(--ds-radius-md)",
+      },
+      {
+        token: "--ds-radius-lg",
+        previewStyle:
+          "width:var(--ds-space-xl);height:var(--ds-space-xl);background:var(--ds-color-bg-primary);border-radius:var(--ds-radius-lg)",
+      },
+      {
+        token: "--ds-radius-full",
+        previewStyle:
+          "width:var(--ds-space-xl);height:var(--ds-space-xl);background:var(--ds-color-bg-primary);border-radius:var(--ds-radius-full)",
+      },
+    ]}
+  />
+
+  <TokenScale
+    title="Semántico"
+    items={[
+      {
+        token: "--ds-radius-control",
+        previewStyle:
+          "width:var(--ds-spacing-8);height:var(--ds-space-xl);background:var(--ds-color-bg-secondary);border:var(--ds-border-width-hairline) solid var(--ds-color-border-default);border-radius:var(--ds-radius-control)",
+        note: "controles",
+      },
+      {
+        token: "--ds-radius-surface",
+        previewStyle:
+          "width:var(--ds-spacing-10);height:var(--ds-spacing-8);background:var(--ds-color-bg-surface-elevated);border:var(--ds-border-width-hairline) solid var(--ds-color-border-default);border-radius:var(--ds-radius-surface);box-shadow:var(--ds-elevation-surface)",
+        note: "superficies",
+      },
+    ]}
+  />
+</Base>
