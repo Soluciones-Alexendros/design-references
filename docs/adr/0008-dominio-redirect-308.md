@@ -10,7 +10,7 @@ Un solo proyecto Vercel `design-references`. Dominios: `design.alexendros.dev` (
 ## Decisión
 
 - Canónico: `https://design.alexendros.dev`.
-- Redirect **308** por host: `design-references-two.vercel.app` → `https://design.alexendros.dev/:path*` vía `vercel.json` (F1-01).
+- Redirect **308** del alias: project domain redirect (`redirect=design.alexendros.dev`, `redirectStatusCode=308`) — F5-08. `vercel.json` host redirects no bastaron en el alias `*.vercel.app`.
 
 ## Alternativas
 
@@ -19,7 +19,7 @@ Un solo proyecto Vercel `design-references`. Dominios: `design.alexendros.dev` (
 
 ## Consecuencias
 
-Tras deploy en Vercel, verificar:
+Verificar (sin follow):
 
 ```bash
 curl -sI https://design-references-two.vercel.app/
@@ -28,4 +28,4 @@ curl -sI https://design.alexendros.dev/
 # no debe redirigir en bucle
 ```
 
-Rollback: revertir o vaciar `redirects` en `vercel.json`.
+Rollback: `PATCH` el dominio alias con `redirect: null` / `redirectStatusCode: null`.
