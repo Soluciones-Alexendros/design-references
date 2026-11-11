@@ -4,18 +4,18 @@
   width: 100%;
   min-height: var(--ds-space-touch);
   padding: var(--ds-space-sm) var(--ds-space-md);
-  border: 1px solid var(--ds-color-border-default);
+  border: var(--ds-border-width-hairline) solid var(--ds-color-border-default);
   border-radius: var(--ds-radius-control);
   background: var(--ds-color-bg-surface-elevated);
-  color: var(--ds-color-text-on-surface);
+  color: var(--ds-color-text-default);
   font-family: var(--ds-type-family-sans);
   font-size: var(--ds-type-size-body);
   line-height: var(--ds-type-lineHeight-body);
 }
 
 .ds-input:focus-visible {
-  outline: 2px solid var(--ds-color-border-focus);
-  outline-offset: 2px;
+  outline: var(--ds-border-width-focus) solid var(--ds-color-border-focus);
+  outline-offset: var(--ds-border-offset-focus);
 }
 
 .ds-input[aria-invalid="true"] {

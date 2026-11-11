@@ -1,0 +1,34 @@
+{
+  "$description": "ArchMaker brand overrides — provisional teal palette (placeholder until real brand adoption)",
+  "color": {
+    "$type": "color",
+    "light": {
+      "bg": {
+        "primary": { "$value": "{color.teal.500}" },
+        "primary-hover": { "$value": "{color.teal.700}" },
+        "primary-active": { "$value": "{color.teal.900}" }
+      },
+      "text": {
+        "link": { "$value": "{color.teal.500}" },
+        "link-hover": { "$value": "{color.teal.700}" }
+      },
+      "border": {
+        "focus": { "$value": "{color.neutral.950}" }
+      }
+    },
+    "dark": {
+      "bg": {
+        "primary": { "$value": "{color.teal.400}" },
+        "primary-hover": { "$value": "{color.teal.300}" },
+        "primary-active": { "$value": "oklch(0.56 0.11 180)" }
+      },
+      "text": {
+        "link": { "$value": "oklch(0.58 0.11 180)" },
+        "link-hover": { "$value": "{color.teal.300}" }
+      },
+      "border": {
+        "focus": { "$value": "{color.neutral.0}" }
+      }
+    }
+  }
+}

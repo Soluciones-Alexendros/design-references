@@ -1,7 +1,7 @@
 {
   "id": "primitives-link-stack-field",
   "phase": "SCHEMAS",
-  "source": ".autoworkspace/SPEC.md",
+  "source": "docs/spec/",
   "criteria": [
     {
       "id": "PF-01",

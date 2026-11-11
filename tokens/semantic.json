@@ -1,5 +1,5 @@
 {
-  "$description": "DTCG 2025.10 semantic layer — light/dark role tokens",
+  "$description": "DTCG 2025.10 semantic layer — light/dark role tokens (categoría.rol[.estado])",
   "color": {
     "$type": "color",
     "light": {
@@ -7,31 +7,36 @@
         "surface": { "$value": "{color.neutral.50}" },
         "surface-elevated": { "$value": "{color.neutral.0}" },
         "primary": { "$value": "{color.blue.500}" },
+        "primary-hover": { "$value": "{color.blue.700}" },
+        "primary-active": { "$value": "{color.blue.900}" },
         "secondary": { "$value": "{color.neutral.200}" },
         "error": { "$value": "{color.red.500}" },
+        "error-hover": { "$value": "{color.red.700}" },
+        "error-active": { "$value": "{color.red.900}" },
         "success": { "$value": "{color.green.500}" },
         "warning": { "$value": "{color.amber.500}" },
         "disabled": { "$value": "{color.neutral.200}" }
       },
       "text": {
-        "on-surface": { "$value": "{color.neutral.900}" },
-        "on-surface-muted": { "$value": "{color.neutral.600}" },
+        "default": { "$value": "{color.neutral.900}" },
+        "muted": { "$value": "{color.neutral.600}" },
         "on-primary": { "$value": "{color.neutral.0}" },
         "on-secondary": { "$value": "{color.neutral.900}" },
         "on-error": { "$value": "{color.neutral.0}" },
         "on-success": { "$value": "{color.neutral.0}" },
         "on-warning": { "$value": "{color.amber.800}" },
         "on-disabled": { "$value": "{color.neutral.500}" },
-        "link": { "$value": "{color.blue.700}" }
+        "link": { "$value": "{color.blue.500}" },
+        "link-hover": { "$value": "{color.blue.700}" }
       },
       "border": {
-        "default": { "$value": "{color.neutral.300}" },
-        "strong": { "$value": "{color.neutral.500}" },
-        "focus": { "$value": "{color.blue.500}" },
+        "default": { "$value": "{color.neutral.500}" },
+        "strong": { "$value": "{color.neutral.600}" },
+        "focus": { "$value": "{color.neutral.950}" },
         "error": { "$value": "{color.red.500}" }
       },
       "icon": {
-        "on-surface": { "$value": "{color.neutral.800}" },
+        "default": { "$value": "{color.neutral.800}" },
         "on-primary": { "$value": "{color.neutral.0}" },
         "on-error": { "$value": "{color.neutral.0}" }
       }
@@ -40,32 +45,37 @@
       "bg": {
         "surface": { "$value": "{color.neutral.900}" },
         "surface-elevated": { "$value": "{color.neutral.800}" },
-        "primary": { "$value": "{color.blue.300}" },
+        "primary": { "$value": "{color.blue.400}" },
+        "primary-hover": { "$value": "{color.blue.300}" },
+        "primary-active": { "$value": "oklch(0.58 0.15 250)" },
         "secondary": { "$value": "{color.neutral.700}" },
-        "error": { "$value": "{color.red.500}" },
+        "error": { "$value": "{color.red.400}" },
+        "error-hover": { "$value": "oklch(0.58 0.17 25)" },
+        "error-active": { "$value": "{color.red.500}" },
         "success": { "$value": "{color.green.500}" },
         "warning": { "$value": "{color.amber.500}" },
         "disabled": { "$value": "{color.neutral.700}" }
       },
       "text": {
-        "on-surface": { "$value": "{color.neutral.50}" },
-        "on-surface-muted": { "$value": "{color.neutral.300}" },
+        "default": { "$value": "{color.neutral.50}" },
+        "muted": { "$value": "{color.neutral.300}" },
         "on-primary": { "$value": "{color.neutral.950}" },
         "on-secondary": { "$value": "{color.neutral.50}" },
         "on-error": { "$value": "{color.neutral.0}" },
         "on-success": { "$value": "{color.neutral.0}" },
         "on-warning": { "$value": "{color.amber.800}" },
         "on-disabled": { "$value": "{color.neutral.400}" },
-        "link": { "$value": "{color.blue.100}" }
+        "link": { "$value": "oklch(0.6 0.14 250)" },
+        "link-hover": { "$value": "{color.blue.300}" }
       },
       "border": {
-        "default": { "$value": "{color.neutral.600}" },
-        "strong": { "$value": "{color.neutral.400}" },
-        "focus": { "$value": "{color.blue.300}" },
+        "default": { "$value": "{color.neutral.400}" },
+        "strong": { "$value": "{color.neutral.300}" },
+        "focus": { "$value": "{color.neutral.0}" },
         "error": { "$value": "{color.red.100}" }
       },
       "icon": {
-        "on-surface": { "$value": "{color.neutral.100}" },
+        "default": { "$value": "{color.neutral.100}" },
         "on-primary": { "$value": "{color.neutral.950}" },
         "on-error": { "$value": "{color.neutral.0}" }
       }
@@ -110,87 +120,5 @@
     "$type": "shadow",
     "surface": { "$value": "{elevation.1}" },
     "overlay": { "$value": "{elevation.2}" }
-  },
-  "$extensions": {
-    "org.soluciones-alexendros.contrastPairs": [
-      {
-        "name": "text.on-surface / bg.surface",
-        "foreground": "text.on-surface",
-        "background": "bg.surface",
-        "level": "normal"
-      },
-      {
-        "name": "text.on-surface-muted / bg.surface",
-        "foreground": "text.on-surface-muted",
-        "background": "bg.surface",
-        "level": "normal"
-      },
-      {
-        "name": "text.on-primary / bg.primary",
-        "foreground": "text.on-primary",
-        "background": "bg.primary",
-        "level": "normal"
-      },
-      {
-        "name": "text.on-secondary / bg.secondary",
-        "foreground": "text.on-secondary",
-        "background": "bg.secondary",
-        "level": "normal"
-      },
-      {
-        "name": "text.on-error / bg.error",
-        "foreground": "text.on-error",
-        "background": "bg.error",
-        "level": "normal"
-      },
-      {
-        "name": "text.on-success / bg.success",
-        "foreground": "text.on-success",
-        "background": "bg.success",
-        "level": "normal"
-      },
-      {
-        "name": "text.on-warning / bg.warning",
-        "foreground": "text.on-warning",
-        "background": "bg.warning",
-        "level": "normal"
-      },
-      {
-        "name": "text.on-disabled / bg.disabled",
-        "foreground": "text.on-disabled",
-        "background": "bg.disabled",
-        "level": "ui"
-      },
-      {
-        "name": "text.link / bg.surface",
-        "foreground": "text.link",
-        "background": "bg.surface",
-        "level": "normal"
-      },
-      {
-        "name": "icon.on-surface / bg.surface",
-        "foreground": "icon.on-surface",
-        "background": "bg.surface",
-        "level": "ui"
-      },
-      {
-        "name": "icon.on-primary / bg.primary",
-        "foreground": "icon.on-primary",
-        "background": "bg.primary",
-        "level": "ui"
-      },
-      {
-        "name": "icon.on-error / bg.error",
-        "foreground": "icon.on-error",
-        "background": "bg.error",
-        "level": "ui"
-      },
-      {
-        "name": "border.focus / bg.surface",
-        "foreground": "border.focus",
-        "background": "bg.surface",
-        "level": "ui"
-      }
-    ]
   }
 }

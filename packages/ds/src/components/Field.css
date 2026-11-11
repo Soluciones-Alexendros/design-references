@@ -10,7 +10,7 @@
   font-size: var(--ds-type-size-label);
   font-weight: var(--ds-type-weight-medium);
   line-height: var(--ds-type-lineHeight-tight);
-  color: var(--ds-color-text-on-surface);
+  color: var(--ds-color-text-default);
 }
 
 .ds-field__error {
@@ -22,5 +22,5 @@
   line-height: var(--ds-type-lineHeight-tight);
   color: var(--ds-color-text-on-error);
   background: var(--ds-color-bg-error);
-  border: 1px solid var(--ds-color-border-error);
+  border: var(--ds-border-width-hairline) solid var(--ds-color-border-error);
 }

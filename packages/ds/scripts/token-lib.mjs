@@ -1,7 +1,7 @@
 /**
  * Shared DTCG load / alias resolve / CSS name helpers.
  */
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -32,11 +32,39 @@ export function deepMerge(a, b) {
   return b ?? a;
 }
 
-export function loadTokenTree() {
+/**
+ * @param {{ brand?: string }} [opts]
+ * brand "default" or omitted → base tree; other brands merge tokens/brands/<id>.json
+ */
+export function loadTokenTree(opts = {}) {
   const reference = loadJson("reference.json");
   const semantic = loadJson("semantic.json");
   const component = loadJson("component.json");
-  return deepMerge(deepMerge(reference, semantic), component);
+  let tree = deepMerge(deepMerge(reference, semantic), component);
+  const brand = opts.brand && opts.brand !== "default" ? opts.brand : null;
+  if (brand) {
+    const brandTree = loadJson(`brands/${brand}.json`);
+    tree = deepMerge(tree, brandTree);
+  }
+  return tree;
+}
+
+export function loadContrastPairs() {
+  return loadJson("contrast.pairs.json");
+}
+
+export function listBrands() {
+  const brandsDir = join(TOKENS_DIR, "brands");
+  if (!existsSync(brandsDir)) return ["default"];
+  const ids = readdirSync(brandsDir)
+    .filter((f) => f.endsWith(".json"))
+    .map((f) => f.replace(/\.json$/, ""))
+    .sort((a, b) => {
+      if (a === "default") return -1;
+      if (b === "default") return 1;
+      return a.localeCompare(b);
+    });
+  return ids.length ? ids : ["default"];
 }
 
 export function getPath(tree, path) {
@@ -52,7 +80,11 @@ export function getPath(tree, path) {
 }
 
 export function resolveValue(tree, value, seen = new Set()) {
-  if (typeof value === "string" && value.startsWith("{") && value.endsWith("}")) {
+  if (
+    typeof value === "string" &&
+    value.startsWith("{") &&
+    value.endsWith("}")
+  ) {
     const path = value.slice(1, -1);
     if (seen.has(path)) throw new Error(`Circular alias: ${path}`);
     seen.add(path);
@@ -66,7 +98,7 @@ export function resolveValue(tree, value, seen = new Set()) {
     return value.map((v) =>
       v && typeof v === "object" && "color" in v
         ? { ...v, color: resolveValue(tree, v.color, new Set(seen)) }
-        : resolveValue(tree, v, new Set(seen)),
+        : resolveValue(tree, v, new Set(seen))
     );
   }
   return value;
@@ -111,6 +143,9 @@ export function formatCssValue(value) {
     if (typeof value[0] === "string") {
       return value.map((v) => (/\s/.test(v) ? `"${v}"` : v)).join(", ");
     }
+    if (value.every((v) => typeof v === "number")) {
+      return `cubic-bezier(${value.join(", ")})`;
+    }
     // shadow list
     return value
       .map((s) => {
@@ -134,7 +169,7 @@ export function oklchToSrgb(oklchStr) {
   const m = String(oklchStr)
     .trim()
     .match(
-      /^oklch\(\s*([\d.]+)\s*%?\s+([\d.]+)\s+([\d.-]+)\s*(?:\/\s*([\d.]+)%?)?\s*\)$/i,
+      /^oklch\(\s*([\d.]+)\s*%?\s+([\d.]+)\s+([\d.-]+)\s*(?:\/\s*([\d.]+)%?)?\s*\)$/i
     );
   if (!m) throw new Error(`Not OKLCH: ${oklchStr}`);
   let L = parseFloat(m[1]);
@@ -178,4 +213,16 @@ export function contrastRatio(fgOklch, bgOklch) {
   const lighter = Math.max(L1, L2);
   const darker = Math.min(L1, L2);
   return (lighter + 0.05) / (darker + 0.05);
+}
+
+/**
+ * Informational APCA-like lightness contrast (not a CI gate).
+ * Soft-clamp relative luminance difference scaled to a readable Lc-ish number.
+ */
+export function apcaContrast(fgOklch, bgOklch) {
+  const Yfg = relativeLuminance(oklchToSrgb(fgOklch));
+  const Ybg = relativeLuminance(oklchToSrgb(bgOklch));
+  const soft = (y) => Math.pow(Math.max(0, y), 0.57);
+  const Lc = (soft(Ybg) - soft(Yfg)) * 1.14 * 100;
+  return Number(Lc.toFixed(1));
 }

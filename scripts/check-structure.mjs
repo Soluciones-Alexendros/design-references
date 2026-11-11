@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
- * SCHEMAS stubs: fail until SPEC acceptance criteria paths/exports exist.
- * Run: node scripts/acceptance-stubs.mjs
+ * Structural checks against .autoworkspace/schemas/*.acceptance.json.
+ * Run: npm run test:structure  (or: node scripts/check-structure.mjs)
  */
 import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
 import { dirname, join } from "node:path";
@@ -28,7 +28,8 @@ function runSchema(file) {
       case "dirs_exist":
         for (const p of c.paths) {
           const abs = join(root, p);
-          if (!existsSync(abs) || !statSync(abs).isDirectory()) fail(c.id, `missing dir ${p}`);
+          if (!existsSync(abs) || !statSync(abs).isDirectory())
+            fail(c.id, `missing dir ${p}`);
         }
         break;
       case "file_absent":
@@ -56,7 +57,8 @@ function runSchema(file) {
         }
         const src = readFileSync(abs, "utf8");
         for (const name of c.names) {
-          if (!src.includes(name)) fail(c.id, `${c.path} missing export ${name}`);
+          if (!src.includes(name))
+            fail(c.id, `${c.path} missing export ${name}`);
         }
         break;
       }
@@ -68,7 +70,8 @@ function runSchema(file) {
         }
         const src = readFileSync(abs, "utf8");
         for (const job of c.jobs) {
-          if (!new RegExp(`^\\s*${job}:`, "m").test(src)) fail(c.id, `ci missing job ${job}`);
+          if (!new RegExp(`^\\s*${job}:`, "m").test(src))
+            fail(c.id, `ci missing job ${job}`);
         }
         if (/test:a11y|test:contrast|axe-core|contrast runner/i.test(src)) {
           fail(c.id, "ci.yml must not duplicate a11y/contrast");
@@ -83,7 +86,8 @@ function runSchema(file) {
         }
         const pkg = JSON.parse(readFileSync(abs, "utf8"));
         const val = pkg.dependencies?.[c.name] ?? pkg.devDependencies?.[c.name];
-        if (val !== c.value) fail(c.id, `${c.name}=${JSON.stringify(val)} want ${c.value}`);
+        if (val !== c.value)
+          fail(c.id, `${c.name}=${JSON.stringify(val)} want ${c.value}`);
         break;
       }
       default:
@@ -92,7 +96,9 @@ function runSchema(file) {
   }
 }
 
-const files = readdirSync(schemaDir).filter((f) => f.endsWith(".acceptance.json"));
+const files = readdirSync(schemaDir).filter((f) =>
+  f.endsWith(".acceptance.json")
+);
 if (files.length === 0) {
   console.error("FAIL: no .acceptance.json under .autoworkspace/schemas");
   process.exit(1);
@@ -101,7 +107,7 @@ if (files.length === 0) {
 for (const f of files) runSchema(f);
 
 if (failed) {
-  console.error(`acceptance stubs: ${failed} failure(s)`);
+  console.error(`check-structure: ${failed} failure(s)`);
   process.exit(1);
 }
-console.log(`OK  acceptance stubs (${files.length} schemas)`);
+console.log(`OK  check-structure (${files.length} schemas)`);

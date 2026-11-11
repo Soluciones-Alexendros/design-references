@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
- * Fail if component CSS/JS hardcodes colors, px lengths (except 0/1/2 outline),
- * or hex/rgb/hsl outside of var(--ds-*).
+ * Fail if component CSS/JS hardcodes colors, px lengths, or hex/rgb/hsl
+ * outside of var(--ds-*). Hairlines and focus rings must use border tokens.
  */
 import { readFileSync, readdirSync } from "node:fs";
 import { dirname, join } from "node:path";
@@ -16,13 +16,13 @@ const FORBIDDEN = [
   { re: /\boklch\s*\(/i, msg: "raw oklch (use var(--ds-*))" },
   {
     re: /(?<!var\(--ds-[^)]*)\b\d+(?:\.\d+)?(?:px|rem|em)\b/,
-    msg: "hardcoded length (use tokens; 1px/2px borders/outlines allowed via whitelist)",
+    msg: "hardcoded length (use --ds-border-width-* / --ds-space-* / motion tokens)",
   },
 ];
 
-const LENGTH_WHITELIST = /(?:border|outline)(?:-width)?:\s*(?:1|2)px\b|outline-offset:\s*2px\b|border:\s*(?:1|2)px\b/;
-
-const files = readdirSync(dir).filter((f) => f.endsWith(".css") || f.endsWith(".js"));
+const files = readdirSync(dir).filter(
+  (f) => f.endsWith(".css") || f.endsWith(".js")
+);
 let failed = false;
 
 for (const file of files) {
@@ -34,20 +34,27 @@ for (const file of files) {
     if (line.trim().startsWith("//") || line.trim().startsWith("*")) return;
     for (const { re, msg } of FORBIDDEN) {
       if (!re.test(line)) continue;
-      if (msg.startsWith("hardcoded length") && LENGTH_WHITELIST.test(line)) continue;
-      // allow template/docs strings mentioning tokens in JS without values
-      if (file.endsWith(".js") && msg !== "hex color" && msg !== "rgb/hsl color" && msg !== "raw oklch (use var(--ds-*))") {
+      if (
+        file.endsWith(".js") &&
+        msg !== "hex color" &&
+        msg !== "rgb/hsl color" &&
+        msg !== "raw oklch (use var(--ds-*))"
+      ) {
         continue;
       }
       console.error(`FAIL ${file}:${i + 1} ${msg}: ${line.trim()}`);
       failed = true;
     }
-    if (file.endsWith(".css") && /:\s*[^;]*\b(?:red|blue|white|black|gray|grey)\b/i.test(line)) {
+    if (
+      file.endsWith(".css") &&
+      /:\s*[^;]*\b(?:red|blue|white|black|gray|grey)\b/i.test(line)
+    ) {
       console.error(`FAIL ${file}:${i + 1} named color: ${line.trim()}`);
       failed = true;
     }
   });
 }
 
-if (!failed) console.log(`OK  linted ${files.length} component files (tokens only)`);
+if (!failed)
+  console.log(`OK  linted ${files.length} component files (tokens only)`);
 process.exit(failed ? 1 : 0);

@@ -1,7 +1,7 @@
 {
   "id": "docs-surface-sync",
   "phase": "SCHEMAS",
-  "source": ".autoworkspace/SPEC.md",
+  "source": "docs/spec/",
   "criteria": [
     {
       "id": "DS-01",
