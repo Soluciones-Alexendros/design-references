@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * Observable behavior for Link / Stack / Field / Select / Checkbox / Banner.
- * Complements axe (a11y-runner) and acceptance-stubs.
+ * Complements axe (a11y-runner) and check-structure.
  */
 import { readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
@@ -46,8 +46,10 @@ function parse(html) {
   }
   const css = readFileSync(join(compDir, "Link.css"), "utf8");
   if (!css.includes(":focus-visible")) fail("Link.css: :focus-visible");
-  if (!css.includes("--ds-color-text-link")) fail("Link.css: --ds-color-text-link");
-  if (!css.includes("--ds-color-border-focus")) fail("Link.css: --ds-color-border-focus");
+  if (!css.includes("--ds-color-text-link"))
+    fail("Link.css: --ds-color-text-link");
+  if (!css.includes("--ds-color-border-focus"))
+    fail("Link.css: --ds-color-border-focus");
   else ok("Link.css: tokens + focus-visible");
 }
 
@@ -92,12 +94,17 @@ function parse(html) {
   if (input?.hasAttribute("aria-label")) {
     fail("Field: input must omit aria-label when visible label exists");
   } else ok("Field: omitAriaLabel");
-  if (input?.getAttribute("aria-invalid") !== "true") fail("Field: aria-invalid");
+  if (input?.getAttribute("aria-invalid") !== "true")
+    fail("Field: aria-invalid");
   else ok("Field: aria-invalid");
   if (input?.getAttribute("aria-describedby") !== "work-email-error") {
     fail("Field: aria-describedby → error id");
   } else ok("Field: aria-describedby");
-  if (!err || !err.textContent.includes("Error:") || !err.textContent.includes("Enter a valid email")) {
+  if (
+    !err ||
+    !err.textContent.includes("Error:") ||
+    !err.textContent.includes("Enter a valid email")
+  ) {
     fail("Field: error text must include Error: prefix and message");
   } else if (err.getAttribute("role") !== "alert") {
     fail("Field: error role=alert");
@@ -111,7 +118,8 @@ function parse(html) {
   if (input?.hasAttribute("aria-describedby")) {
     fail("Field: no aria-describedby when valid");
   }
-  if (doc.querySelector(".ds-field__error")) fail("Field: no error node when valid");
+  if (doc.querySelector(".ds-field__error"))
+    fail("Field: no error node when valid");
   else ok("Field: valid state clean");
 }
 
@@ -142,17 +150,20 @@ function parse(html) {
   if (!el) fail("Select: missing select.ds-select");
   else {
     if (el.id !== "region") fail("Select: id");
-    if (el.getAttribute("aria-invalid") !== "true") fail("Select: aria-invalid");
+    if (el.getAttribute("aria-invalid") !== "true")
+      fail("Select: aria-invalid");
     else ok("Select: aria-invalid");
     if (el.getAttribute("aria-describedby") !== "region-help") {
       fail("Select: aria-describedby");
     } else ok("Select: aria-describedby");
-    if (!el.querySelector('option[value="eu"][selected]')) fail("Select: selected option");
+    if (!el.querySelector('option[value="eu"][selected]'))
+      fail("Select: selected option");
     else ok("Select: options + value");
   }
   const css = readFileSync(join(compDir, "Select.css"), "utf8");
   if (!css.includes(":focus-visible")) fail("Select.css: :focus-visible");
-  if (!css.includes("--ds-color-border-focus")) fail("Select.css: --ds-color-border-focus");
+  if (!css.includes("--ds-color-border-focus"))
+    fail("Select.css: --ds-color-border-focus");
   else ok("Select.css: tokens + focus-visible");
 }
 
@@ -166,14 +177,17 @@ function parse(html) {
   const doc = parse(html);
   const label = doc.querySelector("label.ds-checkbox");
   const input = doc.querySelector("input.ds-checkbox__input");
-  if (!label || label.getAttribute("for") !== "terms") fail("Checkbox: label[for]");
+  if (!label || label.getAttribute("for") !== "terms")
+    fail("Checkbox: label[for]");
   else ok("Checkbox: visible label association");
-  if (!input || input.id !== "terms" || input.type !== "checkbox") fail("Checkbox: input");
+  if (!input || input.id !== "terms" || input.type !== "checkbox")
+    fail("Checkbox: input");
   if (!input?.hasAttribute("checked")) fail("Checkbox: checked");
   else ok("Checkbox: checked");
   const css = readFileSync(join(compDir, "Checkbox.css"), "utf8");
   if (!css.includes(":focus-visible")) fail("Checkbox.css: :focus-visible");
-  if (!css.includes("--ds-color-border-focus")) fail("Checkbox.css: --ds-color-border-focus");
+  if (!css.includes("--ds-color-border-focus"))
+    fail("Checkbox.css: --ds-color-border-focus");
   else ok("Checkbox.css: tokens + focus-visible");
 }
 
@@ -188,11 +202,17 @@ function parse(html) {
   const el = doc.querySelector("div.ds-banner.ds-banner--error");
   if (!el) fail("Banner: missing tone class");
   else if (el.getAttribute("role") !== "alert") fail("Banner: role");
-  else if (!el.textContent.includes("Error:") || !el.textContent.includes("Service degraded")) {
+  else if (
+    !el.textContent.includes("Error:") ||
+    !el.textContent.includes("Service degraded")
+  ) {
     fail("Banner: textual tone prefix + body");
   } else ok("Banner: role + tone prefix");
   const css = readFileSync(join(compDir, "Banner.css"), "utf8");
-  if (!css.includes("--ds-color-bg-error") || !css.includes("--ds-color-text-on-error")) {
+  if (
+    !css.includes("--ds-color-bg-error") ||
+    !css.includes("--ds-color-text-on-error")
+  ) {
     fail("Banner.css: error tone tokens");
   } else ok("Banner.css: tone tokens");
 }

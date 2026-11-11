@@ -34,7 +34,7 @@ Automated gate (T8): contrast pairs + `:focus-visible` via axe-core (serious/cri
 - **Module:** `src/components/Input.js` + `Input.css`
 - **Props:** `type?: text|email|password|…`; `disabled?: boolean`; `invalid?: boolean`; `describedBy?: string`
 - **Tokens:**
-  - `--ds-color-bg-surface-elevated`, `--ds-color-text-on-surface`
+  - `--ds-color-bg-surface-elevated`, `--ds-color-text-default`
   - `--ds-color-border-default`, `--ds-color-border-error`, `--ds-color-border-focus`
   - `--ds-color-bg-disabled`, `--ds-color-text-on-disabled`
   - `--ds-space-sm`, `--ds-space-md`, `--ds-space-touch`
@@ -47,7 +47,7 @@ Automated gate (T8): contrast pairs + `:focus-visible` via axe-core (serious/cri
 - **Module:** `src/components/Card.js` + `Card.css`
 - **Props:** `elevated?: boolean`
 - **Tokens:**
-  - `--ds-color-bg-surface-elevated`, `--ds-color-text-on-surface`
+  - `--ds-color-bg-surface-elevated`, `--ds-color-text-default`
   - `--ds-color-border-default`
   - `--ds-space-md`, `--ds-space-lg`
   - `--ds-radius-surface`
@@ -91,7 +91,7 @@ Automated gate (T8): contrast pairs + `:focus-visible` via axe-core (serious/cri
 - **Module:** `src/components/Field.js` + `Field.css`
 - **Props:** `id`; `label`; `invalid?`; `error?`; composes `renderInput` (`type`, `disabled`, `value`)
 - **Tokens:**
-  - `--ds-color-text-on-surface`
+  - `--ds-color-text-default`
   - `--ds-color-text-on-error`, `--ds-color-bg-error`, `--ds-color-border-error`
   - `--ds-space-xs`, `--ds-space-sm`, `--ds-space-md`
   - `--ds-radius-control`
@@ -103,7 +103,7 @@ Automated gate (T8): contrast pairs + `:focus-visible` via axe-core (serious/cri
 - **Module:** `src/components/Select.js` + `Select.css`
 - **Props:** `id`; `options` (`value`/`label`); `disabled?`; `invalid?`; `describedBy?`; `value?`; `label?`; `omitAriaLabel?`
 - **Markup:** native `<select class="ds-select">`
-- **Tokens:** same control family as Input (`--ds-color-bg-surface-elevated`, `--ds-color-text-on-surface`, `--ds-color-border-default`, `--ds-color-border-error`, `--ds-color-border-focus`, disabled pairs, `--ds-space-*`, `--ds-radius-control`, type body)
+- **Tokens:** same control family as Input (`--ds-color-bg-surface-elevated`, `--ds-color-text-default`, `--ds-color-border-default`, `--ds-color-border-error`, `--ds-color-border-focus`, disabled pairs, `--ds-space-*`, `--ds-radius-control`, type body)
 - **A11y:** `:focus-visible`; `aria-invalid` when invalid; included in axe
 
 ## Checkbox (forms)
@@ -111,7 +111,7 @@ Automated gate (T8): contrast pairs + `:focus-visible` via axe-core (serious/cri
 - **Module:** `src/components/Checkbox.js` + `Checkbox.css`
 - **Props:** `id`; `label`; `checked?`; `disabled?`
 - **Markup:** native checkbox + visible label
-- **Tokens:** `--ds-color-text-on-surface`, `--ds-color-border-default`, `--ds-color-border-focus`, `--ds-color-bg-primary` (accent), disabled text, `--ds-space-sm|md|touch`, `--ds-radius-control`, type body/medium
+- **Tokens:** `--ds-color-text-default`, `--ds-color-border-default`, `--ds-color-border-focus`, `--ds-color-bg-primary` (accent), disabled text, `--ds-space-sm|md|touch`, `--ds-radius-control`, type body/medium
 - **A11y:** visible label association; `:focus-visible`; included in axe
 
 ## Banner (feedback)

@@ -1,4 +1,4 @@
-.PHONY: install validate test build dev acceptance
+.PHONY: install validate test build dev structure
 
 install:
 	npm install
@@ -16,5 +16,5 @@ build:
 dev:
 	npm run dev -w @soluciones-alexendros/ds-docs
 
-acceptance:
-	node scripts/acceptance-stubs.mjs
+structure:
+	npm run test:structure

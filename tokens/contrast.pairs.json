@@ -1,0 +1,210 @@
+{
+  "$description": "Contrast pairs — WCAG 2.2 AA gate; APCA informational",
+  "margin": {
+    "normal": 4.6,
+    "large": 3.0,
+    "ui": 3.0
+  },
+  "pairs": [
+    {
+      "id": "text.default/bg.surface",
+      "foreground": "text.default",
+      "background": "bg.surface",
+      "level": "normal",
+      "wcag": "1.4.3",
+      "exempt": false
+    },
+    {
+      "id": "text.muted/bg.surface",
+      "foreground": "text.muted",
+      "background": "bg.surface",
+      "level": "normal",
+      "wcag": "1.4.3",
+      "exempt": false
+    },
+    {
+      "id": "text.on-primary/bg.primary",
+      "foreground": "text.on-primary",
+      "background": "bg.primary",
+      "level": "normal",
+      "wcag": "1.4.3",
+      "exempt": false
+    },
+    {
+      "id": "text.on-secondary/bg.secondary",
+      "foreground": "text.on-secondary",
+      "background": "bg.secondary",
+      "level": "normal",
+      "wcag": "1.4.3",
+      "exempt": false
+    },
+    {
+      "id": "text.on-error/bg.error",
+      "foreground": "text.on-error",
+      "background": "bg.error",
+      "level": "normal",
+      "wcag": "1.4.3",
+      "exempt": false
+    },
+    {
+      "id": "text.on-success/bg.success",
+      "foreground": "text.on-success",
+      "background": "bg.success",
+      "level": "normal",
+      "wcag": "1.4.3",
+      "exempt": false
+    },
+    {
+      "id": "text.on-warning/bg.warning",
+      "foreground": "text.on-warning",
+      "background": "bg.warning",
+      "level": "normal",
+      "wcag": "1.4.3",
+      "exempt": false
+    },
+    {
+      "id": "text.on-disabled/bg.disabled",
+      "foreground": "text.on-disabled",
+      "background": "bg.disabled",
+      "level": "ui",
+      "wcag": "1.4.11",
+      "exempt": true
+    },
+    {
+      "id": "text.link/bg.surface",
+      "foreground": "text.link",
+      "background": "bg.surface",
+      "level": "normal",
+      "wcag": "1.4.3",
+      "exempt": false
+    },
+    {
+      "id": "text.link-hover/bg.surface",
+      "foreground": "text.link-hover",
+      "background": "bg.surface",
+      "level": "normal",
+      "wcag": "1.4.3",
+      "exempt": false
+    },
+    {
+      "id": "text.on-primary/bg.primary-hover",
+      "foreground": "text.on-primary",
+      "background": "bg.primary-hover",
+      "level": "normal",
+      "wcag": "1.4.3",
+      "exempt": false
+    },
+    {
+      "id": "text.on-primary/bg.primary-active",
+      "foreground": "text.on-primary",
+      "background": "bg.primary-active",
+      "level": "normal",
+      "wcag": "1.4.3",
+      "exempt": false
+    },
+    {
+      "id": "text.on-error/bg.error-hover",
+      "foreground": "text.on-error",
+      "background": "bg.error-hover",
+      "level": "normal",
+      "wcag": "1.4.3",
+      "exempt": false
+    },
+    {
+      "id": "icon.default/bg.surface",
+      "foreground": "icon.default",
+      "background": "bg.surface",
+      "level": "ui",
+      "wcag": "1.4.11",
+      "exempt": false
+    },
+    {
+      "id": "icon.on-primary/bg.primary",
+      "foreground": "icon.on-primary",
+      "background": "bg.primary",
+      "level": "ui",
+      "wcag": "1.4.11",
+      "exempt": false
+    },
+    {
+      "id": "icon.on-error/bg.error",
+      "foreground": "icon.on-error",
+      "background": "bg.error",
+      "level": "ui",
+      "wcag": "1.4.11",
+      "exempt": false
+    },
+    {
+      "id": "border.focus/bg.surface",
+      "foreground": "border.focus",
+      "background": "bg.surface",
+      "level": "ui",
+      "wcag": "1.4.11",
+      "exempt": false
+    },
+    {
+      "id": "border.default/bg.surface",
+      "foreground": "border.default",
+      "background": "bg.surface",
+      "level": "ui",
+      "wcag": "1.4.11",
+      "exempt": false
+    },
+    {
+      "id": "border.focus/bg.primary",
+      "foreground": "border.focus",
+      "background": "bg.primary",
+      "level": "ui",
+      "wcag": "1.4.11",
+      "exempt": false
+    },
+    {
+      "id": "border.focus/bg.error",
+      "foreground": "border.focus",
+      "background": "bg.error",
+      "level": "ui",
+      "wcag": "1.4.11",
+      "exempt": false
+    },
+    {
+      "id": "bg.primary/bg.surface",
+      "foreground": "bg.primary",
+      "background": "bg.surface",
+      "level": "ui",
+      "wcag": "1.4.11",
+      "exempt": false
+    },
+    {
+      "id": "bg.error/bg.surface",
+      "foreground": "bg.error",
+      "background": "bg.surface",
+      "level": "ui",
+      "wcag": "1.4.11",
+      "exempt": false
+    },
+    {
+      "id": "bg.success/bg.surface",
+      "foreground": "bg.success",
+      "background": "bg.surface",
+      "level": "ui",
+      "wcag": "1.4.11",
+      "exempt": false
+    },
+    {
+      "id": "bg.warning/bg.surface",
+      "foreground": "bg.warning",
+      "background": "bg.surface",
+      "level": "ui",
+      "wcag": "1.4.11",
+      "exempt": false
+    },
+    {
+      "id": "text.link/text.default",
+      "foreground": "text.link",
+      "background": "text.default",
+      "level": "ui",
+      "wcag": "1.4.1",
+      "exempt": false
+    }
+  ]
+}

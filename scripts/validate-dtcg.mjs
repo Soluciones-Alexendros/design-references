@@ -3,13 +3,16 @@
  * Validate DTCG 2025.10 token files (structural checks).
  * Fails on invalid JSON, unknown $type, leaf nodes without $value,
  * or color values that are neither OKLCH nor a {color} alias.
+ * Excludes contrast.pairs.json (contrast contract, not DTCG).
  */
-import { readFileSync, readdirSync } from "node:fs";
-import { join, dirname } from "node:path";
+import { readFileSync, readdirSync, statSync } from "node:fs";
+import { join, dirname, basename } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const tokensDir = join(__dirname, "..", "tokens");
+
+const EXCLUDE_FILES = new Set(["contrast.pairs.json"]);
 
 const ALLOWED_TYPES = new Set([
   "color",
@@ -49,7 +52,7 @@ function validateColorValue(value, path) {
   if (typeof value === "string") {
     if (ALIAS_RE.test(value) || OKLCH_RE.test(value)) return;
     throw new Error(
-      `${path}: color $value must be OKLCH or {alias}, got ${JSON.stringify(value)}`,
+      `${path}: color $value must be OKLCH or {alias}, got ${JSON.stringify(value)}`
     );
   }
   if (value && typeof value === "object" && value.colorSpace === "oklch") {
@@ -105,9 +108,23 @@ function validateFile(filePath) {
   }
 }
 
-const files = readdirSync(tokensDir)
-  .filter((f) => f.endsWith(".json"))
-  .map((f) => join(tokensDir, f));
+function collectJsonFiles(dir) {
+  const out = [];
+  for (const name of readdirSync(dir)) {
+    const full = join(dir, name);
+    const st = statSync(full);
+    if (st.isDirectory()) {
+      out.push(...collectJsonFiles(full));
+      continue;
+    }
+    if (!name.endsWith(".json")) continue;
+    if (EXCLUDE_FILES.has(name) || EXCLUDE_FILES.has(basename(full))) continue;
+    out.push(full);
+  }
+  return out;
+}
+
+const files = collectJsonFiles(tokensDir);
 
 if (files.length === 0) {
   console.error("No token JSON files found in tokens/");

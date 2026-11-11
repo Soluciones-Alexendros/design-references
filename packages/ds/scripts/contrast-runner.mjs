@@ -1,63 +1,91 @@
 #!/usr/bin/env node
 /**
- * T6: contrast runner — OKLCH → sRGB → WCAG relative contrast.
- * Fails if normal text < 4.5:1 or large/UI < 3:1.
+ * Contrast runner — OKLCH → sRGB → WCAG relative contrast.
+ * Thresholds from tokens/contrast.pairs.json `margin` (AA + margin).
+ * exempt pairs report EXEMPT and never fail CI.
+ * APCA field is informational only (ignored for exit code).
  * Use --inject-fail to verify the runner fails on a bad pair.
  */
 import {
-  loadJson,
+  loadContrastPairs,
   loadTokenTree,
+  listBrands,
   resolveToken,
   contrastRatio,
+  apcaContrast,
 } from "./token-lib.mjs";
 
-const THRESHOLD = { normal: 4.5, ui: 3, large: 3 };
 const injectFail = process.argv.includes("--inject-fail");
 
-const semantic = loadJson("semantic.json");
-const pairs = semantic.$extensions?.["org.soluciones-alexendros.contrastPairs"];
+const config = loadContrastPairs();
+const pairs = config.pairs;
 if (!Array.isArray(pairs) || pairs.length === 0) {
-  console.error("No contrast pairs defined in semantic.json $extensions");
+  console.error("No contrast pairs defined in tokens/contrast.pairs.json");
   process.exit(1);
 }
 
-const tree = loadTokenTree();
+const margin = {
+  normal: config.margin?.normal ?? 4.6,
+  large: config.margin?.large ?? 3.0,
+  ui: config.margin?.ui ?? 3.0,
+};
+
 const themes = ["light", "dark"];
+const brands = listBrands();
 const report = [];
 let failed = false;
 
-for (const theme of themes) {
-  for (const pair of pairs) {
-    const fgPath = `color.${theme}.${pair.foreground}`;
-    const bgPath = `color.${theme}.${pair.background}`;
-    let fg = resolveToken(tree, fgPath);
-    let bg = resolveToken(tree, bgPath);
+for (const brand of brands) {
+  const tree = loadTokenTree({ brand });
+  for (const theme of themes) {
+    for (const pair of pairs) {
+      const pairId = pair.id ?? `${pair.foreground}/${pair.background}`;
+      const fgPath = `color.${theme}.${pair.foreground}`;
+      const bgPath = `color.${theme}.${pair.background}`;
+      let fg = resolveToken(tree, fgPath);
+      let bg = resolveToken(tree, bgPath);
 
-    if (injectFail && theme === "light" && pair.name.includes("on-primary")) {
-      fg = "oklch(0.55 0.02 250)";
-      bg = "oklch(0.5 0.02 250)";
-    }
+      if (
+        injectFail &&
+        brand === "default" &&
+        theme === "light" &&
+        (pairId.includes("on-primary") || pair.foreground === "text.on-primary")
+      ) {
+        fg = "oklch(0.55 0.02 250)";
+        bg = "oklch(0.5 0.02 250)";
+      }
 
-    const ratio = contrastRatio(fg, bg);
-    const level = pair.level === "ui" || pair.level === "large" ? pair.level : "normal";
-    const min = THRESHOLD[level] ?? THRESHOLD.normal;
-    const ok = ratio >= min;
-    const row = {
-      theme,
-      name: pair.name,
-      foreground: fg,
-      background: bg,
-      ratio: Number(ratio.toFixed(3)),
-      min,
-      level,
-      ok,
-    };
-    report.push(row);
-    const line = `${ok ? "PASS" : "FAIL"} [${theme}] ${pair.name}: ${row.ratio}:1 (min ${min}:1)`;
-    if (ok) console.log(line);
-    else {
-      console.error(line);
-      failed = true;
+      const ratio = contrastRatio(fg, bg);
+      const level =
+        pair.level === "ui" || pair.level === "large" ? pair.level : "normal";
+      const min = margin[level] ?? margin.normal;
+      const exempt = pair.exempt === true;
+      const ok = exempt || ratio >= min;
+      const apca = apcaContrast(fg, bg);
+      const status = exempt ? "EXEMPT" : ok ? "PASS" : "FAIL";
+      const row = {
+        brand,
+        theme,
+        id: pairId,
+        name: pairId,
+        foreground: fg,
+        background: bg,
+        ratio: Number(ratio.toFixed(3)),
+        min,
+        level,
+        exempt,
+        apca,
+        ok,
+        status,
+      };
+      report.push(row);
+      const line = `${status} [${brand}/${theme}] ${pairId}: ${row.ratio}:1 (min ${min}:1) apca≈${apca}`;
+      if (status === "FAIL") {
+        console.error(line);
+        failed = true;
+      } else {
+        console.log(line);
+      }
     }
   }
 }
@@ -67,7 +95,9 @@ if (report.length === 0) {
   process.exit(1);
 }
 
-console.log(`\nEvaluated ${report.length} pairs`);
+console.log(
+  `\nEvaluated ${report.length} pairs across ${brands.length} brand(s) × ${themes.length} theme(s)`
+);
 if (injectFail) {
   if (!failed) {
     console.error("Expected failure with --inject-fail, but all pairs passed");

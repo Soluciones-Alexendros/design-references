@@ -1,7 +1,7 @@
 {
   "id": "repo-structure",
   "phase": "SCHEMAS",
-  "source": ".autoworkspace/SPEC.md",
+  "source": "docs/spec/",
   "criteria": [
     {
       "id": "RS-01",
@@ -29,7 +29,7 @@
     {
       "id": "RS-03",
       "assert": "files_contain",
-      "needle": "### Propósito de este documento",
+      "needle": "### Prop\u00f3sito de este documento",
       "paths": [
         "README.md",
         "AGENTS.md",

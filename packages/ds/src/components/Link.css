@@ -1,14 +1,25 @@
 .ds-link {
+  color: var(--ds-color-text-link);
   font-family: var(--ds-type-family-sans);
   font-size: var(--ds-type-size-body);
-  font-weight: var(--ds-type-weight-medium);
   line-height: var(--ds-type-lineHeight-body);
-  color: var(--ds-color-text-link);
   text-decoration: underline;
   text-underline-offset: var(--ds-space-xs);
+  transition: color var(--ds-motion-duration-fast)
+    var(--ds-motion-easing-standard);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-link {
+    transition: none;
+  }
+}
+
+.ds-link:hover {
+  color: var(--ds-color-text-link-hover);
 }
 
 .ds-link:focus-visible {
-  outline: 2px solid var(--ds-color-border-focus);
-  outline-offset: 2px;
+  outline: var(--ds-border-width-focus) solid var(--ds-color-border-focus);
+  outline-offset: var(--ds-border-offset-focus);
 }

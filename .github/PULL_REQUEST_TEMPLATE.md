@@ -5,5 +5,5 @@
 ## Test plan
 
 - [ ] `npm test`
-- [ ] `node scripts/acceptance-stubs.mjs`
+- [ ] `npm run test:structure`
 - [ ] CI `quality` / `test` / `smoke` and `a11y` green (as applicable)

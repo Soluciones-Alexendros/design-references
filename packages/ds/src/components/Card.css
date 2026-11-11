@@ -1,10 +1,10 @@
 .ds-card {
   box-sizing: border-box;
   padding: var(--ds-space-lg);
-  border: 1px solid var(--ds-color-border-default);
+  border: var(--ds-border-width-hairline) solid var(--ds-color-border-default);
   border-radius: var(--ds-radius-surface);
   background: var(--ds-color-bg-surface-elevated);
-  color: var(--ds-color-text-on-surface);
+  color: var(--ds-color-text-default);
   font-family: var(--ds-type-family-sans);
   font-size: var(--ds-type-size-body);
   line-height: var(--ds-type-lineHeight-body);

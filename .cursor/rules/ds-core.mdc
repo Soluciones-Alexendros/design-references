@@ -1,0 +1,12 @@
+---
+description: Reglas permanentes del design system
+alwaysApply: true
+---
+- Fuente de verdad: docs/spec/ y docs/adr/. No crear especificaciones paralelas.
+- Tokens solo en tokens/*.json (DTCG 2025.10). Prefijo --ds-*; --_ds-* es privado.
+- Prohibido hardcodear color, espaciado, tipografía, radius, sombra o duración en CSS de componentes.
+- Todo componente: HTML canónico documentado, matriz de estados, notas de accesibilidad, test y página de docs.
+- Objetivo de accesibilidad: WCAG 2.2 AA. Foco visible siempre; respetar prefers-reduced-motion y forced-colors.
+- Cambios visibles al consumidor requieren changeset; renombrar un token requiere alias y $deprecated.
+- Prosa en español; identificadores, props y código en inglés.
+- No inventes versiones ni resultados: verifica con comandos y cita la salida.

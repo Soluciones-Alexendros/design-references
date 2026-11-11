@@ -1,5 +1,7 @@
 # Research — design-references
 
+> **Histórico.** Spec viva: [`docs/spec/`](../docs/spec/).
+
 Fecha de consulta: 2026-11-10
 
 ## Fuentes (mínimo 3)
@@ -26,26 +28,26 @@ Fecha de consulta: 2026-11-10
 
 ## Patrones comunes extraídos
 
-- **Capas de tokens**: reference/core → semantic/system → component.  
-- **CSS custom properties** como formato de consumo web (prefijo de sistema: `--md-`, `--ds-`, Carbon Sass).  
-- **Theming**: light/dark/system mediante atributos HTML o selectores + sets de variables.  
-- **Distribución**: paquetes npm (tokens + componentes o solo tokens). Carbon y Atlassian publican paquetes dedicados.  
-- **Documentación + playground**: sitios propios con ejemplos vivos (Carbon website unificado, Atlassian Design, Material).  
+- **Capas de tokens**: reference/core → semantic/system → component.
+- **CSS custom properties** como formato de consumo web (prefijo de sistema: `--md-`, `--ds-`, Carbon Sass).
+- **Theming**: light/dark/system mediante atributos HTML o selectores + sets de variables.
+- **Distribución**: paquetes npm (tokens + componentes o solo tokens). Carbon y Atlassian publican paquetes dedicados.
+- **Documentación + playground**: sitios propios con ejemplos vivos (Carbon website unificado, Atlassian Design, Material).
 - **Contraste y a11y**: roles de color con pares on-* / surface; tests de contraste explícitos en algunos sistemas.
 
 ## Fallos habituales
 
-- Tokens hardcodeados o sin capas → imposibilidad de theming.  
-- Prefijos inconsistentes o mezcla de valores crudos y tokens.  
-- Design system “declarado” sin package consumible ni website de muestra.  
+- Tokens hardcodeados o sin capas → imposibilidad de theming.
+- Prefijos inconsistentes o mezcla de valores crudos y tokens.
+- Design system “declarado” sin package consumible ni website de muestra.
 - Ausencia de theme-boot y de tests de contraste (exactamente el estado actual de design-references).
 
 ## Criterios de elección para design-references
 
-- Alineación con consumidores Astro + Next/React.  
-- Prefijo `--ds-*` ya declarado.  
-- Paquete npm (CSS + JS/TS).  
-- Light + dark + system.  
-- Alcance completo (layout + forms + feedback).  
-- Website de muestra = docs + playground.  
+- Alineación con consumidores Astro + Next/React.
+- Prefijo `--ds-*` ya declarado.
+- Paquete npm (CSS + JS/TS).
+- Light + dark + system.
+- Alcance completo (layout + forms + feedback).
+- Website de muestra = docs + playground.
 - Referencias Material / Carbon / Atlassian como guía de capas y theming.

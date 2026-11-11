@@ -1,7 +1,7 @@
 {
   "id": "next-primitives-scope",
   "phase": "SCHEMAS",
-  "source": ".autoworkspace/SPEC.md",
+  "source": "docs/spec/",
   "criteria": [
     {
       "id": "NP-01",

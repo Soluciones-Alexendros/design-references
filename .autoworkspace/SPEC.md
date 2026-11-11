@@ -1,10 +1,12 @@
 # Spec: design-references — DEFINE (docs surface + siguiente capa)
 
+> **Histórico.** La fuente de verdad viva es [`docs/spec/`](../docs/spec/) (+ [`docs/adr/`](../docs/adr/)). Este fichero conserva el DEFINE Autoworkspace ya ejecutado; no actualizar como spec de producto.
+
 ## Capability Map
 
-| Module id | Responsibility | Depends on |
-|-----------|----------------|------------|
-| docs-surface-sync | Alinear la superficie pública (`design.alexendros.dev`) con el inventario real de primitives | inventario en `packages/ds/src/components.md` (ya en `main`) |
+| Module id             | Responsibility                                                                                           | Depends on                                                                                   |
+| --------------------- | -------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
+| docs-surface-sync     | Alinear la superficie pública (`design.alexendros.dev`) con el inventario real de primitives             | inventario en `packages/ds/src/components.md` (ya en `main`)                                 |
 | next-primitives-scope | Definir e implementar como máximo 3 primitives de la siguiente capa, solo con tokens `--ds-*` existentes | docs-surface-sync (puede ir en paralelo tras aprobación; no bloquea la escritura de la spec) |
 
 Build order (implementación): `docs-surface-sync` primero (cambio mínimo de docs); luego `next-primitives-scope`. No reabrir paleta, iconos, motion ni multi-brand. No tocar `tokens/`.
@@ -18,7 +20,7 @@ Build order (implementación): `docs-surface-sync` primero (cambio mínimo de do
 5. Cero tokens nuevos; cero pares de contraste nuevos. Reutilizar pares ya en el contrast runner (`text.on-surface`, `border.focus`, `text.link`, tones de Alert, etc.).
 6. Stack y Card (y Banner si se define no interactivo) fuera de axe; Select y Checkbox en axe + `:focus-visible`. Banner con `role="status"|"alert"` como Alert, en axe si anuncia estado.
 7. Node `engines` del repo (`>=22.23.4`); Astro docs en la versión de `main`. `ci.yml` no duplica contrast/axe (`a11y.yml` sigue siendo el dueño).
-→ Correct me now or I'll proceed with these.
+   → Correct me now or I'll proceed with these.
 
 ## Objective
 
@@ -49,7 +51,7 @@ npm run build -w @soluciones-alexendros/ds-docs
 npm run test:a11y -w @soluciones-alexendros/ds
 npm run test:contrast -w @soluciones-alexendros/ds
 npm run test:primitives -w @soluciones-alexendros/ds
-npm run test:acceptance
+npm run test:structure
 npm run dev -w @soluciones-alexendros/ds-docs
 ```
 
@@ -109,12 +111,12 @@ apps/docs/src/pages/playground.astro     # montar los tres
 
 ### Deliverables
 
-| Artefacto | Criterio |
-|-----------|----------|
+| Artefacto                         | Criterio                                                                                                                  |
+| --------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
 | `apps/docs/src/pages/index.astro` | El copy lista los 7 primitives del inventario (Button, Input, Card, Alert, Link, Stack, Field); no omite Link/Stack/Field |
-| `/tokens` | Sin regresión; sigue documentando tokens + contraste |
-| `/playground` | Sin regresión; ya monta Link/Stack/Field además de los base |
-| Criterio de verdad | Texto de homepage coherente con `packages/ds/src/components.md` |
+| `/tokens`                         | Sin regresión; sigue documentando tokens + contraste                                                                      |
+| `/playground`                     | Sin regresión; ya monta Link/Stack/Field además de los base                                                               |
+| Criterio de verdad                | Texto de homepage coherente con `packages/ds/src/components.md`                                                           |
 
 ### Success criteria (`docs-surface-sync`)
 
@@ -181,7 +183,7 @@ Ninguna bloqueante si se aceptan las asunciones 4–6 (Select nativo, no Combobo
 
 - **SPEC:** aprobada por el operador (2026-11-10); asunciones 1–7 confirmadas (Select nativo, Banner no Toast, cero tokens, Node engines actuales).
 - **PLAN/TASKS:** [`tasks/plan.md`](../tasks/plan.md), [`tasks/todo.md`](../tasks/todo.md) — aceptados.
-- **SCHEMAS:** schemas DS/NP + inventario; RED→GREEN vía `test:acceptance`.
+- **SCHEMAS:** schemas DS/NP + inventario; RED→GREEN vía `test:structure`.
 - **IMPLEMENT:** T1–T5 cerradas en esta sesión (`npm test` + docs build OK). Sin cambios en `tokens/`.
 - **Base:** `main` @ `e85084a` + working tree local; superficie pública `design.alexendros.dev` (redeploy al merge).
 - **Stop antes de project-publish.** PR/merge solo con petición explícita.
