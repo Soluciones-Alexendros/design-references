@@ -15,6 +15,7 @@ import {
   renderCheckbox,
   renderBanner,
   renderAlert,
+  renderThemeToggle,
 } from "../src/components/index.js";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -241,6 +242,27 @@ function parse(html) {
     if (!css.includes("@layer ds.components")) fail(`${f}: missing @layer`);
   }
   ok("CSS: @layer ds.components on key files");
+}
+
+// --- ThemeToggle ---
+{
+  const html = renderThemeToggle({ value: "dark", label: "Color theme" });
+  const doc = parse(html);
+  const group = doc.querySelector('.ds-theme-toggle[role="group"]');
+  if (!group || group.getAttribute("aria-label") !== "Color theme") {
+    fail("ThemeToggle: group label");
+  } else ok("ThemeToggle: role=group");
+  const pressed = group.querySelector(
+    '[data-ds-theme="dark"][aria-pressed="true"]'
+  );
+  const light = group.querySelector(
+    '[data-ds-theme="light"][aria-pressed="false"]'
+  );
+  if (!pressed || !light) fail("ThemeToggle: aria-pressed");
+  else ok("ThemeToggle: aria-pressed");
+  const css = readFileSync(join(compDir, "ThemeToggle.css"), "utf8");
+  if (!css.includes("@layer ds.components")) fail("ThemeToggle.css: @layer");
+  else ok("ThemeToggle.css: @layer");
 }
 
 if (failed) {

@@ -8,3 +8,4 @@ export { renderField } from "./Field.js";
 export { renderSelect } from "./Select.js";
 export { renderCheckbox } from "./Checkbox.js";
 export { renderBanner } from "./Banner.js";
+export { renderThemeToggle, attachThemeToggle } from "./ThemeToggle.js";
