@@ -1,0 +1,42 @@
+---
+import Base from "../../layouts/Base.astro";
+---
+<Base
+  title="Fleet"
+  description="Consumidores de la flota y versión del DS en uso."
+>
+  <h1>Fleet</h1>
+  <p>
+    Panel mínimo (F5-04). La flota objetivo: zedazo, ArchMaker, alexendros.dev.
+  </p>
+  <table class="ds-token-table">
+    <thead>
+      <tr>
+        <th>Consumidor</th>
+        <th>Versión DS</th>
+        <th>Último smoke</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>alexendros.dev</td>
+        <td>pendiente (F6)</td>
+        <td>—</td>
+      </tr>
+      <tr>
+        <td>zedazo</td>
+        <td>—</td>
+        <td>—</td>
+      </tr>
+      <tr>
+        <td>ArchMaker</td>
+        <td>—</td>
+        <td>—</td>
+      </tr>
+    </tbody>
+  </table>
+  <p>
+    Automatización: <code>scripts/check-consumers</code> (cuando exista) +
+    workflow consumers (F4-03).
+  </p>
+</Base>
