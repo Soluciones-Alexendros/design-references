@@ -1,0 +1,94 @@
+---
+import report from "../data/contrast-report.json";
+
+const brands = [...new Set(report.map((r) => r.brand))].sort();
+const themes = ["light", "dark"];
+---
+<section class="ds-contrast" aria-labelledby="contrast-heading">
+  <h2 id="contrast-heading">Matriz de contraste</h2>
+  <p>
+    Pares de <code>tokens/contrast.pairs.json</code> resueltos por tema y marca.
+    Umbrales con margen de la runner (texto normal ≥ margen normal; UI/large ≥ margen UI).
+  </p>
+
+  <div class="ds-filters">
+    <label>
+      Tema
+      <select data-filter="theme" aria-label="Filtrar por tema">
+        {themes.map((t) => <option value={t}>{t}</option>)}
+      </select>
+    </label>
+    <label>
+      Marca
+      <select data-filter="brand" aria-label="Filtrar por marca">
+        {brands.map((b) => <option value={b}>{b}</option>)}
+      </select>
+    </label>
+  </div>
+
+  <div class="ds-card ds-card--elevated" style="overflow:auto;">
+    <table class="ds-token-table" data-contrast-table>
+      <thead>
+        <tr>
+          <th>Par</th>
+          <th>Foreground</th>
+          <th>Background</th>
+          <th>Ratio</th>
+          <th>Min</th>
+          <th>Estado</th>
+        </tr>
+      </thead>
+      <tbody>
+        {
+          report.map((row) => (
+            <tr data-theme={row.theme} data-brand={row.brand}>
+              <td>
+                <code>{row.id}</code>
+              </td>
+              <td>
+                <span
+                  class="ds-swatch"
+                  style={`background:${row.foreground}`}
+                  aria-hidden="true"
+                />{" "}
+                <code>{row.foreground}</code>
+              </td>
+              <td>
+                <span
+                  class="ds-swatch"
+                  style={`background:${row.background}`}
+                  aria-hidden="true"
+                />{" "}
+                <code>{row.background}</code>
+              </td>
+              <td>{row.ratio}:1</td>
+              <td>{row.min}:1</td>
+              <td>{row.status}</td>
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<script>
+  const themeSelect = document.querySelector('[data-filter="theme"]');
+  const brandSelect = document.querySelector('[data-filter="brand"]');
+  const rows = document.querySelectorAll("[data-contrast-table] tbody tr");
+
+  function applyFilters() {
+    const theme = themeSelect?.value;
+    const brand = brandSelect?.value;
+    rows.forEach((row) => {
+      const match =
+        row.getAttribute("data-theme") === theme &&
+        row.getAttribute("data-brand") === brand;
+      row.hidden = !match;
+    });
+  }
+
+  themeSelect?.addEventListener("change", applyFilters);
+  brandSelect?.addEventListener("change", applyFilters);
+  applyFilters();
+</script>

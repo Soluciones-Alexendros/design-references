@@ -1,0 +1,62 @@
+---
+import Base from "../../layouts/Base.astro";
+import ContrastMatrix from "../../components/ContrastMatrix.astro";
+
+const swatches = [
+  "--ds-color-bg-surface",
+  "--ds-color-bg-surface-elevated",
+  "--ds-color-bg-primary",
+  "--ds-color-bg-secondary",
+  "--ds-color-bg-error",
+  "--ds-color-bg-success",
+  "--ds-color-bg-warning",
+  "--ds-color-text-default",
+  "--ds-color-text-muted",
+  "--ds-color-text-link",
+  "--ds-color-border-default",
+  "--ds-color-border-focus",
+];
+---
+<Base title="Color" description="Tokens semánticos de color y matriz de contraste WCAG 2.2 AA.">
+  <h1>Color</h1>
+  <p>
+    Los colores de producto viven en <code>tokens/semantic.json</code> (roles) y
+    <code>tokens/reference.json</code> (escalas OKLCH). El sitio solo consume
+    <code>var(--ds-color-*)</code>.
+  </p>
+
+  <h2>Roles semánticos</h2>
+  <table class="ds-token-table">
+    <thead>
+      <tr>
+        <th>Token</th>
+        <th>Muestra</th>
+      </tr>
+    </thead>
+    <tbody>
+      {
+        swatches.map((token) => (
+          <tr>
+            <td>
+              <code>{token}</code>
+            </td>
+            <td>
+              <span
+                class="ds-swatch"
+                style={`background:var(${token})`}
+                aria-hidden="true"
+              />
+            </td>
+          </tr>
+        ))
+      }
+    </tbody>
+  </table>
+
+  <p>
+    Cambia el tema en el chrome para ver light/dark. Marca vía
+    <code>data-brand</code> (default, archmaker).
+  </p>
+
+  <ContrastMatrix />
+</Base>
