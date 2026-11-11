@@ -1,0 +1,5 @@
+---
+import { renderBanner } from "../components/Banner.js";
+const html = renderBanner(Astro.props);
+---
+<Fragment set:html={html} />

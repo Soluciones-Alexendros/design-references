@@ -6,13 +6,17 @@ Contrasta el mapa real del paquete (verificado en Fase 0–2) con la meta de exp
 
 ## Exports reales (`packages/ds/package.json`)
 
-| Subpath                                                  | Estado                        |
-| -------------------------------------------------------- | ----------------------------- |
-| `.`                                                      | presente (`setTheme`, API JS) |
-| `./styles.css`                                           | presente                      |
-| `./tokens`                                               | presente (tipos)              |
-| `./package.json`                                         | presente                      |
-| `./tokens.css`, `./theme`, `./css`, `./astro`, `./react` | **ausentes** (meta)           |
+| Subpath          | Estado                                      |
+| ---------------- | ------------------------------------------- |
+| `.`              | presente (`setTheme`, API JS)               |
+| `./styles.css`   | presente (tokens CSS)                       |
+| `./tokens.css`   | alias → `./dist/styles.css`                 |
+| `./tokens`       | presente (tipos)                            |
+| `./theme`        | presente (`setTheme`, `THEME_STORAGE_KEY`)  |
+| `./css`          | presente (layers + component CSS flattened) |
+| `./astro`        | presente (wrappers `.astro` vía renderX)    |
+| `./react`        | pendiente (siguiente PR F3-06)              |
+| `./package.json` | presente                                    |
 
 ## Primitives actuales
 

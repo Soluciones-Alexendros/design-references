@@ -3,15 +3,13 @@ import { setTheme, getStoredTheme } from "../theme.js";
 const MODES = ["light", "dark", "system"];
 
 /**
+ * @deprecated Use `ThemeToggle` from `@soluciones-alexendros/ds/react` or `/astro`. Kept until 0.2.0.
  * ThemeToggle: exclusive mode group with aria-pressed.
  * @param {object} [props]
  * @param {"light"|"dark"|"system"} [props.value]
  * @param {string} [props.label]
  */
-export function renderThemeToggle({
-  value = "system",
-  label = "Theme",
-} = {}) {
+export function renderThemeToggle({ value = "system", label = "Theme" } = {}) {
   const current =
     value === "light" || value === "dark" || value === "system"
       ? value

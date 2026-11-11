@@ -162,6 +162,28 @@ cpSync(join(pkgRoot, "src", "components"), join(dist, "components"), {
   recursive: true,
 });
 
+// Flatten component CSS for `@soluciones-alexendros/ds/css` (no runtime @import).
+const flatCss = [
+  "/* Generated — component layers for /css export */",
+  readFileSync(join(pkgRoot, "src", "css", "layers.css"), "utf8"),
+  ...[
+    "Button.css",
+    "Input.css",
+    "Card.css",
+    "Alert.css",
+    "Link.css",
+    "Stack.css",
+    "Field.css",
+    "Select.css",
+    "Checkbox.css",
+    "Banner.css",
+    "ThemeToggle.css",
+  ].map((name) =>
+    readFileSync(join(pkgRoot, "src", "components", name), "utf8")
+  ),
+].join("\n\n");
+writeFileSync(join(dist, "css", "components.css"), flatCss, "utf8");
+
 const bootPath = join(dist, "theme-boot.js");
 const bootBytes = statSync(bootPath).size;
 if (bootBytes > 1024) {

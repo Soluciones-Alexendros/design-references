@@ -1,6 +1,7 @@
 import { statusIcon } from "./status-icon.js";
 
 /**
+ * @deprecated Use `Banner` from `@soluciones-alexendros/ds/react` or `/astro`. Kept until 0.2.0.
  * Minimal Banner primitive (feedback) — persistent, no toast timer.
  * @param {object} props
  * @param {"info"|"success"|"warning"|"error"} [props.tone]

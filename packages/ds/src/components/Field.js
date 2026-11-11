@@ -2,6 +2,7 @@ import { renderInput } from "./Input.js";
 import { statusIcon } from "./status-icon.js";
 
 /**
+ * @deprecated Use `Field` from `@soluciones-alexendros/ds/react` or `/astro`. Kept until 0.2.0.
  * Minimal Field primitive: visible label + Input + error (forms).
  * Wires aria-describedby to the error message via renderInput({ describedBy }).
  * @param {object} props

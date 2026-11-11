@@ -1,0 +1,5 @@
+---
+import { renderButton } from "../components/Button.js";
+const html = renderButton(Astro.props);
+---
+<Fragment set:html={html} />
