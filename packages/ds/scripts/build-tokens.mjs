@@ -3,10 +3,17 @@
  * DTCG → dist/styles.css (--ds-*) + dist/tokens.d.ts + copy theme-boot.
  * Includes :root, [data-theme="dark"], [data-brand], and prefers-color-scheme.
  */
-import { mkdirSync, writeFileSync, readFileSync, cpSync } from "node:fs";
+import {
+  mkdirSync,
+  writeFileSync,
+  readFileSync,
+  cpSync,
+  statSync,
+} from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { spawnSync } from "node:child_process";
+import { gzipSync } from "node:zlib";
 import {
   loadTokenTree,
   listBrands,
@@ -125,28 +132,45 @@ ${[...typeNames]
 
 export type ThemeMode = "light" | "dark" | "system";
 
-export declare function setTheme(mode: ThemeMode | string): ThemeMode;
+export declare const THEME_STORAGE_KEY: "ds-theme";
+export declare function getStoredTheme(): ThemeMode | null;
+export declare function setTheme(
+  mode: ThemeMode | string,
+  options?: { persist?: boolean }
+): ThemeMode;
 `;
 
 writeFileSync(join(dist, "tokens.d.ts"), dts, "utf8");
 
 const themeSrc = readFileSync(join(pkgRoot, "src", "theme.js"), "utf8");
 writeFileSync(join(dist, "index.js"), themeSrc, "utf8");
-writeFileSync(
-  join(dist, "index.d.ts"),
-  `export type ThemeMode = "light" | "dark" | "system";\nexport declare function setTheme(mode: ThemeMode | string): ThemeMode;\n`,
-  "utf8"
-);
-writeFileSync(
-  join(dist, "theme.d.ts"),
-  `export type ThemeMode = "light" | "dark" | "system";\nexport declare function setTheme(mode: ThemeMode | string): ThemeMode;\n`,
-  "utf8"
-);
+const themeDts = `export type ThemeMode = "light" | "dark" | "system";
+export declare const THEME_STORAGE_KEY: "ds-theme";
+export declare function getStoredTheme(): ThemeMode | null;
+export declare function setTheme(
+  mode: ThemeMode | string,
+  options?: { persist?: boolean }
+): ThemeMode;
+`;
+writeFileSync(join(dist, "index.d.ts"), themeDts, "utf8");
+writeFileSync(join(dist, "theme.d.ts"), themeDts, "utf8");
 cpSync(join(pkgRoot, "src", "theme.js"), join(dist, "theme.js"));
+cpSync(join(pkgRoot, "src", "theme-boot.js"), join(dist, "theme-boot.js"));
+cpSync(join(pkgRoot, "src", "css"), join(dist, "css"), { recursive: true });
 
 cpSync(join(pkgRoot, "src", "components"), join(dist, "components"), {
   recursive: true,
 });
+
+const bootPath = join(dist, "theme-boot.js");
+const bootBytes = statSync(bootPath).size;
+if (bootBytes > 1024) {
+  console.error(`theme-boot.js is ${bootBytes}B (>1KB budget)`);
+  process.exit(1);
+}
+console.log(
+  `theme-boot.js ${bootBytes}B (budget 1024B; gzip ${gzipSync(readFileSync(bootPath)).length}B)`
+);
 
 if (!css.includes("--ds-color-bg-primary")) {
   console.error("Generated CSS missing --ds-color-bg-primary");

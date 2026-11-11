@@ -1,7 +1,9 @@
 ---
 import "../styles/site.css";
 import "../styles/components.css";
-import ThemeControls from "../components/ThemeControls.astro";
+import "../../../../packages/ds/src/components/ThemeToggle.css";
+import { renderThemeToggle } from "../../../../packages/ds/src/components/ThemeToggle.js";
+import themeBoot from "../../../../packages/ds/src/theme-boot.js?raw";
 
 interface Props {
   title: string;
@@ -19,6 +21,11 @@ const foundations = [
   { href: "/foundations/elevation/", label: "Elevation" },
   { href: "/foundations/motion/", label: "Motion" },
 ];
+
+const themeToggleHtml = renderThemeToggle({
+  value: "system",
+  label: "Tema",
+});
 ---
 <!doctype html>
 <html lang="es">
@@ -28,19 +35,7 @@ const foundations = [
     <meta name="description" content={description} />
     <meta name="color-scheme" content="light dark" />
     <title>{title} · design-references</title>
-    <!-- Theme boot: prefer ds-theme before paint (placeholder until F3 ThemeToggle / F5-06). -->
-    <script is:inline>
-      (function () {
-        try {
-          var mode = localStorage.getItem("ds-theme");
-          if (mode === "light" || mode === "dark") {
-            document.documentElement.setAttribute("data-theme", mode);
-          } else {
-            document.documentElement.removeAttribute("data-theme");
-          }
-        } catch (_) {}
-      })();
-    </script>
+    <script is:inline set:html={themeBoot} />
   </head>
   <body>
     <a class="skip-link" href="#main">Saltar al contenido</a>
@@ -50,7 +45,9 @@ const foundations = [
         <a href="/">Inicio</a>
         <a href="/foundations/color/">Foundations</a>
         <a href="/playground/">Playground</a>
-        <ThemeControls />
+        <div class="theme-controls" data-theme-controls>
+          <Fragment set:html={themeToggleHtml} />
+        </div>
       </nav>
       <nav class="foundations-nav" aria-label="Foundations">
         {
@@ -63,6 +60,10 @@ const foundations = [
         <slot />
       </main>
     </div>
+    <script>
+      import { attachThemeToggle } from "../../../../packages/ds/src/components/ThemeToggle.js";
+      attachThemeToggle(document);
+    </script>
   </body>
 </html>
 
@@ -80,5 +81,9 @@ const foundations = [
 
   .skip-link:focus {
     transform: translateY(0);
+  }
+
+  .theme-controls {
+    margin-left: auto;
   }
 </style>
