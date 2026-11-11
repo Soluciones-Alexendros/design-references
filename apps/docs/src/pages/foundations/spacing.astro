@@ -1,0 +1,80 @@
+---
+import Base from "../../layouts/Base.astro";
+import TokenScale from "../../components/TokenScale.astro";
+---
+<Base title="Spacing" description="Escala de espacio --ds-space-* y --ds-spacing-*.">
+  <h1>Spacing</h1>
+
+  <TokenScale
+    title="Espacio semántico"
+    items={[
+      {
+        token: "--ds-space-xs",
+        previewStyle:
+          "width:var(--ds-space-xs);height:var(--ds-space-lg);background:var(--ds-color-bg-primary)",
+      },
+      {
+        token: "--ds-space-sm",
+        previewStyle:
+          "width:var(--ds-space-sm);height:var(--ds-space-lg);background:var(--ds-color-bg-primary)",
+      },
+      {
+        token: "--ds-space-md",
+        previewStyle:
+          "width:var(--ds-space-md);height:var(--ds-space-lg);background:var(--ds-color-bg-primary)",
+      },
+      {
+        token: "--ds-space-lg",
+        previewStyle:
+          "width:var(--ds-space-lg);height:var(--ds-space-lg);background:var(--ds-color-bg-primary)",
+      },
+      {
+        token: "--ds-space-xl",
+        previewStyle:
+          "width:var(--ds-space-xl);height:var(--ds-space-lg);background:var(--ds-color-bg-primary)",
+      },
+      {
+        token: "--ds-space-touch",
+        previewStyle:
+          "width:var(--ds-space-touch);height:var(--ds-space-touch);background:var(--ds-color-bg-secondary);border:var(--ds-border-width-hairline) solid var(--ds-color-border-default)",
+        note: "mínimo táctil",
+      },
+    ]}
+  />
+
+  <TokenScale
+    title="Referencia spacing"
+    items={[
+      {
+        token: "--ds-spacing-1",
+        previewStyle:
+          "width:var(--ds-spacing-1);height:var(--ds-space-lg);background:var(--ds-color-bg-primary)",
+      },
+      {
+        token: "--ds-spacing-2",
+        previewStyle:
+          "width:var(--ds-spacing-2);height:var(--ds-space-lg);background:var(--ds-color-bg-primary)",
+      },
+      {
+        token: "--ds-spacing-4",
+        previewStyle:
+          "width:var(--ds-spacing-4);height:var(--ds-space-lg);background:var(--ds-color-bg-primary)",
+      },
+      {
+        token: "--ds-spacing-6",
+        previewStyle:
+          "width:var(--ds-spacing-6);height:var(--ds-space-lg);background:var(--ds-color-bg-primary)",
+      },
+      {
+        token: "--ds-spacing-8",
+        previewStyle:
+          "width:var(--ds-spacing-8);height:var(--ds-space-lg);background:var(--ds-color-bg-primary)",
+      },
+      {
+        token: "--ds-spacing-10",
+        previewStyle:
+          "width:var(--ds-spacing-10);height:var(--ds-space-lg);background:var(--ds-color-bg-primary)",
+      },
+    ]}
+  />
+</Base>
