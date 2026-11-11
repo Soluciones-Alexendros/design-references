@@ -1,0 +1,42 @@
+---
+interface Item {
+  token: string;
+  previewStyle: string;
+  note?: string;
+}
+
+interface Props {
+  title: string;
+  items: Item[];
+}
+
+const { title, items } = Astro.props;
+const headingId = title.replace(/\s+/g, "-").toLowerCase();
+---
+<section class="ds-foundation-grid" aria-labelledby={headingId}>
+  <h2 id={headingId}>{title}</h2>
+  <table class="ds-token-table">
+    <thead>
+      <tr>
+        <th>Token</th>
+        <th>Muestra</th>
+        <th>Notas</th>
+      </tr>
+    </thead>
+    <tbody>
+      {
+        items.map((item) => (
+          <tr>
+            <td>
+              <code>{item.token}</code>
+            </td>
+            <td>
+              <div style={item.previewStyle} />
+            </td>
+            <td>{item.note ?? ""}</td>
+          </tr>
+        ))
+      }
+    </tbody>
+  </table>
+</section>

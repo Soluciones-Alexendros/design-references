@@ -1,0 +1,91 @@
+---
+import Base from "../../layouts/Base.astro";
+import TokenScale from "../../components/TokenScale.astro";
+---
+<Base title="Typography" description="Escala tipográfica semántica --ds-type-*.">
+  <h1>Typography</h1>
+
+  <TokenScale
+    title="Familias"
+    items={[
+      {
+        token: "--ds-type-family-sans",
+        previewStyle:
+          "font-family:var(--ds-type-family-sans);font-size:var(--ds-type-size-body);color:var(--ds-color-text-default)",
+        note: "The quick brown fox",
+      },
+      {
+        token: "--ds-type-family-mono",
+        previewStyle:
+          "font-family:var(--ds-type-family-mono);font-size:var(--ds-type-size-body);color:var(--ds-color-text-default)",
+        note: "const token = '--ds-*'",
+      },
+    ]}
+  />
+
+  <TokenScale
+    title="Tamaños"
+    items={[
+      {
+        token: "--ds-type-size-label",
+        previewStyle:
+          "font-size:var(--ds-type-size-label);font-family:var(--ds-type-family-sans);color:var(--ds-color-text-default)",
+        note: "Label",
+      },
+      {
+        token: "--ds-type-size-body",
+        previewStyle:
+          "font-size:var(--ds-type-size-body);font-family:var(--ds-type-family-sans);color:var(--ds-color-text-default)",
+        note: "Body",
+      },
+      {
+        token: "--ds-type-size-title",
+        previewStyle:
+          "font-size:var(--ds-type-size-title);font-family:var(--ds-type-family-sans);font-weight:var(--ds-type-weight-medium);color:var(--ds-color-text-default)",
+        note: "Title",
+      },
+      {
+        token: "--ds-type-size-display",
+        previewStyle:
+          "font-size:var(--ds-type-size-display);font-family:var(--ds-type-family-sans);font-weight:var(--ds-type-weight-bold);line-height:var(--ds-type-lineHeight-tight);color:var(--ds-color-text-default)",
+        note: "Display",
+      },
+    ]}
+  />
+
+  <TokenScale
+    title="Pesos y line-height"
+    items={[
+      {
+        token: "--ds-type-weight-regular",
+        previewStyle:
+          "font-weight:var(--ds-type-weight-regular);font-size:var(--ds-type-size-body);color:var(--ds-color-text-default)",
+        note: "regular",
+      },
+      {
+        token: "--ds-type-weight-medium",
+        previewStyle:
+          "font-weight:var(--ds-type-weight-medium);font-size:var(--ds-type-size-body);color:var(--ds-color-text-default)",
+        note: "medium",
+      },
+      {
+        token: "--ds-type-weight-bold",
+        previewStyle:
+          "font-weight:var(--ds-type-weight-bold);font-size:var(--ds-type-size-body);color:var(--ds-color-text-default)",
+        note: "bold",
+      },
+      {
+        token: "--ds-type-lineHeight-body",
+        previewStyle:
+          "line-height:var(--ds-type-lineHeight-body);font-size:var(--ds-type-size-body);max-width:20rem;color:var(--ds-color-text-default)",
+        note: "body leading",
+      },
+      {
+        token: "--ds-type-lineHeight-tight",
+        previewStyle:
+          "line-height:var(--ds-type-lineHeight-tight);font-size:var(--ds-type-size-title);color:var(--ds-color-text-default)",
+        note: "tight leading",
+      },
+    ]}
+  />
+</Base>
