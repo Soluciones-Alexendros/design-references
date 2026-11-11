@@ -1,0 +1,35 @@
+---
+import { getCollection, render } from "astro:content";
+import Base from "../../layouts/Base.astro";
+import { COMPONENT_MATURITY } from "../../lib/components";
+
+export async function getStaticPaths() {
+  const entries = await getCollection("components");
+  return entries.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const maturity = COMPONENT_MATURITY[entry.id] ?? "Draft";
+const title =
+  entry.id
+    .split("-")
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+    .join(" ");
+---
+<Base
+  title={title}
+  description={`Spec ${entry.id} (${maturity}) — anatomía, estados y a11y.`}
+>
+  <p class="component-meta">
+    <a href="/components/">← Components</a>
+    · Madurez: <strong>{maturity}</strong>
+    · Fuente: <code>docs/spec/components/{entry.id}.md</code>
+  </p>
+  <article class="spec-doc">
+    <Content />
+  </article>
+</Base>
