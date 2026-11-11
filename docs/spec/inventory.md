@@ -13,10 +13,27 @@ Contrasta el mapa real del paquete (verificado en Fase 0–2) con la meta de exp
 | `./tokens.css`   | alias → `./dist/styles.css`                 |
 | `./tokens`       | presente (tipos)                            |
 | `./theme`        | presente (`setTheme`, `THEME_STORAGE_KEY`)  |
+| `./theme-boot`   | presente (inline ≤1KB before paint)         |
 | `./css`          | presente (layers + component CSS flattened) |
 | `./astro`        | presente (wrappers `.astro` vía renderX)    |
+| `./astro/*`      | presente (deep import `.astro` files)       |
 | `./react`        | presente (wrappers + `renderX` deprecated)  |
 | `./package.json` | presente                                    |
+
+### Consumo mínimo (F4)
+
+Los consumidores deben cargar **tokens y componentes**:
+
+```js
+import "@soluciones-alexendros/ds/tokens.css"; // o styles.css
+import "@soluciones-alexendros/ds/css";
+```
+
+Opcional: contenido de `./theme-boot` inline antes del primer paint; `setTheme` desde `./theme` o `.`.
+
+### Pack allowlist (F4-02)
+
+`files` publica `dist` + `src/{astro,react,components,css,theme*.js}` (sin `src/components.md` ni `scripts/`). Gate: `npm run test:pack` / `node scripts/check-pack-allowlist.mjs`.
 
 ## Primitives actuales
 

@@ -96,7 +96,14 @@ for (const [n, p] of cases) {
 if (R.renderButton !== C.renderButton) fail("reexport");
 else ok("deprecated reexport");
 const pkg = JSON.parse(readFileSync(join(root, "package.json"), "utf8"));
-for (const k of ["./tokens.css", "./theme", "./css", "./astro", "./react"]) {
+for (const k of [
+  "./tokens.css",
+  "./theme",
+  "./theme-boot",
+  "./css",
+  "./astro",
+  "./react",
+]) {
   if (!pkg.exports[k]) fail(k);
   else ok(`exports ${k}`);
 }

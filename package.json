@@ -13,6 +13,7 @@
     "test:a11y": "npm run test:a11y -w @soluciones-alexendros/ds",
     "test:primitives": "npm run test:primitives -w @soluciones-alexendros/ds",
     "test:structure": "node scripts/check-structure.mjs",
+    "test:pack": "node scripts/check-pack-allowlist.mjs",
     "lint:tokens-only": "npm run lint:tokens-only -w @soluciones-alexendros/ds",
     "test": "npm run validate:tokens && npm run build -w @soluciones-alexendros/ds && npm run test -w @soluciones-alexendros/ds && npm run test:structure",
     "prepare": "husky",
