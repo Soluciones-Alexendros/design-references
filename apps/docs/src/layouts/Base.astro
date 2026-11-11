@@ -1,11 +1,9 @@
 ---
-import { readFileSync } from "node:fs";
-import { fileURLToPath } from "node:url";
-import { dirname, join } from "node:path";
 import "../styles/site.css";
 import "../styles/components.css";
 import "../../../../packages/ds/src/components/ThemeToggle.css";
 import { renderThemeToggle } from "../../../../packages/ds/src/components/ThemeToggle.js";
+import themeBoot from "../../../../packages/ds/src/theme-boot.js?raw";
 
 interface Props {
   title: string;
@@ -24,13 +22,6 @@ const foundations = [
   { href: "/foundations/motion/", label: "Motion" },
 ];
 
-const themeBoot = readFileSync(
-  join(
-    dirname(fileURLToPath(import.meta.url)),
-    "../../../../packages/ds/src/theme-boot.js"
-  ),
-  "utf8"
-);
 const themeToggleHtml = renderThemeToggle({
   value: "system",
   label: "Tema",
