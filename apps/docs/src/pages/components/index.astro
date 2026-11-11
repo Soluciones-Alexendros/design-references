@@ -1,0 +1,46 @@
+---
+import { getCollection } from "astro:content";
+import Base from "../../layouts/Base.astro";
+import { COMPONENT_MATURITY } from "../../lib/components";
+
+const entries = (await getCollection("components")).sort((a, b) =>
+  a.id.localeCompare(b.id)
+);
+---
+<Base
+  title="Components"
+  description="Índice de componentes desde docs/spec/components (madurez Draft/Beta/Stable)."
+>
+  <h1>Components</h1>
+  <p>
+    Specs vivas en <code>docs/spec/components/*</code>. Madurez Draft hasta
+    wrappers (F3-05); ThemeToggle en Beta tras F3-04.
+  </p>
+  <table class="ds-token-table">
+    <thead>
+      <tr>
+        <th>Slug</th>
+        <th>Madurez</th>
+        <th>Spec</th>
+      </tr>
+    </thead>
+    <tbody>
+      {
+        entries.map((entry) => {
+          const maturity = COMPONENT_MATURITY[entry.id] ?? "Draft";
+          return (
+            <tr>
+              <td>
+                <a href={`/components/${entry.id}/`}>{entry.id}</a>
+              </td>
+              <td>{maturity}</td>
+              <td>
+                <code>docs/spec/components/{entry.id}.md</code>
+              </td>
+            </tr>
+          );
+        })
+      }
+    </tbody>
+  </table>
+</Base>
