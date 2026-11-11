@@ -1,9 +1,14 @@
 ---
 import "../styles/site.css";
 import "../styles/components.css";
-import "../../../../packages/ds/src/components/ThemeToggle.css";
 import { renderThemeToggle } from "../../../../packages/ds/src/components/ThemeToggle.js";
 import themeBoot from "../../../../packages/ds/src/theme-boot.js?raw";
+import stylesCss from "../../../../packages/ds/dist/styles.css?raw";
+import {
+  absoluteUrl,
+  SITE_ORIGIN,
+  themeColorsFromCss,
+} from "../lib/site";
 
 interface Props {
   title: string;
@@ -22,19 +27,55 @@ const foundations = [
   { href: "/foundations/motion/", label: "Motion" },
 ];
 
+const primaryNav = [
+  { href: "/", label: "Inicio" },
+  { href: "/foundations/color/", label: "Foundations" },
+  { href: "/components/", label: "Components" },
+  { href: "/guides/", label: "Guides" },
+  { href: "/a11y/", label: "A11y" },
+  { href: "/playground/", label: "Playground" },
+  { href: "/patterns/", label: "Patterns" },
+  { href: "/changelog/", label: "Changelog" },
+  { href: "/fleet/", label: "Fleet" },
+];
+
 const themeToggleHtml = renderThemeToggle({
   value: "system",
   label: "Tema",
 });
+
+const pathname = Astro.url.pathname.endsWith("/")
+  ? Astro.url.pathname
+  : `${Astro.url.pathname}/`;
+const canonical = absoluteUrl(pathname, Astro.site?.href ?? SITE_ORIGIN);
+const pageTitle = `${title} · design-references`;
+const themeColors = themeColorsFromCss(stylesCss);
 ---
 <!doctype html>
 <html lang="es">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title>
     <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
     <meta name="color-scheme" content="light dark" />
-    <title>{title} · design-references</title>
+    <meta
+      name="theme-color"
+      content={themeColors.light}
+      media="(prefers-color-scheme: light)"
+    />
+    <meta
+      name="theme-color"
+      content={themeColors.dark}
+      media="(prefers-color-scheme: dark)"
+    />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="es_ES" />
+    <meta property="og:site_name" content="design-references" />
     <script is:inline set:html={themeBoot} />
   </head>
   <body>
@@ -42,10 +83,11 @@ const themeToggleHtml = renderThemeToggle({
     <div class="shell">
       <nav class="nav" aria-label="Principal">
         <a class="nav-brand" href="/">design-references</a>
-        <a href="/">Inicio</a>
-        <a href="/foundations/color/">Foundations</a>
-        <a href="/components/">Components</a>
-        <a href="/playground/">Playground</a>
+        {
+          primaryNav.map((item) => (
+            <a href={item.href}>{item.label}</a>
+          ))
+        }
         <div class="theme-controls" data-theme-controls>
           <Fragment set:html={themeToggleHtml} />
         </div>

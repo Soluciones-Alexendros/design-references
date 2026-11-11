@@ -1,0 +1,42 @@
+---
+import Base from "../../layouts/Base.astro";
+---
+<Base
+  title="Accesibilidad"
+  description="Declaración WCAG 2.2 AA, matriz de cumplimiento y limitaciones."
+>
+  <h1>Accesibilidad</h1>
+  <p>
+    Objetivo del design system y del sitio: <strong>WCAG 2.2 AA</strong>
+    (ADR-0003). Foco visible siempre; se respetan
+    <code>prefers-reduced-motion</code> y <code>forced-colors</code>.
+  </p>
+  <h2>Matriz (resumen)</h2>
+  <table class="ds-token-table">
+    <thead>
+      <tr>
+        <th>Ámbito</th>
+        <th>Estado</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Contraste de pares semánticos</td>
+        <td>Gate <code>test:contrast</code></td>
+      </tr>
+      <tr>
+        <td>Primitives (axe jsdom)</td>
+        <td>Gate <code>test:a11y</code> (Playwright en F3-07)</td>
+      </tr>
+      <tr>
+        <td>Sitio (Lighthouse a11y)</td>
+        <td>F5-07 (Oleada 3)</td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Limitaciones conocidas</h2>
+  <ul>
+    <li>Wrappers Astro/React aún no son gate de snapshots (F3-05/06).</li>
+    <li>Matriz generada desde el runner a11y queda para una iteración posterior.</li>
+  </ul>
+</Base>
