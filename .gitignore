@@ -8,3 +8,10 @@ apps/docs/dist/
 packages/ds/dist/
 .autoworkspace/status.yaml.lock
 .autoworkspace/evidence/
+fixtures/consumers/.tarballs/
+fixtures/consumers/*/node_modules/
+fixtures/consumers/*/package-lock.json
+fixtures/consumers/*/dist/
+fixtures/consumers/*/out/
+fixtures/consumers/*/.next/
+fixtures/consumers/*/public/theme-boot.js

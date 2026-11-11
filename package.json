@@ -17,7 +17,8 @@
     "lint:tokens-only": "npm run lint:tokens-only -w @soluciones-alexendros/ds",
     "test": "npm run validate:tokens && npm run build -w @soluciones-alexendros/ds && npm run test -w @soluciones-alexendros/ds && npm run test:structure",
     "prepare": "husky",
-    "changeset": "changeset"
+    "changeset": "changeset",
+    "test:consumers": "node scripts/check-consumers.mjs"
   },
   "engines": {
     "node": ">=22.23.4"

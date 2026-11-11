@@ -1,0 +1,16 @@
+{
+  "name": "ds-consumer-next-min",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "prebuild": "node ./copy-theme-boot.mjs",
+    "build": "next build",
+    "start": "next start --hostname 127.0.0.1 --port 3001"
+  },
+  "dependencies": {
+    "@soluciones-alexendros/ds": "file:../.tarballs/soluciones-alexendros-ds-0.1.0.tgz",
+    "next": "^15.5.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  }
+}

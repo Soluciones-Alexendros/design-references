@@ -1,0 +1,31 @@
+---
+import { readFileSync } from "node:fs";
+import { createRequire } from "node:module";
+import "@soluciones-alexendros/ds/tokens.css";
+import "@soluciones-alexendros/ds/css";
+import Button from "@soluciones-alexendros/ds/astro/Button.astro";
+import Alert from "@soluciones-alexendros/ds/astro/Alert.astro";
+import Field from "@soluciones-alexendros/ds/astro/Field.astro";
+
+const require = createRequire(import.meta.url);
+const themeBoot = readFileSync(
+  require.resolve("@soluciones-alexendros/ds/theme-boot"),
+  "utf8"
+);
+---
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>astro-min consumer</title>
+    <script is:inline set:html={themeBoot} />
+  </head>
+  <body>
+    <main>
+      <h1>astro-min</h1>
+      <Button label="Save" variant="primary" />
+      <Alert tone="info" message="Installed from npm pack tarball." />
+      <Field label="Email" id="email" type="email" />
+    </main>
+  </body>
+</html>
