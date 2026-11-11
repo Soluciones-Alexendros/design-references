@@ -15,7 +15,7 @@ Contrasta el mapa real del paquete (verificado en Fase 0–2) con la meta de exp
 | `./theme`        | presente (`setTheme`, `THEME_STORAGE_KEY`)  |
 | `./css`          | presente (layers + component CSS flattened) |
 | `./astro`        | presente (wrappers `.astro` vía renderX)    |
-| `./react`        | pendiente (siguiente PR F3-06)              |
+| `./react`        | presente (wrappers + `renderX` deprecated)  |
 | `./package.json` | presente                                    |
 
 ## Primitives actuales
