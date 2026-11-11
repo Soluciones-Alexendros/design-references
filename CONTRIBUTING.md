@@ -24,7 +24,8 @@ Node `>=22.23.4` required (Astro 7).
 
 - Prosa (documentación, ADR, explicaciones): **español**.
 - Identificadores, props, nombres de código y scripts npm: **inglés**.
-- Conventional Commits y la plantilla de PR del repo siguen vigentes; no inventar flujo de release aquí.
+- Conventional Commits y la plantilla de PR del repo siguen vigentes.
+- Release: `.github/workflows/release.yml` (`workflow_dispatch`: `dry-run` | `version`). No publica a npm hasta F4-05 + aprobación explícita (ADR-0005).
 
 ## Structure
 

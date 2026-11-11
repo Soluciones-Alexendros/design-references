@@ -10,13 +10,13 @@ Shared design system for Astro and Next/React sites in the Soluciones-Alexendros
 
 ## Containers
 
-| Container | Path                      | Role                                                        |
-| --------- | ------------------------- | ----------------------------------------------------------- |
-| Spec      | `docs/spec/`, `docs/adr/` | Fuente de verdad viva                                       |
-| Tokens    | `tokens/`                 | DTCG 2025.10 (reference → semantic → component)             |
-| Package   | `packages/ds`             | CSS `--ds-*`, types, theme-boot, primitives                 |
-| Docs      | `apps/docs`               | Astro documentation + playground                            |
-| CI        | `.github/workflows/`      | `ci.yml` (quality/test/smoke) + `a11y.yml` (contrast + axe) |
+| Container | Path                      | Role                                                                                     |
+| --------- | ------------------------- | ---------------------------------------------------------------------------------------- |
+| Spec      | `docs/spec/`, `docs/adr/` | Fuente de verdad viva                                                                    |
+| Tokens    | `tokens/`                 | DTCG 2025.10 (reference → semantic → component)                                          |
+| Package   | `packages/ds`             | CSS `--ds-*`, types, theme-boot, primitives                                              |
+| Docs      | `apps/docs`               | Astro documentation + playground                                                         |
+| CI        | `.github/workflows/`      | `ci.yml` + `a11y.yml` + `release.yml` (F4-01 dry-run / Version Packages; no npm publish) |
 
 ## Contracts
 

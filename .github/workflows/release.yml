@@ -1,0 +1,92 @@
+# F4-01 release skeleton (ADR-0005).
+# Does: dry-run status/pack; optional Version Packages PR via changesets/action.
+# Does NOT: npm publish, git tags, GitHub Releases, or provenance attestation.
+# F4-05 will enable publish with id-token (trusted publishing) + tag + GitHub Release
+# after explicit operator approval — never enable publish without that gate.
+name: release
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: >
+          dry-run: changeset status + npm pack --dry-run (read-only).
+          version: open/update the Version Packages PR (no npm publish).
+        type: choice
+        options:
+          - dry-run
+          - version
+        default: dry-run
+
+permissions: {}
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  dry-run:
+    name: dry-run
+    if: inputs.mode == 'dry-run'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: "22"
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Changeset status
+        run: npx changeset status
+
+      - name: Pack dry-run (@soluciones-alexendros/ds)
+        run: npm pack --dry-run -w @soluciones-alexendros/ds
+
+      - name: Skeleton notice
+        run: |
+          cat <<'EOF'
+          F4-01 skeleton — no publish path is wired.
+          Blocked until F4-05 + explicit operator approval:
+            - npm publish with provenance (permissions.id-token: write + trusted publisher)
+            - git tag + GitHub Release (changesets/action createGithubReleases)
+            - push-to-main automation for version/publish
+          EOF
+
+  version:
+    name: version
+    if: inputs.mode == 'version'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      # id-token: write — reserved for F4-05 npm provenance / trusted publishing only
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: "22"
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Open or update Version Packages PR
+        uses: changesets/action@8eb63fb4cfc7f9643537c7d39d0b68c835012a19 # v1.5.3
+        with:
+          # No `publish` input on purpose — never runs `changeset publish` / npm publish.
+          title: "chore: version packages"
+          commit: "chore: version packages"
+          createGithubReleases: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
