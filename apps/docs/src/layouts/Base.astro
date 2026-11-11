@@ -1,79 +1,84 @@
 ---
-import "@soluciones-alexendros/ds/styles.css";
-import "../../../../packages/ds/src/css/layers.css";
-import "../../../../packages/ds/src/components/Button.css";
-import "../../../../packages/ds/src/components/Input.css";
-import "../../../../packages/ds/src/components/Card.css";
-import "../../../../packages/ds/src/components/Alert.css";
-import "../../../../packages/ds/src/components/Link.css";
-import "../../../../packages/ds/src/components/Stack.css";
-import "../../../../packages/ds/src/components/Field.css";
+import "../styles/site.css";
+import "../styles/components.css";
+import ThemeControls from "../components/ThemeControls.astro";
 
 interface Props {
   title: string;
+  description?: string;
 }
-const { title } = Astro.props;
+
+const { title, description = "Design system @soluciones-alexendros/ds" } =
+  Astro.props;
+
+const foundations = [
+  { href: "/foundations/color/", label: "Color" },
+  { href: "/foundations/typography/", label: "Typography" },
+  { href: "/foundations/spacing/", label: "Spacing" },
+  { href: "/foundations/radius/", label: "Radius" },
+  { href: "/foundations/elevation/", label: "Elevation" },
+  { href: "/foundations/motion/", label: "Motion" },
+];
 ---
 <!doctype html>
 <html lang="es">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="color-scheme" content="light dark" />
     <title>{title} · design-references</title>
-    <style is:global>
-      body {
-        margin: 0;
-        min-height: 100vh;
-        background: var(--ds-color-bg-surface);
-        color: var(--ds-color-text-default);
-        font-family: var(--ds-type-family-sans);
-        font-size: var(--ds-type-size-body);
-        line-height: var(--ds-type-lineHeight-body);
-      }
-      a { color: var(--ds-color-text-link); }
-      .shell {
-        max-width: 960px;
-        margin: 0 auto;
-        padding: var(--ds-space-lg);
-      }
-      .nav {
-        display: flex;
-        gap: var(--ds-space-md);
-        align-items: center;
-        margin-bottom: var(--ds-space-xl);
-        flex-wrap: wrap;
-      }
-      .nav a { text-decoration: none; }
-      .theme-controls {
-        margin-left: auto;
-        display: flex;
-        gap: var(--ds-space-sm);
-      }
-    </style>
+    <!-- Theme boot: prefer ds-theme before paint (placeholder until F3 ThemeToggle / F5-06). -->
+    <script is:inline>
+      (function () {
+        try {
+          var mode = localStorage.getItem("ds-theme");
+          if (mode === "light" || mode === "dark") {
+            document.documentElement.setAttribute("data-theme", mode);
+          } else {
+            document.documentElement.removeAttribute("data-theme");
+          }
+        } catch (_) {}
+      })();
+    </script>
   </head>
   <body>
+    <a class="skip-link" href="#main">Saltar al contenido</a>
     <div class="shell">
       <nav class="nav" aria-label="Principal">
-        <strong>design-references</strong>
+        <a class="nav-brand" href="/">design-references</a>
         <a href="/">Inicio</a>
-        <a href="/tokens">Tokens</a>
-        <a href="/playground">Playground</a>
-        <div class="theme-controls" data-theme-controls>
-          <button type="button" class="ds-button ds-button--secondary" data-theme-set="light">Light</button>
-          <button type="button" class="ds-button ds-button--secondary" data-theme-set="dark">Dark</button>
-          <button type="button" class="ds-button ds-button--secondary" data-theme-set="system">System</button>
-        </div>
+        <a href="/foundations/color/">Foundations</a>
+        <a href="/playground/">Playground</a>
+        <ThemeControls />
       </nav>
-      <slot />
+      <nav class="foundations-nav" aria-label="Foundations">
+        {
+          foundations.map((item) => (
+            <a href={item.href}>{item.label}</a>
+          ))
+        }
+      </nav>
+      <main id="main">
+        <slot />
+      </main>
     </div>
-    <script>
-      import { setTheme } from "@soluciones-alexendros/ds";
-      document.querySelectorAll("[data-theme-set]").forEach((btn) => {
-        btn.addEventListener("click", () => {
-          const mode = btn.getAttribute("data-theme-set");
-          setTheme(mode ?? "system");
-        });
-      });
-    </script>
   </body>
 </html>
+
+<style is:global>
+  .skip-link {
+    position: absolute;
+    left: var(--ds-space-sm);
+    top: var(--ds-space-sm);
+    padding: var(--ds-space-sm) var(--ds-space-md);
+    background: var(--ds-color-bg-primary);
+    color: var(--ds-color-text-on-primary);
+    border-radius: var(--ds-radius-control);
+    transform: translateY(-200%);
+  }
+
+  .skip-link:focus {
+    transform: translateY(0);
+  }
+</style>

@@ -1,15 +1,34 @@
 ---
 import Base from "../layouts/Base.astro";
 ---
-<Base title="Inicio">
+<Base title="Inicio" description="Tokens --ds-*, foundations y playground.">
   <h1>Design system — design-references</h1>
   <p>
     Paquete <code>@soluciones-alexendros/ds</code>: tokens DTCG 2025.10 → CSS
     <code>--ds-*</code>, theme-boot y primitives base (Button, Input, Card, Alert,
     Link, Stack, Field).
   </p>
+
+  <h2>Instalación</h2>
+  <pre><code>npm install @soluciones-alexendros/ds</code></pre>
+  <pre><code>{`import "@soluciones-alexendros/ds/styles.css";
+import { setTheme } from "@soluciones-alexendros/ds";
+setTheme("system");`}</code></pre>
+
+  <h2>Mapa</h2>
   <ul>
-    <li><a href="/tokens/">Documentación de tokens</a> (OKLCH + ratios WCAG)</li>
-    <li><a href="/playground/">Playground</a> (primitives + cambio de tema)</li>
+    <li>
+      <a href="/foundations/color/">Color</a> — semántica y matriz de contraste
+      (también en <a href="/tokens/">/tokens/</a>)
+    </li>
+    <li>
+      <a href="/foundations/typography/">Typography</a> ·
+      <a href="/foundations/spacing/">Spacing</a> ·
+      <a href="/foundations/radius/">Radius</a> ·
+      <a href="/foundations/elevation/">Elevation</a> ·
+      <a href="/foundations/motion/">Motion</a>
+    </li>
+    <li><a href="/playground/">Playground</a> — primitives montados con tokens</li>
   </ul>
+  <p>Componentes por slug llegan en Oleada 2 (F5-03).</p>
 </Base>
