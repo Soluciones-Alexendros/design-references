@@ -28,4 +28,4 @@ Fuente de contrato previo: `packages/ds/src/components.md` (se mantiene como ín
 | [button](button.md) | [input](input.md) | [card](card.md)     | [alert](alert.md)       | [link](link.md)     |
 | [stack](stack.md)   | [field](field.md) | [select](select.md) | [checkbox](checkbox.md) | [banner](banner.md) |
 
-ThemeToggle se documenta en F3-04 (`theme-toggle.md`).
+ThemeToggle: [`theme-toggle.md`](theme-toggle.md) (F3-04).

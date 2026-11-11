@@ -1,0 +1,39 @@
+@layer ds.components {
+  .ds-theme-toggle {
+    display: inline-flex;
+    gap: var(--ds-space-xs);
+    padding: var(--ds-space-xs);
+    border-radius: var(--ds-radius-control);
+    background: var(--ds-color-bg-secondary);
+  }
+
+  .ds-theme-toggle__btn {
+    box-sizing: border-box;
+    min-height: var(--ds-space-touch);
+    min-width: var(--ds-space-touch);
+    padding: var(--ds-space-xs) var(--ds-space-sm);
+    border: var(--ds-border-width-hairline) solid transparent;
+    border-radius: var(--ds-radius-control);
+    background: transparent;
+    color: var(--ds-color-text-on-secondary);
+    font-family: var(--ds-type-family-sans);
+    font-size: var(--ds-type-size-label);
+    font-weight: var(--ds-type-weight-medium);
+    line-height: var(--ds-type-lineHeight-tight);
+    cursor: pointer;
+  }
+
+  .ds-theme-toggle__btn[aria-pressed="true"] {
+    background: var(--ds-color-bg-primary);
+    color: var(--ds-color-text-on-primary);
+  }
+
+  .ds-theme-toggle__btn:hover:not([aria-pressed="true"]) {
+    border-color: var(--ds-color-border-default);
+  }
+
+  .ds-theme-toggle__btn:focus-visible {
+    outline: var(--ds-border-width-focus) solid var(--ds-color-border-focus);
+    outline-offset: var(--ds-border-offset-focus);
+  }
+}

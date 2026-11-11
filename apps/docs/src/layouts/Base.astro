@@ -1,4 +1,7 @@
 ---
+import { readFileSync } from "node:fs";
+import { fileURLToPath } from "node:url";
+import { dirname, join } from "node:path";
 import "@soluciones-alexendros/ds/styles.css";
 import "../../../../packages/ds/src/css/layers.css";
 import "../../../../packages/ds/src/components/Button.css";
@@ -8,11 +11,24 @@ import "../../../../packages/ds/src/components/Alert.css";
 import "../../../../packages/ds/src/components/Link.css";
 import "../../../../packages/ds/src/components/Stack.css";
 import "../../../../packages/ds/src/components/Field.css";
+import "../../../../packages/ds/src/components/ThemeToggle.css";
+import { renderThemeToggle } from "../../../../packages/ds/src/components/ThemeToggle.js";
 
 interface Props {
   title: string;
 }
 const { title } = Astro.props;
+const themeBoot = readFileSync(
+  join(
+    dirname(fileURLToPath(import.meta.url)),
+    "../../../../packages/ds/src/theme-boot.js"
+  ),
+  "utf8"
+);
+const themeToggleHtml = renderThemeToggle({
+  value: "system",
+  label: "Theme",
+});
 ---
 <!doctype html>
 <html lang="es">
@@ -20,6 +36,7 @@ const { title } = Astro.props;
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title} · design-references</title>
+    <script is:inline set:html={themeBoot} />
     <style is:global>
       body {
         margin: 0;
@@ -46,8 +63,6 @@ const { title } = Astro.props;
       .nav a { text-decoration: none; }
       .theme-controls {
         margin-left: auto;
-        display: flex;
-        gap: var(--ds-space-sm);
       }
     </style>
   </head>
@@ -59,21 +74,14 @@ const { title } = Astro.props;
         <a href="/tokens">Tokens</a>
         <a href="/playground">Playground</a>
         <div class="theme-controls" data-theme-controls>
-          <button type="button" class="ds-button ds-button--secondary" data-theme-set="light">Light</button>
-          <button type="button" class="ds-button ds-button--secondary" data-theme-set="dark">Dark</button>
-          <button type="button" class="ds-button ds-button--secondary" data-theme-set="system">System</button>
+          <Fragment set:html={themeToggleHtml} />
         </div>
       </nav>
       <slot />
     </div>
     <script>
-      import { setTheme } from "@soluciones-alexendros/ds";
-      document.querySelectorAll("[data-theme-set]").forEach((btn) => {
-        btn.addEventListener("click", () => {
-          const mode = btn.getAttribute("data-theme-set");
-          setTheme(mode ?? "system");
-        });
-      });
+      import { attachThemeToggle } from "../../../../packages/ds/src/components/ThemeToggle.js";
+      attachThemeToggle(document);
     </script>
   </body>
 </html>
