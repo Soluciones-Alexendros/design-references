@@ -44,7 +44,7 @@
       "assert": "files_contain",
       "needle": "renderLink",
       "paths": [
-        "packages/ds/scripts/a11y-runner.mjs",
+        "packages/ds/scripts/a11y-fixture.mjs",
         "apps/docs/src/pages/playground.astro"
       ]
     },
@@ -53,7 +53,7 @@
       "assert": "files_contain",
       "needle": "renderField",
       "paths": [
-        "packages/ds/scripts/a11y-runner.mjs",
+        "packages/ds/scripts/a11y-fixture.mjs",
         "apps/docs/src/pages/playground.astro"
       ]
     },

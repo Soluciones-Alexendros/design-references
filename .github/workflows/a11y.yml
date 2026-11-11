@@ -22,6 +22,9 @@ jobs:
       - name: Install
         run: npm ci
 
+      - name: Install Playwright Chromium
+        run: npx playwright install --with-deps chromium
+
       - name: Validate DTCG tokens
         run: npm run validate:tokens
 
@@ -34,7 +37,10 @@ jobs:
       - name: Token-only lint (primitives)
         run: npm run lint:tokens-only -w @soluciones-alexendros/ds
 
-      - name: axe-core on primitives (light + dark)
+      - name: axe smoke (jsdom light + dark)
+        run: npm run test:a11y:smoke -w @soluciones-alexendros/ds
+
+      - name: axe Playwright (themes × brands × media + reflow)
         run: npm run test:a11y -w @soluciones-alexendros/ds
 
       - name: Theme-boot smoke
