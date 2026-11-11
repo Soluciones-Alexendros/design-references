@@ -1,3 +1,4 @@
+@layer ds.components {
 .ds-select {
   box-sizing: border-box;
   display: block;
@@ -26,4 +27,5 @@
   background: var(--ds-color-bg-disabled);
   color: var(--ds-color-text-on-disabled);
   cursor: not-allowed;
+}
 }

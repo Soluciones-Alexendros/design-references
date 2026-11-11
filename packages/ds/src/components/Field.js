@@ -1,4 +1,5 @@
 import { renderInput } from "./Input.js";
+import { statusIcon } from "./status-icon.js";
 
 /**
  * Minimal Field primitive: visible label + Input + error (forms).
@@ -34,7 +35,7 @@ export function renderField({
     omitAriaLabel: true,
   });
   const errorHtml = showError
-    ? `<p id="${errorId}" class="ds-field__error" role="alert"><strong>Error:</strong> ${error || "Invalid value"}</p>`
+    ? `<p id="${errorId}" class="ds-field__error" role="alert">${statusIcon("error")}<span class="ds-field__error-text"><strong>Error:</strong> ${error || "Invalid value"}</span></p>`
     : "";
   return `<div class="ds-field"><label class="ds-field__label" for="${id}">${label}</label>${input}${errorHtml}</div>`;
 }

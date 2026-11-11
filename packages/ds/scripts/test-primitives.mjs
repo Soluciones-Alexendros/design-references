@@ -14,6 +14,7 @@ import {
   renderSelect,
   renderCheckbox,
   renderBanner,
+  renderAlert,
 } from "../src/components/index.js";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -108,7 +109,9 @@ function parse(html) {
     fail("Field: error text must include Error: prefix and message");
   } else if (err.getAttribute("role") !== "alert") {
     fail("Field: error role=alert");
-  } else ok("Field: error announcement");
+  } else if (!err.querySelector(".ds-status-icon[aria-hidden='true']")) {
+    fail("Field: error status icon");
+  } else ok("Field: error announcement + icon");
 }
 
 {
@@ -207,7 +210,9 @@ function parse(html) {
     !el.textContent.includes("Service degraded")
   ) {
     fail("Banner: textual tone prefix + body");
-  } else ok("Banner: role + tone prefix");
+  } else if (!el.querySelector(".ds-status-icon[aria-hidden='true']")) {
+    fail("Banner: status icon");
+  } else ok("Banner: role + tone prefix + icon");
   const css = readFileSync(join(compDir, "Banner.css"), "utf8");
   if (
     !css.includes("--ds-color-bg-error") ||
@@ -215,6 +220,27 @@ function parse(html) {
   ) {
     fail("Banner.css: error tone tokens");
   } else ok("Banner.css: tone tokens");
+}
+
+// --- Alert icon ---
+{
+  const html = renderAlert({ tone: "warning", message: "Check" });
+  const doc = parse(html);
+  const el = doc.querySelector(".ds-alert--warning");
+  if (!el?.querySelector(".ds-status-icon[aria-hidden='true']")) {
+    fail("Alert: status icon");
+  } else if (!el.textContent.includes("Warning:")) {
+    fail("Alert: tone prefix");
+  } else ok("Alert: icon + tone prefix");
+}
+
+// --- CSS layers ---
+{
+  for (const f of ["Button.css", "Alert.css", "Field.css"]) {
+    const css = readFileSync(join(compDir, f), "utf8");
+    if (!css.includes("@layer ds.components")) fail(`${f}: missing @layer`);
+  }
+  ok("CSS: @layer ds.components on key files");
 }
 
 if (failed) {

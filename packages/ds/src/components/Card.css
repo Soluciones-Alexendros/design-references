@@ -1,3 +1,4 @@
+@layer ds.components {
 .ds-card {
   box-sizing: border-box;
   padding: var(--ds-space-lg);
@@ -12,4 +13,5 @@
 
 .ds-card--elevated {
   box-shadow: var(--ds-elevation-surface);
+}
 }

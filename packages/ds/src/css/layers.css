@@ -1,0 +1,17 @@
+@layer ds.base, ds.components;
+
+@layer ds.base {
+  .ds-status-icon {
+    display: inline-flex;
+    flex-shrink: 0;
+    width: var(--ds-space-md);
+    height: var(--ds-space-md);
+    color: currentColor;
+  }
+
+  .ds-status-icon svg {
+    width: 100%;
+    height: 100%;
+    fill: currentColor;
+  }
+}

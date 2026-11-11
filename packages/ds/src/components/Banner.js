@@ -1,3 +1,5 @@
+import { statusIcon } from "./status-icon.js";
+
 /**
  * Minimal Banner primitive (feedback) — persistent, no toast timer.
  * @param {object} props
@@ -11,5 +13,5 @@ export function renderBanner({
   body = "Notice",
 } = {}) {
   const prefix = tone.charAt(0).toUpperCase() + tone.slice(1);
-  return `<div class="ds-banner ds-banner--${tone}" role="${role}"><strong>${prefix}:</strong> ${body}</div>`;
+  return `<div class="ds-banner ds-banner--${tone}" role="${role}">${statusIcon(tone)}<div class="ds-banner__body"><strong>${prefix}:</strong> ${body}</div></div>`;
 }

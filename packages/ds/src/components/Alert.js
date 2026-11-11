@@ -1,3 +1,5 @@
+import { statusIcon } from "./status-icon.js";
+
 /**
  * Minimal Alert primitive (feedback).
  * @param {object} props
@@ -11,5 +13,5 @@ export function renderAlert({
   message = "Notification",
 } = {}) {
   const prefix = tone.charAt(0).toUpperCase() + tone.slice(1);
-  return `<div class="ds-alert ds-alert--${tone}" role="${role}"><strong>${prefix}:</strong> ${message}</div>`;
+  return `<div class="ds-alert ds-alert--${tone}" role="${role}">${statusIcon(tone)}<div class="ds-alert__body"><strong>${prefix}:</strong> ${message}</div></div>`;
 }

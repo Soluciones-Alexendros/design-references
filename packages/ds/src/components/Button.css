@@ -1,3 +1,4 @@
+@layer ds.components {
 .ds-button {
   box-sizing: border-box;
   display: inline-flex;
@@ -65,8 +66,10 @@
 }
 
 .ds-button:disabled,
-.ds-button[aria-disabled="true"] {
+.ds-button[aria-disabled="true"],
+.ds-button[aria-busy="true"] {
   background: var(--ds-color-bg-disabled);
   color: var(--ds-color-text-on-disabled);
   cursor: not-allowed;
+}
 }

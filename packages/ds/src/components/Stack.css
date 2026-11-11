@@ -1,3 +1,4 @@
+@layer ds.components {
 .ds-stack {
   display: flex;
   flex-direction: column;
@@ -14,4 +15,5 @@
 
 .ds-stack--gap-lg {
   gap: var(--ds-space-lg);
+}
 }
