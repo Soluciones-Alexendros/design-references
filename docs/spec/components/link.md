@@ -11,12 +11,12 @@ Spec viva de Link: navegación con contraste y foco (DoD 1–3).
 | `href`    | string | `"#"`    | Destino       |
 | `label`   | string | `"Link"` | Texto visible |
 
-| Estado        | Visual                  | Comportamiento  |
-| ------------- | ----------------------- | --------------- |
-| Default       | `text.link` + underline | —               |
-| Hover         | `text.link-hover`       | —               |
-| Focus-visible | Anillo `border.focus`   | —               |
-| Visited       | Diferido (F3-08) o N/A  | No expuesto aún |
+| Estado        | Visual                  | Comportamiento                                                                                                                                                                                                                          |
+| ------------- | ----------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Default       | `text.link` + underline | —                                                                                                                                                                                                                                       |
+| Hover         | `text.link-hover`       | —                                                                                                                                                                                                                                       |
+| Focus-visible | Anillo `border.focus`   | —                                                                                                                                                                                                                                       |
+| Visited       | **N/A (F3-08)**         | Sin token `text.link-visited` ni estilo `:visited`; no hay par en `contrast.pairs.json`. Se documenta a propósito: UA `:visited` styling es limitado por privacidad; se reabrirá solo si el producto exige un token + par de contraste. |
 
 **Accesibilidad.** `<a>` nativo; foco visible; par `text.link` / `bg.surface`.
 
