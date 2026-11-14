@@ -33,7 +33,7 @@ jobs:
         run: npm run build -w @soluciones-alexendros/ds-docs
 
       - name: Install Playwright Chromium (LHCI chromePath)
-        run: npx playwright install --with-deps chromium
+        run: bash scripts/ci/install-playwright-chromium.sh
 
       - name: Lighthouse CI (a11y=100, perf≥95)
         run: |
